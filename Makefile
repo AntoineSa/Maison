@@ -5,30 +5,55 @@
 #                                                     +:+ +:+         +:+      #
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/09 10:20:51 by asablayr          #+#    #+#              #
-#    Updated: 2019/10/11 14:53:43 by asablayr         ###   ########.fr        #
+#    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
+#    Updated: 2020/01/28 15:00:56 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
 
-NAME = libft.a
+CFLAGS = -Wall -Werror -Wextra
 
-SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcpy.c ft_strlcat.c ft_strnstr.c ft_atoi.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+HEADER = cube.h
+MLX_PATH = /usr/local/lib/
 
-OBJS = $(SRCS:.c=.o)
+INCL_PATH = ./incl
+
+NAME = Cub3D
+
+FILES = cube \
+		get_settings \
+		set_settings \
+		parse \
+		parse_map \
+		init_player \
+		init_display \
+		get_input \
+		look \
+		move \
+		line_h \
+		raycast \
+		draw_window \
+		mini_map \
+		exit
+
+SRCS = $(addsuffix .c, $(FILES))
+SRCDIR = srcs/
+
+OBJS = $(addsuffix .o, $(FILES))
+OBJDIR = objs/
 
 all: $(NAME)
 
-$(NAME) : $(OBJS) 
-	ar -rcs $(NAME) $(OBJS)
-
-$(OBJS) : 
-	$(CC) $(CFLAGS) -c $(SRCS)
+$(NAME) : $(addprefix $(OBJDIR), $(OBJS))
+	$(CC) -o $(NAME) srcs/libft.a -L $(MLX_PATH) -lmlx -framework OpenGL -framework Appkit $(addprefix $(OBJDIR), $(OBJS)) -g3 -fsanitize=address
+	
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) $(addprefix -I, $(INCL_PATH)) -c $^ -o $@
 
 clean:
-	rm -f *.o
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(NAME)
