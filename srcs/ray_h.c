@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_h.c                                           :+:      :+:    :+:   */
+/*   ray_h.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/10 14:37:11 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/20 12:50:04 by asablayr         ###   ########.fr       */
+/*   Created: 2020/01/29 12:54:42 by asablayr          #+#    #+#             */
+/*   Updated: 2020/02/06 16:09:57 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
+#include <math.h>
 
-float	*get_h_const(float dir)
+static float	*get_h_const(float dir)
 {
 	float	x_a;
 	float	y_a;
@@ -43,51 +42,43 @@ float	*get_h_const(float dir)
 	return (ray);
 }
 
-float	*get_v_const(float dir)
+static float		*get_first_h_point(t_player p, float c, double d)
 {
-	float	x_a;
-	float	y_a;
 	float	*ray;
 
 	ray = ft_calloc(sizeof(float), 2);
-	if (dir == M_PI_2 || dir == 3 * M_PI_2)
-		x_a = 0;
-	else if ((dir >= 0 && dir < M_PI_2) || (dir > 3 * M_PI_2 && dir <= 2 * M_PI))
-		x_a = 1;
+	if (p.dir > 0 && p.dir < M_PI)
+		ray[1] = (int)p.y + 1;
 	else
-		x_a = -1;
-	if (dir == 0 || dir == M_PI)
-		y_a = 0;
-	else if (dir == M_PI_2)
-		y_a = 1;
-	else if (dir == 3 * M_PI_2)
-		y_a = -1;
-	else if ((dir > 0 && dir < M_PI_2) || dir > 3 * M_PI_2)
-		y_a = x_a / tan(dir);
+		ray[1] = (int)p.y;
+	if (p.dir == M_PI_2 || p.dir == 3 * M_PI_2)
+		ray[0] = p.x;
 	else
-		y_a = -x_a / tan(dir);
-	ray[0] = x_a;
-	ray[1] = y_a;
+		ray[0] = p.x + (p.y - c) / tan(d);
 	return (ray);
 }
 
-int	check_w(double dir, t_settings s, float x, float y)
+float		get_wall_h(t_game g, t_ray *r)
 {
-	if (dir > M_PI)
-		y = (int)y - 1;
-	else
-		y = (int)y;
-	if (dir > M_PI_2 && dir < 3 * M_PI_2)
-		x = (int)x - 1;
-	else
-		x = (int)x;
-	if (x > s.map_x - 1)//bad opti
-		x = s.map_x - 1;
-	else if (x < 0)
-		x = 0;
-	if (y > s.map_y - 1)
-		y = s.map_y - 1;
-	else if (y < 0)
-		y = 0;
-	return(s.map[(int)y][(int)x] - 48);
+	int		check;
+	float	*const_h;
+	float	*ray;
+	float	dist;
+
+	check = 0;
+	const_h = get_h_const(r->d);
+	ray = get_first_h_point(g.p, const_h[1], r->d);
+	check = check_w(g, ray[0], ray[1]);
+	while (check != 1 && ray[0] <= g.set.map_x && ray[1] <= g.set.map_y
+			&& ray[0] >= 0 && ray[1] >= 0)
+	{
+		ray[0] += const_h[0];
+		ray[1] += const_h[1];
+		check = check_w(g, ray[0], ray[1]);
+	}
+	r->h_x = ray[0];
+	r->h_y = ray[1];
+	dist = sqrt(pow((g.p.x - ray[0]), 2) + pow((g.p.y - ray[1]), 2));
+//	dist = cos(p.dir - r->d) * dist;
+	return (dist);
 }

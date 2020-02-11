@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:51:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/28 15:58:56 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:44:18 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,104 +15,65 @@
 #include "libft.h"
 #include <stdio.h>
 
-static float		*get_first_h_point(t_player p, float c, double d)
+int	check_w(t_game g, float x, float y)
 {
-	float	*ray;
-
-	ray = ft_calloc(sizeof(float), 2);
-	if (p.dir > 0 && p.dir < M_PI)
-		ray[1] = (int)p.y + 1;
-	else
-		ray[1] = (int)p.y;
-	if (p.dir == M_PI_2 || p.dir == 3 * M_PI_2)
-		ray[0] = p.x;
-	else
-		ray[0] = p.x + (p.y - c) / tan(d);
-	return (ray);
-}
-
-static float		*get_first_v_point(t_player p, float c, double d)
-{
-	float	*ray;
-
-	ray = ft_calloc(sizeof(float), 2);
-	if (p.dir < M_PI_2 || p.dir > 3 * M_PI_2)
-		ray[0] = (int)p.x + 1;
-	else
-		ray[0] = (int)p.x;
-	ray[1] = p.y + (p.x - c) / tan(d);
-	return (ray);
-}
-
-static float		get_wall_h(t_player p, t_settings set, double d)
-{
-	int		check;
-	float	*const_h;
-	float	*ray;
-	float	dist;
-
-	check = 0;
-	const_h = get_h_const(d);
-	ray = get_first_h_point(p, const_h[1], d);
-	check = check_w(d, set, ray[0], ray[1]);
-	while (check != 1 && ray[0] <= set.map_x && ray[1] <= set.map_y
-			&& ray[0] >= 0 && ray[1] >= 0)
+/*	if (g.r.side == 1)//v
 	{
-		ray[0] += const_h[0];
-		ray[1] += const_h[1];
-		check = check_w(d, set, ray[0], ray[1]);
+		if (x < g.p.x)
+			x = (int)x - 1;
+		else
+			x = (int)x;
 	}
-	dist = sqrt(pow((p.x - ray[0]), 2) + pow((p.y - ray[1]), 2));
-	return (dist);
-}
-
-static float		get_wall_v(t_player p, t_settings set, double d)
-{
-	int		check;
-	float	*const_v;
-	float	*ray;
-	float	dist;
-
-	check = 0;
-	const_v = get_v_const(d);
-	ray = get_first_v_point(p, const_v[0], d);
-	check = check_w(d, set, ray[0], ray[1]);
-	while (check != 1 && ray[0] <= set.map_x && ray[1] <= set.map_y
-			&& ray[0] >= 0 && ray[1] >= 0)
+	else//h
 	{
-		ray[0] += const_v[0];
-		ray[1] += const_v[1];
-		check = check_w(d, set, ray[0], ray[1]);
+		if (y < g.p.y)
+			y = (int)y - 1;
+		else
+			y = (int)y;
 	}
-	dist = sqrt(pow((p.x - ray[0]), 2) + pow((p.y - ray[1]), 2));
-	return (dist);
+*/	if (g.r.d > M_PI && g.r.d <= 2 * M_PI)
+		y = (int)y - 1;
+	else
+		y = (int)y;
+	if (g.r.d > M_PI_2 && g.r.d < 3 * M_PI_2)
+		x = (int)x - 1;
+	else
+		x = (int)x;
+	if (x > g.set.map_x - 1)//bad opti
+		x = g.set.map_x - 1;
+	else if (x < 0)
+		x = 0;
+	if (y > g.set.map_y - 1)
+		y = g.set.map_y - 1;
+	else if (y < 0)
+		y = 0;
+	return(g.set.map[(int)y][(int)x] - 48);
 }
 
-float		get_dist(t_game game, double d)
+float		get_dist(t_game g, double d, t_ray *r)
 {
-	float	ray_h;
-	float	ray_v;
-
+	r->d = d;
 //	reset_dir(&d);
-	if (d == 0 || d == M_PI)
-		return (get_wall_v(game.p, game.set, d));
+	if (d == 0 || d == M_PI || d == 2 * M_PI)
+	{
+		printf("v\n");
+		return (r->v = get_wall_v(g, r));
+	}
 	else if (d == M_PI_2 || d == 3 * M_PI_2)
-		return (get_wall_h(game.p, game.set, d));
-	else
 	{
-		ray_h = get_wall_h(game.p, game.set, d);
-		ray_v = get_wall_v(game.p, game.set, d);
-	}
-	if (ray_h >= ray_v)
-	{
-//		printf("v");
-		return (ray_v);
+		printf("h\n");
+		return (r->v = get_wall_h(g, r));
 	}
 	else
 	{
-//		printf("h");
-		return (ray_h);
+		r->h = get_wall_h(g, r);
+		r->v = get_wall_v(g, r);
 	}
+	r->side = r->h >= r->v ? 0 : 1;
+	if (!g.press.aim)
+		return (r->side == 0 ? r->v : r->h);
+	else
+		return (r->side == 0 ? r->v / 2 : r->h / 2);
 	//return (ray_h >= ray_v ? ray_v : ray_h);
 }
 
@@ -125,15 +86,20 @@ void		raycast(t_game g)
 	j = 0;
 	i = g.p.fov / g.set.res_x;
 	d = (g.p.dir - M_PI / 6);
-	draw_column(g, get_dist(g, d), j++);
-	printf("dir : %f, dist = %f, p_x : %f, p_y : %f\n", g.p.dir, get_dist(g, g.p.dir), g.p.x, g.p.y);
+	reset_dir(&d);
+//	draw_column(g, get_dist(g, d), j++);
+//	printf("p.dir : %.4f, dist = %.4f, p_x : %.4f, p_y : %.4f\n", g.p.dir, get_dist(g, g.p.dir), g.p.x, g.p.y);
+//	printf("dir : %.4f, dist = %.4f, p_x : %.4f, p_y : %.4f\n", d, get_dist(g, d), g.p.x, g.p.y);
 	while (j < g.set.res_x)
 	{
 		d += i;
 		reset_dir(&d);
-		draw_column(g, get_dist(g, d), j++);
-//		printf("break %d, dist = %f, dir %f p.x : %f, p.y  : %f\n", j, get_dist(g, d), d, g.p.x, g.p.y);
+		draw_column(g, get_dist(g, d, &g.r), j++);
+		if (g.r.side == 0)
+			printf("v dist = %.4f, dir %.4f p.x : %.4f, p.y : %.4f\n", g.r.v, g.r.d, g.r.v_x, g.r.v_y);
+		else
+			printf("h dist = %.4f, dir %.4f p.x : %.4f, p.y : %.4f\n", g.r.h, g.r.d, g.r.h_x, g.r.h_y);
 	}
 	draw_map(g);
-	draw_window(g.img);
+//	draw_window(g.img);
 }

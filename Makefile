@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
-#    Updated: 2020/01/28 15:00:56 by asablayr         ###   ########.fr        #
+#    Updated: 2020/02/08 12:53:09 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,12 @@ FILES = cube \
 		get_input \
 		look \
 		move \
-		line_h \
+		ray_h \
+		ray_v \
 		raycast \
 		draw_window \
 		mini_map \
+		screenshot \
 		exit
 
 SRCS = $(addsuffix .c, $(FILES))

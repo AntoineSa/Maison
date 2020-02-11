@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/28 16:07:42 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:36:20 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUBE_H
 
 # ifndef SPEED
-#  define SPEED	0.08
+#  define SPEED	0.05
 # endif
 
 # ifndef BLOCK_SIZE
@@ -22,7 +22,7 @@
 # endif
 
 # ifndef BLOCK_MAP
-#  define BLOCK_MAP 5
+#  define BLOCK_MAP 10
 # endif
 
 typedef	struct	s_player
@@ -35,6 +35,18 @@ typedef	struct	s_player
 	double 	fov;
 }				t_player;
 
+typedef	struct	s_ray
+{
+	float	h;
+	float	h_x;
+	float	h_y;
+	float	v;
+	float	v_x;
+	float	v_y;
+	double	d;
+	int		side;
+}				t_ray;
+
 typedef	struct	s_image
 {
 	int		x;
@@ -45,8 +57,19 @@ typedef	struct	s_image
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
-	int		*data_ptr;
+	int		*d_ptr;
 }				t_img;
+
+typedef struct	s_bmp
+{
+	int		file_size;
+	int		pixels_adr;
+	int		header_size;
+	short	clrs_planes;
+	short	bpp;
+	int		raw_size;
+	int		res;
+}				t_bmp;
 
 typedef struct	s_sprite
 {
@@ -81,6 +104,9 @@ typedef struct	s_input
 	int	a;
 	int	right;
 	int	left;
+	int	aim;
+	int	run;
+	int	pause;
 }				t_input;
 
 typedef struct	s_game
@@ -89,6 +115,7 @@ typedef struct	s_game
 	t_player	p;
 	t_input		press;
 	t_img		img;
+	t_ray		r;
 }				t_game;
 
 void		init_game(t_game *game);
@@ -105,22 +132,26 @@ void		init_player(t_player *p, t_settings set);
 void		init_img(t_img *img, t_game *g);
 void		set_hooks(void *mlx_ptr, void *win_ptr, t_game *game);
 int			game_loop(t_game *game);
-void		move_front(t_player *p, t_settings s);
-void		move_right(t_player *p, t_settings s);
-void		move_back(t_player *p, t_settings s);
-void		move_left(t_player *p, t_settings s);
+void		move_front(t_player *p, t_game g);
+void		move_right(t_player *p, t_game g);
+void		move_back(t_player *p, t_game g);
+void		move_left(t_player *p, t_game g);
 void		look_right(t_player *p);
 void		look_left(t_player *p);
 void		raycast(t_game g);
 void		reset_dir(double *d);
-float		get_dist(t_game gamei, double d);
-float		*get_h_const(float dir);
-float		*get_v_const(float dir);
-int			check_w(double d, t_settings s, float x, float y);
+float		get_wall_h(t_game g, t_ray *r);
+float		get_wall_v(t_game g, t_ray *r);
+float		get_dist(t_game g, double d, t_ray *r);
+int			check_w(t_game g, float x, float y);
+char		*select_color(t_game g);
 void		draw_column(t_game g, double d, int x);
 void		draw_window(t_img i);
+void		draw_line(t_img i, t_player p, double dir, int d);
 void		draw_square(t_img i, int c, int x, int y);
+void		draw_player(t_img i, int c, int x, int y);
 void		draw_map(t_game g);
+void		screenshot(t_img i);
 int			clean_exit(int error, t_game *game);
 
 #endif

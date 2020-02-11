@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:14:38 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/21 14:48:46 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/07 11:54:21 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static int	key_press(int key, t_input *press)
 		press->right = 1;
 	if (key == 123)
 		press->left = 1;
+	if (key == 257)
+		press->run = 1;
+	if (key == 49)
+		press->aim = 1;
 	return (0);
 }
 
@@ -45,8 +49,11 @@ static int	key_release(int key, t_input *press)
 	if (key == 123)
 		press->left = 0;
 	if (key == 53)
-//		clean_exit(0, game); exit not ready
-		return (0);
+		press->pause = press->pause == 1 ? 0 : 1;
+	if (key == 257)
+		press->run = 0;
+	if (key == 49)
+		press->aim = 0;
 	return (0);
 }
 
@@ -58,6 +65,9 @@ static void	init_press(t_input *press)
 	press->a = 0;
 	press->right = 0;
 	press->left = 0;
+	press->pause = 0;
+	press->run = 0;
+	press->aim = 0;
 }
 
 void	set_hooks(void *mlx_ptr, void *win_ptr, t_game *g)
