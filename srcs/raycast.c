@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:51:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/08 20:44:18 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/15 12:11:37 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	check_w(t_game g, float x, float y)
 		y = g.set.map_y - 1;
 	else if (y < 0)
 		y = 0;
-	return(g.set.map[(int)y][(int)x] - 48);
+	return(g.set.map[(int)y][(int)x] - '0');
 }
 
 float		get_dist(t_game g, double d, t_ray *r)
 {
 	r->d = d;
 //	reset_dir(&d);
-	if (d == 0 || d == M_PI || d == 2 * M_PI)
+/*	if (d == 0 || d == M_PI || d == 2 * M_PI)
 	{
 		printf("v\n");
 		return (r->v = get_wall_v(g, r));
@@ -62,19 +62,20 @@ float		get_dist(t_game g, double d, t_ray *r)
 	else if (d == M_PI_2 || d == 3 * M_PI_2)
 	{
 		printf("h\n");
-		return (r->v = get_wall_h(g, r));
+		return (r->h = get_wall_h(g, r));
 	}
 	else
 	{
 		r->h = get_wall_h(g, r);
 		r->v = get_wall_v(g, r);
 	}
+*/	r->h = get_wall_h(g, r);
+	r->v = get_wall_v(g, r);
 	r->side = r->h >= r->v ? 0 : 1;
 	if (!g.press.aim)
 		return (r->side == 0 ? r->v : r->h);
 	else
 		return (r->side == 0 ? r->v / 2 : r->h / 2);
-	//return (ray_h >= ray_v ? ray_v : ray_h);
 }
 
 void		raycast(t_game g)

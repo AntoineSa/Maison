@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:33:26 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/05 15:32:57 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:14:02 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 **Extra
 */
 int				get_next_line(int fd, char **line);
+float			ft_atof(char *str);
 
 #endif
