@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 11:20:16 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/20 12:48:49 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:17:13 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	check_map_line(char *str, int width)
 			return (1);
 	}
 	if (i != width)
-		return (2);
+		return (1);
 	return (0);
 }
 
@@ -81,17 +81,16 @@ int	check_map(char **map, int *map_x, int *map_y)
 		width++;
 	while (map[0][i])
 		if (map[0][i++] != '1')
-		{
-			return (2);
-		}
+			return (1);
+	i = 0;
 	while (map[length - 1][i])
-		if (map[length - 1][i] != 1)
-			return (3);
+		if (map[length - 1][i++] != '1')
+			return (1);
 	i = 1;
 	while (i < length - 1)
 		if (map[i][0] != '1' || map[i++][width - 1] != '1')
-			return (4);
-	*map_x = length;
-	*map_y = width;
+			return (1);
+	*map_x = width;
+	*map_y = length;
 	return (0);
 }

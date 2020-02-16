@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:39:25 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/08 16:33:49 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 09:52:58 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	draw_column(t_game g, double d, int x)
 	int		i;
 	int		s_dist;
 
-	s_dist = 260; //(g.set.res_x / 2) / tan(g.p.fov / 2);
-	wall_h =  BLOCK_SIZE / d * s_dist;//BLOCK_SIZE * s_dist / d;
-	c = (g.img.y - wall_h) / 2 >= 0 ? (g.img.y - wall_h) / 2 : 0;
+	s_dist = (g.set.res_x / 2) / tan(g.p.fov / 2); //277; //(g.set.res_x / 2) / tan(g.p.fov / 2);
+	wall_h = BLOCK_SIZE / d * s_dist;
+//	c = (g.img.y - wall_h) / 2 >= 0 ? (g.img.y - wall_h) / 2 : 0;
+	c = (g.img.y - wall_h) / 2;;
 	i = 0;
 	while (i < c)
 		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = g.set.c_c;

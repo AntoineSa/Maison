@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/08 20:44:35 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 12:35:33 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		game_loop(t_game *game)
 		printf(">>\n");
 		draw_window(game->img);
 	}
-//	raycast(*game);
 	return (0);
 }
 
@@ -58,22 +57,15 @@ int	main(int ac, char **av)
 	t_game	game;
 
 	if (ac < 2 || check_ext(av[1]) == 0)
-	{
-	//	clean_exit(1, game);
-		return (0);
-	}
+		clean_exit(1, &game);
 	get_settings(&game.set, open(av[1], O_RDONLY));
 	if (parse(&game.set))
-	{
-	//	clean_exit(error, game);
-		return (0);
-	}
-	init_player(&game.p, game.set);
+		clean_exit(3, &game);
+	init_player(&game);
 	game.set.map[(int)game.p.y][(int)game.p.x] = '0';
 	game.img.x = game.set.res_x;
 	game.img.y = game.set.res_y;
 	init_img(&game.img, &game);
-//	raycast(game);//delete after test
 	if (ac == 3 && !ft_strncmp(av[2], "-save", ft_strlen(av[2])))
 	{
 		game.img.win_ptr = NULL;

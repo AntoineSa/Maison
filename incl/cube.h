@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/09 15:36:20 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:33:24 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		get_settings(t_settings *set, int fd);
 int			in_set(char c, char *charset);
 int			parse(t_settings *set);
 int			check_map(char **map, int *h, int *w);
-void		init_player(t_player *p, t_settings set);
+void		init_player(t_game *g);
 void		init_img(t_img *img, t_game *g);
 void		set_hooks(void *mlx_ptr, void *win_ptr, t_game *game);
 int			game_loop(t_game *game);

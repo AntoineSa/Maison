@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 12:16:33 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/20 14:28:10 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:34:16 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,17 @@ static int			get_pos_player(char **map, int *i, int *j)
 	return (0);
 }
 
-void			init_player(t_player *p, t_settings set)
+void			init_player(t_game *g)
 {
 	int			i;
 	int			j;
 
 	i = 1;
 	j = 1;
-	if (!(get_pos_player(set.map, &i, &j)))
-		return ;
-//		clean_exit(4);
-	p->x = j + 0.5;
-	p->y = i + 0.5;
-	p->dir = set_dir(set.map[i][j]);
-	p->fov = M_PI / 3;
+	if (!(get_pos_player(g->set.map, &i, &j)))
+		clean_exit(4, g);
+	g->p.x = j + 0.5;
+	g->p.y = i + 0.5;
+	g->p.dir = set_dir(g->set.map[i][j]);
+	g->p.fov = M_PI / 3;
 }

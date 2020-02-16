@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 12:10:31 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/20 17:31:57 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:41:08 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ void	get_settings(t_settings *set, int fd)
 	init_set(set);
 	str = fill_fields(set, fd, str);
 	set->c_c = convert_color(set->rgb_c);
+	free(set->rgb_c);
 	set->c_f = convert_color(set->rgb_f);
+	free(set->rgb_f);
 	get_map(set, fd, str);
 	close(fd);
 }

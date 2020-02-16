@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/12 18:30:00 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:43:30 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**init_err_msg(void)
 {
 	char	**msg;
 
-	msg = NULL;
+	msg = ft_calloc(1, 5);
 	msg[0] = NULL; //segfault
 	msg[1] = "No .cub file.";
 	msg[2] = "Wrong texture path.";
@@ -47,7 +47,7 @@ int 		clean_exit(int err, t_game *game)
 	{
 		map_free(game->set.map);
 		ft_putstr_fd(msg[err], 1);
-		return (0);
+		exit(0);
 	}
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:57:04 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/15 11:11:31 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/16 11:04:05 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdlib.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
 
 static int		check_wall_v(t_game g, float x, float y)
 {
@@ -101,5 +101,6 @@ float				get_wall_v(t_game g, t_ray *r)
 	r->v_y = ray[1];
 	dist = sqrt(pow((g.p.x - ray[0]), 2) + pow((g.p.y - ray[1]), 2));
 	dist = cos(g.p.dir - r->d) * dist;
+	free(const_v);
 	return (dist);
 }
