@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 12:37:57 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 12:40:37 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:28:52 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	check_res(int x, int y)
 	return (0);
 }
 
-static int	check_text(char *s)
+/*static int	check_text(char *s)
 {
 	int		fd;
 	int 	ret;
@@ -52,17 +52,17 @@ static int	check_text(char *s)
 		return (1);
 	return (0);
 }
-
+*/
 int	parse(t_settings *set)
 {
 	if (check_res(set->res_x, set->res_y))
 		return (1);
-	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
+/*	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
 			check_text(set->t_w) || check_text(set->t_sp))
 		return (2);
 	if (check_text(set->t_sp))
 		return (2);
-	if (check_color(set->rgb_f, set->rgb_c))
+*/	if (check_color(set->rgb_f, set->rgb_c))
 		return (2);
 	if (check_map(set->map, &set->map_x, &set->map_y))
 		return (3);

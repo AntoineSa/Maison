@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:54:42 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 10:58:46 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/18 19:29:18 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int		check_wall_h(t_game g, float x, float y)
 		x = 0;
 	if (y > g.set.map_y - 1)
 		y = g.set.map_y - 1;
+	else if (y < 0)
+		y = 0;
 	return (g.set.map[(int)y][(int)x] -'0');
 }
 
@@ -61,7 +63,7 @@ static float		*get_first_h_point(t_player p, float c, double d)
 	float	*ray;
 
 	ray = ft_calloc(sizeof(float), 2);
-	if (p.dir > 0 && p.dir < M_PI)
+	if (d > 0 && d < M_PI)
 		ray[1] = (int)p.y + 1;
 	else
 		ray[1] = (int)p.y;
