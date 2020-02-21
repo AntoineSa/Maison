@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 11:33:24 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/21 12:33:16 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ typedef	struct	s_image
 	int		size_l;
 	int		bpp;
 	int		endian;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
+	void	*ptr;
 	int		*d_ptr;
 }				t_img;
 
@@ -115,7 +113,10 @@ typedef struct	s_game
 	t_player	p;
 	t_input		press;
 	t_img		img;
+	t_img		txt[4];
 	t_ray		r;
+	void		*mlx_ptr;
+	void		*win_ptr;
 }				t_game;
 
 void		init_game(t_game *game);
@@ -128,8 +129,9 @@ void		get_settings(t_settings *set, int fd);
 int			in_set(char c, char *charset);
 int			parse(t_settings *set);
 int			check_map(char **map, int *h, int *w);
+void		init_game(t_game *g);
 void		init_player(t_game *g);
-void		init_img(t_img *img, t_game *g);
+//void		init_img(t_img *img, t_game *g);
 void		set_hooks(void *mlx_ptr, void *win_ptr, t_game *game);
 int			game_loop(t_game *game);
 void		move_front(t_player *p, t_game g);
@@ -144,14 +146,15 @@ float		get_wall_h(t_game g, t_ray *r);
 float		get_wall_v(t_game g, t_ray *r);
 float		get_dist(t_game g, double d, t_ray *r);
 int			check_w(t_game g, float x, float y);
-char		*select_color(t_game g);
+t_img		select_text(t_game g);
+int			get_txt_color(t_img t, int x, int y);
 void		draw_column(t_game g, double d, int x);
-void		draw_window(t_img i);
+void		draw_window(t_game *g);
 void		draw_line(t_img i, t_player p, double dir, int d);
 void		draw_square(t_img i, int c, int x, int y);
 void		draw_player(t_img i, int c, int x, int y);
 void		draw_map(t_game g);
 void		screenshot(t_img i);
-int			clean_exit(int error, t_game *game);
+void		clean_exit(int error, t_game *game);
 
 #endif

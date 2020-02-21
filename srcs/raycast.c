@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:51:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/18 17:54:43 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/20 08:55:40 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ void		raycast(t_game g)
 	{
 		reset_dir(&d);
 		draw_column(g, get_dist(g, d, &g.r), j++);
-		if (g.r.side == 0)
-			printf("v dist = %.4f, dir %.4f p.x : %.4f, p.y : %.4f\n", g.r.v, g.r.d, g.r.v_x, g.r.v_y);
-		else
-			printf("h dist = %.4f, dir %.4f p.x : %.4f, p.y : %.4f\n", g.r.h, g.r.d, g.r.h_x, g.r.h_y);
 		d += i;
 	}
 	draw_map(g);

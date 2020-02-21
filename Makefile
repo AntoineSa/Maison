@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
-#    Updated: 2020/02/08 12:53:09 by asablayr         ###   ########.fr        #
+#    Updated: 2020/02/21 09:18:41 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ FILES = cube \
 		ray_h \
 		ray_v \
 		raycast \
+		draw_utils \
 		draw_window \
 		mini_map \
 		screenshot \

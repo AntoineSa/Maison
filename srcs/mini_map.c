@@ -6,12 +6,27 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 13:43:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/06 10:36:39 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/21 09:23:09 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include <math.h>
+
+void	draw_player(t_img i, int c, int x, int y)
+{
+	int	k;
+	int	j;
+
+	j = 0;
+	while (j < BLOCK_MAP / 2)
+	{
+		k = 0;
+		while (k < BLOCK_MAP / 2)
+			i.d_ptr[(j + y) * (i.size_l / 4) + x + k++] = c;
+		j++;
+	}
+}
 
 void	draw_fov(t_game g)
 {
