@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 12:37:57 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 12:55:39 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 11:20:14 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 static int	check_color(int *x, int *y)
 {
@@ -42,11 +41,10 @@ static int	check_text(char *s)
 {
 	int		fd;
 	int 	ret;
-	char	*s2;
+	char	s2[10];
 
-	s2 = NULL;
 	fd  = open(s, O_RDONLY);
-	ret = read(fd, s2, 10);
+	ret = read(fd, &s2, 10);
 	close(fd);
 	if (ret <= 0)
 		return (1);
@@ -56,15 +54,15 @@ static int	check_text(char *s)
 int	parse(t_settings *set)
 {
 	if (check_res(set->res_x, set->res_y))
-		return (1);
-	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
-			check_text(set->t_w) || check_text(set->t_sp))
-		return (2);
-	if (check_text(set->t_sp))
-		return (2);
-	if (check_color(set->rgb_f, set->rgb_c))
-		return (2);
-	if (check_map(set->map, &set->map_x, &set->map_y))
 		return (3);
+	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
+			check_text(set->t_w))
+		return (4);
+	if (check_text(set->t_sp))
+		return (5);
+	if (check_color(set->rgb_f, set->rgb_c))
+		return (6);
+	if (check_map(set->map, &set->map_x, &set->map_y))
+		return (7);
 	return (0);
 }

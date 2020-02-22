@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 12:52:02 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 09:38:28 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ static char	**init_err_msg(void)
 	msg = ft_calloc(sizeof(char *), 5);
 	msg[1] = "No file specified.\n";
 	msg[2] = "Specified file is not a .cub file.\n";
-	msg[3] = "Wrong texture path.\n";
-	msg[4] = "Invalid map.\n";
-	msg[5] = "No player starting point.\n";
+	msg[3] = "Invalid screen resolution.\n";
+	msg[4] = "Wrong texture path.\n";
+	msg[5] = "Wrong sprite texture path.\n";
+	msg[6] = "Invalid color.\n";
+	msg[7] = "Invalid map.\n";
+	msg[7] = "No player starting point.\n";
 	return (msg);
 }
 

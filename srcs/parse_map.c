@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 11:20:16 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 11:17:13 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 09:38:17 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static int	check_map_line(char *str, int width)
 	int i;
 
 	i = 0;
+	if (str[1] == ' ')
+		str = spe_copy(str);
 	while (str[i])
 	{
-		if (str[1] == ' ')
-			str = spe_copy(str);
 		if (in_set(str[i++], "012NESW") != 1)
 			return (1);
 	}

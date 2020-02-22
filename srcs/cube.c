@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 13:04:09 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 10:17:34 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,19 @@ int	check_ext(char *str)
 int	main(int ac, char **av)
 {
 	t_game	game;
+	int		err;
 
 	if (ac < 2)
 		clean_exit(1, &game);
 	else if (check_ext(av[1]) == 0)
 		clean_exit(2, &game);
 	get_settings(&game.set, open(av[1], O_RDONLY));
-	if (parse(&game.set))
-		clean_exit(3, &game);
-	init_game(&game);
-//	init_player(&game);
+	err = parse(&game.set);
+	(err == 0) ? init_game(&game) : clean_exit(err, &game);
 	game.set.map[(int)game.p.y][(int)game.p.x] = '0';
 	game.img.x = game.set.res_x;
 	game.img.y = game.set.res_y;
-//	init_img(&game.img, &game);
-//	init_text(&game);
+	printf("before raycast\n\n");
 	if (ac == 3 && !ft_strncmp(av[2], "-save", ft_strlen(av[2])))
 	{
 		raycast(game);

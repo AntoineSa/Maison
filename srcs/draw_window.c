@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:39:25 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 12:33:36 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 10:59:18 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 void	draw_wall(t_game g, double wall_h, int x, int y)
 {
 	t_img	t;
-	int		y_txt;
+	float	y_txt;
 	int		i;
 
 	i = 0;
 	y_txt = t.y / wall_h;
+	printf("t.y = %d y_text : %f", t.y, y_txt);
 	while (i < wall_h)
 	{
 		t = select_text(g);
@@ -48,9 +49,9 @@ void	draw_column(t_game g, double d, int x)
 	i = 0;
 	while (i < c)
 		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = g.set.c_c;
-//	draw_wall(g, wall_h, x, i);
-	while (i < g.set.res_y && i < wall_h + c)
-		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = (g.r.side == 0) ? g.set.c_f : g.set.c_f + 300;
+	draw_wall(g, wall_h, x, i);
+//	while (i < g.set.res_y && i < wall_h + c)
+//		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = (g.r.side == 0) ? g.set.c_f : g.set.c_f + 300;
 	while (i < g.set.res_y)
 		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = g.set.c_c;
 }

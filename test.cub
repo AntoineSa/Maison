@@ -1,10 +1,10 @@
 R 600 400
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/assets_textures_bookshelf.xpm
+SO ./textures/assets_textures_bricks.xpm
+WE ./textures/assets_textures_chiseled_red_sandstone.xpm
+EA ./textures/assets_textures_chiseled_sandstone.xpm
 
-S ./path_to_the_sprite_texture
+S ./textures/assets_textures_bookshelf.xpm
 F 220,100,0
 C 225,30,0
 

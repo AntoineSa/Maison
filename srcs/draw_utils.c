@@ -6,16 +6,18 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:16:05 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 12:13:04 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 11:20:47 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include <math.h>
+#include <stdio.h>
 
 int		get_txt_color(t_img t, int x, int y)
 {
-	return (*(t.d_ptr + x + (y * t.size_l / 4)));
+	printf("x : %i, y : %i\n", x, y);
+	return (t.d_ptr[x + (y * t.size_l / 4)]);//<--check y
 }
 
 t_img	select_text(t_game g)
