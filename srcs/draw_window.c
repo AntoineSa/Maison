@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:39:25 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/22 10:59:18 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/22 15:48:24 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	draw_wall(t_game g, double wall_h, int x, int y)
 	int		i;
 
 	i = 0;
-	y_txt = t.y / wall_h;
-	printf("t.y = %d y_text : %f", t.y, y_txt);
+	t = select_text(g);
+	y_txt = t.y / wall_h / 4;
+	printf("t.y = %d t.x = %d y_text : %f, wall_h : %f\n", t.y, t.x, y_txt, wall_h);
 	while (i < wall_h)
 	{
-		t = select_text(g);
 		g.img.d_ptr[x + (i + y) * (g.img.size_l / 4)] = get_txt_color(t, x % t.x, i * y_txt);
 		i++;
 	}
@@ -52,6 +52,7 @@ void	draw_column(t_game g, double d, int x)
 	draw_wall(g, wall_h, x, i);
 //	while (i < g.set.res_y && i < wall_h + c)
 //		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = (g.r.side == 0) ? g.set.c_f : g.set.c_f + 300;
+	i += wall_h;
 	while (i < g.set.res_y)
 		g.img.d_ptr[i++ * (g.img.size_l / 4) + x] = g.set.c_c;
 }
