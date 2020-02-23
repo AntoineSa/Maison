@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:16:05 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/22 15:45:10 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/23 12:44:13 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 int		get_txt_color(t_img t, int x, int y)
 {
-//	printf("x : %i, y : %i\n", x, y);
-	return (t.d_ptr[x + (y * t.size_l / 4)]);//<--check y
+	return (t.d_ptr[x + (y * t.size_l / 4)]);
 }
 
 t_img	select_text(t_game g)

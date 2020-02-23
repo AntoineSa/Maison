@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/04 16:41:19 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/18 12:41:11 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/23 12:46:01 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	init_set(t_settings *set)
 	set->t_s = "../textures/t_s";
 	set->t_w = "../textures/t_w";
 	set->t_sp = "../textures/t_sp";
-	set->rgb_c[0] = 116;
-	set->rgb_c[1] = 102;
-	set->rgb_c[2] = 59;
-	set->rgb_f[0] = 135;
-	set->rgb_f[1] = 206;
-	set->rgb_f[2] = 235;
+	set->rgb_f[0] = 116;
+	set->rgb_f[1] = 102;
+	set->rgb_f[2] = 59;
+	set->rgb_c[0] = 135;
+	set->rgb_c[1] = 206;
+	set->rgb_c[2] = 235;
 }

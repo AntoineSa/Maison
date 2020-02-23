@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 12:10:31 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 11:41:08 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/23 09:56:20 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static char	*fill_fields(t_settings *set, int fd, char *str)
 		else if (*str == 'S')
 			set->t_sp = get_text(str + 1);
 		else if (*str == 'F')
-			get_color(&set->c_f, str);
+			get_color(set->rgb_f, str);
 		else if (*str == 'C')
-			get_color(&set->c_c, str);
+			get_color(set->rgb_c, str);
 	}
 	return (str);
 }
