@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
-#    Updated: 2020/02/22 10:31:55 by asablayr         ###   ########.fr        #
+#    Updated: 2020/03/04 08:15:59 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ FILES = cube \
 		parse_map \
 		init_player \
 		init_game \
+		init_sprite \
 		get_input \
 		look \
 		move \
