@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:39:25 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/23 12:44:22 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/28 09:12:28 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,30 @@
 #include <stdio.h>
 #include "libft.h"
 
+static int		adjust_y(int i, double wall_h, int res_y, float y_txt)
+{
+	int	res;
+
+	return (res = (i + (wall_h - res_y) / 2) * y_txt);
+}
+
+void	draw_sprite(t_game g)
+{
+	int	i;
+	int y;
+	int j;
+
+	i = 0;
+	y = g.r.sp[0].y;
+	j = (g.set.res_y / 2) - (g.r.sp->y / 2);
+	while (g.r.sp[i])
+	{
+		while (j > (g.set.res_y / 2) + (g.r.sp[i].y / 2))
+			g.img.d_ptr[x + (i + y) * (g.img.size_l / 4)] = get_txt_color(g.r.sp[i]);
+		i++;
+	}
+}
+
 void	draw_wall(t_game g, double wall_h, int x, int y)
 {
 	t_img	t;
@@ -24,6 +48,7 @@ void	draw_wall(t_game g, double wall_h, int x, int y)
 	int		j;
 	float	rel_x;
 
+//	i = wall_h <= g.set.res_y ? 0 : (i + (wall_h - g.set.res_y) / 2) * y_txt;
 	i = 0;
 	t = select_text(g);
 	y_txt = t.y / wall_h;
@@ -31,7 +56,10 @@ void	draw_wall(t_game g, double wall_h, int x, int y)
 	while (i < wall_h && i + y < g.set.res_y)
 	{
 		j = x + (i + y) * (g.img.size_l / 4);
-		g.img.d_ptr[j] = get_txt_color(t, rel_x * t.x, i * y_txt);
+		if (wall_h >= g.set.res_y)
+			g.img.d_ptr[j] = get_txt_color(t, rel_x * t.x, adjust_y(i, wall_h, g.set.res_y, y_txt));
+		else
+			g.img.d_ptr[j] = get_txt_color(t, rel_x * t.x, i * y_txt);
 		i++;
 	}
 }
@@ -43,10 +71,8 @@ void	draw_column(t_game g, double d, int x)
 	int		i;
 	int		s_dist;
 
-	s_dist = (g.set.res_x / 2) / tan(g.p.fov / 2); //277; //(g.set.res_x / 2) / tan(g.p.fov / 2);
+	s_dist = (g.set.res_x / 2) / tan(g.p.fov / 2); //277;
 	wall_h = BLOCK_SIZE / d * s_dist;
-//	if (wall_h > g.set.res_y)
-//		wall_h = g.set.res_y;
 	c = (g.img.y - wall_h) / 2;
 	i = 0;
 	while (i < c)

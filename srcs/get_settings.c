@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 12:10:31 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/23 09:56:20 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/27 13:16:07 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <unistd.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
 
 static void	get_map(t_settings *set, int fd, char *str)
 {
@@ -22,13 +21,13 @@ static void	get_map(t_settings *set, int fd, char *str)
 
 	s2 = NULL;
 	str = ft_strf1join(str, "\n");
-	while (get_next_line(fd, &s2))//no malloc s2
+	while (get_next_line(fd, &s2))
 	{
 		s2 = ft_strf1join(s2, "\n");
-		str = ft_strjoin(str, s2);//no free
+		str = ft_strffjoin(str, s2);
 	}
 	if (*s2 != '\n')
-		str = ft_strjoin(str, s2);// no free
+		str = ft_strffjoin(str, s2);
 	set->map = ft_split(str, '\n');
 	free(str);
 }
@@ -56,8 +55,9 @@ static char	*fill_fields(t_settings *set, int fd, char *str)
 			get_color(set->rgb_f, str);
 		else if (*str == 'C')
 			get_color(set->rgb_c, str);
+		free(str);
 	}
-	return (str);
+	return (NULL);
 }
 
 void	get_settings(t_settings *set, int fd)

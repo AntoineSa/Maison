@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:54:42 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/18 19:29:18 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/27 12:32:46 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ float		get_wall_h(t_game g, t_ray *r)
 	check = 0;
 	const_h = get_h_const(r->d);
 	ray = get_first_h_point(g.p, const_h[1], r->d);
+	r->h_x = ray[0];
+	r->h_y = ray[1];
 	check = check_wall_h(g, ray[0], ray[1]);
 	while (check != 1 && ray[0] <= g.set.map_x && ray[1] <= g.set.map_y
 			&& ray[0] >= 0 && ray[1] >= 0)
 	{
-		ray[0] += const_h[0];
-		ray[1] += const_h[1];
-		check = check_wall_h(g, ray[0], ray[1]);
+		r->h_x += const_h[0];
+		r->h_y += const_h[1];
+		check = check_wall_h(g, r->h_x, r->h_y);
 	}
-	r->h_x = ray[0];
-	r->h_y = ray[1];
-	dist = sqrt(pow((g.p.x - ray[0]), 2) + pow((g.p.y - ray[1]), 2));
+	dist = sqrt(pow((g.p.x - r->h_x), 2) + pow((g.p.y - r->h_y), 2));
 	dist = cos(g.p.dir - r->d) * dist;
 	free(const_h);
 	return (dist);

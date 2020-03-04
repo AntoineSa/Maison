@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 12:33:16 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/04 11:38:42 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ typedef	struct	s_player
 	double 	fov;
 }				t_player;
 
+typedef	struct	s_image
+{
+	int		x;
+	int		y;
+	int		size_l;
+	int		bpp;
+	int		endian;
+	void	*ptr;
+	int		*d_ptr;
+}				t_img;
+
 typedef	struct	s_ray
 {
 	float	h;
@@ -46,17 +57,6 @@ typedef	struct	s_ray
 	double	d;
 	int		side;
 }				t_ray;
-
-typedef	struct	s_image
-{
-	int		x;
-	int		y;
-	int		size_l;
-	int		bpp;
-	int		endian;
-	void	*ptr;
-	int		*d_ptr;
-}				t_img;
 
 typedef struct	s_bmp
 {
@@ -73,7 +73,8 @@ typedef struct	s_sprite
 {
 	float	x;
 	float	y;
-	char	*text;
+	float	dist;
+	double	dir;
 }				t_sprite;
 
 typedef	struct	s_settings
@@ -92,6 +93,7 @@ typedef	struct	s_settings
 	char	**map;
 	int		map_x;
 	int		map_y;
+
 }				t_settings;
 
 typedef struct	s_input
@@ -113,8 +115,10 @@ typedef struct	s_game
 	t_player	p;
 	t_input		press;
 	t_img		img;
-	t_img		txt[4];
+	t_img		txt[5];
 	t_ray		r;
+	int			sp_num;
+	t_sprite	*sp;
 	void		*mlx_ptr;
 	void		*win_ptr;
 }				t_game;
@@ -131,7 +135,6 @@ int			parse(t_settings *set);
 int			check_map(char **map, int *h, int *w);
 void		init_game(t_game *g);
 void		init_player(t_game *g);
-//void		init_img(t_img *img, t_game *g);
 void		set_hooks(void *mlx_ptr, void *win_ptr, t_game *game);
 int			game_loop(t_game *game);
 void		move_front(t_player *p, t_game g);
@@ -148,12 +151,14 @@ float		get_dist(t_game g, double d, t_ray *r);
 int			check_w(t_game g, float x, float y);
 t_img		select_text(t_game g);
 int			get_txt_color(t_img t, int x, int y);
+void		init_sprite(t_game *g, t_settings s);
 void		draw_column(t_game g, double d, int x);
 void		draw_window(t_game *g);
 void		draw_line(t_img i, t_player p, double dir, int d);
 void		draw_square(t_img i, int c, int x, int y);
 void		draw_player(t_img i, int c, int x, int y);
 void		draw_map(t_game g);
+void		draw_sprite(t_game g);
 void		screenshot(t_img i);
 void		clean_exit(int error, t_game *game);
 

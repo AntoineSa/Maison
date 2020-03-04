@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/23 09:38:55 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/02/27 14:27:41 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		game_loop(t_game *game)
 			look_left(&game->p);
 		reset_dir(&game->p.dir);
 		raycast(*game);
+		draw_sprite(*game);
 		draw_window(game);
 	}
 	return (0);
