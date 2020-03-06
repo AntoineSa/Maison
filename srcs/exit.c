@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/22 09:38:28 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/05 16:13:01 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**init_err_msg(void)
 {
 	char	**msg;
 
-	msg = ft_calloc(sizeof(char *), 5);
+	msg = ft_calloc(sizeof(char *), 8);
 	msg[1] = "No file specified.\n";
 	msg[2] = "Specified file is not a .cub file.\n";
 	msg[3] = "Invalid screen resolution.\n";

@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 15:39:25 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/28 09:12:28 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/05 15:56:30 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,6 @@ static int		adjust_y(int i, double wall_h, int res_y, float y_txt)
 	int	res;
 
 	return (res = (i + (wall_h - res_y) / 2) * y_txt);
-}
-
-void	draw_sprite(t_game g)
-{
-	int	i;
-	int y;
-	int j;
-
-	i = 0;
-	y = g.r.sp[0].y;
-	j = (g.set.res_y / 2) - (g.r.sp->y / 2);
-	while (g.r.sp[i])
-	{
-		while (j > (g.set.res_y / 2) + (g.r.sp[i].y / 2))
-			g.img.d_ptr[x + (i + y) * (g.img.size_l / 4)] = get_txt_color(g.r.sp[i]);
-		i++;
-	}
 }
 
 void	draw_wall(t_game g, double wall_h, int x, int y)
