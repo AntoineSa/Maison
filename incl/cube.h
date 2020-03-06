@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/04 11:38:42 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/06 09:22:59 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void		draw_line(t_img i, t_player p, double dir, int d);
 void		draw_square(t_img i, int c, int x, int y);
 void		draw_player(t_img i, int c, int x, int y);
 void		draw_map(t_game g);
+t_sprite	*sort_sprite(t_sprite *sp, int count);
 void		draw_sprite(t_game g);
 void		screenshot(t_img i);
 void		clean_exit(int error, t_game *game);

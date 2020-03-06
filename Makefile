@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
-#    Updated: 2020/03/04 08:15:59 by asablayr         ###   ########.fr        #
+#    Updated: 2020/03/06 09:22:03 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ FILES = cube \
 		draw_utils \
 		draw_window \
 		mini_map \
+		draw_sprite \
 		screenshot \
 		exit
 
