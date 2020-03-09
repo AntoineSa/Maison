@@ -45,4 +45,5 @@ void	init_game(t_game *g)
 	init_img(&(g->img), g);
 	init_text(g);
 	init_sprite(g, g->set);
+	g->z_buff = (float *)malloc(sizeof(float) * g->set.res_x);
 }

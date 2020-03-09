@@ -45,6 +45,7 @@ void		raycast(t_game g)
 	int		j;
 	double	i;
 	double	d;
+	int	dist;
 
 	if (g.press.aim)
 		g.p.fov /= 2;
@@ -54,7 +55,9 @@ void		raycast(t_game g)
 	while (j < g.set.res_x)
 	{
 		reset_dir(&d);
-		draw_column(g, get_dist(g, d, &g.r), j++);
+		dist = get_dist(g, d, &g.r);
+		draw_column(g, dist, j++);
+		g.z_buff[j] = dist;
 		d += i;
 	}
 	draw_sprite(g);

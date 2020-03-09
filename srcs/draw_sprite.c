@@ -31,7 +31,6 @@ void	put_sprite_to_img(t_sprite sp, t_game g)
 	j = 0;
 	t = g.txt[4];
 	x_screen = g.set.res_x / 2 + ((sp.dir - g.p.dir) / (g.p.fov / 2)) * (g.set.res_x / 2);
-//	x_screen -= (t.x / (BLOCK_SIZE / sp.dist * s_dist)) / 2;
 	y_txt = t.y / (BLOCK_SIZE / sp.dist * s_dist);
 	y_screen = g.set.res_y / 2;
 	x_txt = t.x / (BLOCK_SIZE / sp.dist * s_dist);
@@ -40,17 +39,17 @@ void	put_sprite_to_img(t_sprite sp, t_game g)
 	printf("\n\ng.set.x = %d\tt.x = %d\tx_screen = %d\tx_txt = %f\n", g.set.res_x, t.x, x_screen, x_txt);
 	printf("g.set.y = %d\tt.y = %d\ty_screen = %d\ty_txt = %f\n", g.set.res_y, t.y, y_screen, y_txt);
 	i = 0;
-	while (j + x_screen < 0)
-		j++;
-	while (i + y_screen < 0)
-		i++;
+	if (x_screen < 0)
+		j = -x_screen;
+	while (y_screen < 0)
+		i = -y_screen;
 	printf("before while\n");
-	while (j * x_txt < t.x && j + x_screen < g.set.res_x)
+	while (j * x_txt < t.x && j + x_screen < g.set.res_x //opti switch from line to column)
 	{
 		i = 0;
 		while (i * y_txt < t.y && i + y_screen < g.set.res_y)
 		{
-			if (get_txt_color(t, j * x_txt, i * y_txt) != 0xff000000)
+			if (get_txt_color(t, j * x_txt, i * y_txt) != 0xff000000 && g.zbuff[j + x_screen] > sp.dist)
 				g.img.d_ptr[(i + y_screen) * (g.img.size_l / 4) +  x_screen + j] = get_txt_color(t, j * x_txt, i * y_txt);
 			i++;
 		}

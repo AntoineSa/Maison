@@ -121,6 +121,7 @@ typedef struct	s_game
 	t_img		img;
 	t_img		txt[5];
 	t_ray		r;
+	float		*z_buff;
 	int			sp_num;
 	t_sprite	*sp;
 	void		*mlx_ptr;
