@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:40:44 by asablayr          #+#    #+#             */
-/*   Updated: 2020/01/21 16:08:00 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/09 11:13:00 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void	look_right(t_player *p)
 {
-	p->dir += M_PI / 30;
+	p->dir += LOOK_SPEED;
 }
 
 void	look_left(t_player *p)
 {
-	p->dir -= M_PI / 30;
+	p->dir -= LOOK_SPEED;
 }
 
 void	reset_dir(double *d)

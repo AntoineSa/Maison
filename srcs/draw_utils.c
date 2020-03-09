@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:16:05 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/23 12:44:13 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:24:22 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include <stdio.h>
 
-int		get_txt_color(t_img t, int x, int y)
+unsigned int	get_txt_color(t_img t, int x, int y)
 {
 	return (t.d_ptr[x + (y * t.size_l / 4)]);
 }
@@ -27,7 +27,7 @@ t_img	select_text(t_game g)
 		return (g.r.d > M_PI_2 && g.r.d < 3 * M_PI_2 ? g.txt[1] : g.txt[3]);
 }
 
-void	draw_square(t_img img, int c, int x, int y)
+void			draw_square(t_img img, int c, int x, int y)
 {
 	int	i;
 	int	j;
@@ -42,7 +42,7 @@ void	draw_square(t_img img, int c, int x, int y)
 	}
 }
 
-void	draw_line(t_img i, t_player p, double dir, int d)
+void			draw_line(t_img i, t_player p, double dir, int d)
 {
 	p.x *= 10;
 	p.y *= 10;

@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/05 16:32:07 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:31:32 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		game_loop(t_game *game)
 			look_left(&game->p);
 		reset_dir(&game->p.dir);
 		raycast(*game);
-	//	draw_sprite(*game);
 		draw_window(game);
 	}
 	return (0);
@@ -68,7 +67,7 @@ int	main(int ac, char **av)
 	game.set.map[(int)game.p.y][(int)game.p.x] = '0';
 	game.img.x = game.set.res_x;
 	game.img.y = game.set.res_y;
-	if (ac == 3 && !ft_strncmp(av[2], "--save", ft_strlen(av[2])))
+	if (ac == 3 && !ft_strncmp(av[2], "--save", 6))
 	{
 		raycast(game);
 		screenshot(game.img);

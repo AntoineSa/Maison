@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:18:45 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/15 12:54:12 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/08 10:59:58 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	move_front(t_player *p, t_game g)
 		x += cos(p->dir) * SPEED;
 		y += sin(p->dir) * SPEED;
 	}
-	if (!(check_w(g, x, p->y)))
+	if (check_w(g, x, p->y) != 1)
 		p->x = x;
-	if (!(check_w(g, p->x, y)))
+	if (check_w(g, p->x, y) != 1)
 		p-> y = y;
 }
 void	move_back(t_player *p, t_game g)
@@ -43,9 +43,9 @@ void	move_back(t_player *p, t_game g)
 		x -= cos(p->dir) * SPEED;
 		y -= sin(p->dir) * SPEED;
 	}
-	if (!(check_w(g, x, p->y)))
+	if (check_w(g, x, p->y) != 1)
 		p->x = x;
-	if (!(check_w(g, p->x, y)))
+	if (check_w(g, p->x, y) != 1)
 		p-> y = y;
 }
 
@@ -61,9 +61,9 @@ void	move_left(t_player *p, t_game g)
 		x += sin(p->dir) * SPEED;
 		y += cos(p->dir) * SPEED;
 	}
-	if (!(check_w(g, x, p->y)))
+	if (check_w(g, x, p->y) != 1)
 		p->x = x;
-	if (!(check_w(g, p->x, y)))
+	if (check_w(g, p->x, y) != 1)
 		p-> y = y;
 }
 
@@ -79,8 +79,8 @@ void	move_right(t_player *p, t_game g)
 		x -= sin(p->dir) * SPEED;
 		y -= cos(p->dir) * SPEED;
 	}
-	if (!(check_w(g, x, p->y)))
+	if (check_w(g, x, p->y) != 1)
 		p->x = x;
-	if (!(check_w(g, p->x, y)))
+	if (check_w(g, p->x, y) != 1)
 		p-> y = y;
 }

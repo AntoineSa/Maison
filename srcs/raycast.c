@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:51:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/05 16:32:02 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:28:39 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ int	check_w(t_game g, float x, float y)
 		x = (int)x - 1;
 	else
 		x = (int)x;
-	if (x > g.set.map_x - 1)//bad opti
-		x = g.set.map_x - 1;
-	else if (x < 0)
-		x = 0;
-	if (y > g.set.map_y - 1)
-		y = g.set.map_y - 1;
-	else if (y < 0)
-		y = 0;
 	return(g.set.map[(int)y][(int)x] - '0');
 }
 
@@ -54,20 +46,17 @@ void		raycast(t_game g)
 	double	i;
 	double	d;
 
+	if (g.press.aim)
+		g.p.fov /= 2;
 	j = 0;
 	i = g.p.fov / g.set.res_x;
-	d = g.p.dir - M_PI / 6;
-	if (g.press.aim)
-	{
-		i /= 2;
-		d = g.p.dir - (M_PI / 12);
-	}
+	d = g.p.dir - g.p.fov / 2;
 	while (j < g.set.res_x)
 	{
 		reset_dir(&d);
 		draw_column(g, get_dist(g, d, &g.r), j++);
 		d += i;
 	}
-	draw_map(g);
 	draw_sprite(g);
+	draw_map(g);
 }
