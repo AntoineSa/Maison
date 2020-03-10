@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/09 13:26:15 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:20:30 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef	struct	s_player
 	float	y;
 	int		x_pos;
 	int		y_pos;
+	int		life;
+	int		stamina;
 	double	dir;
 	double 	fov;
 }				t_player;
@@ -159,10 +161,12 @@ unsigned int	get_txt_color(t_img t, int x, int y);
 void			init_sprite(t_game *g, t_settings s);
 void			draw_column(t_game g, double d, int x);
 void			draw_window(t_game *g);
-void			draw_line(t_img i, t_player p, double dir, int d);
+void			draw_ray(t_img i, t_player p, double dir, int d);
 void			draw_square(t_img i, int c, int x, int y);
+void			draw_line(t_img i, int x, int y, int dist);
 void			draw_player(t_img i, int c, int x, int y);
 void			draw_map(t_game g);
+void			draw_hud(t_game g);
 t_sprite		*sort_sprite(t_sprite *sp, int count);
 void			draw_sprite(t_game g);
 void			screenshot(t_img i);

@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:51:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/09 13:28:39 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 13:35:47 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		raycast(t_game g)
 	int		j;
 	double	i;
 	double	d;
-	int	dist;
+	float	dist;
 
 	if (g.press.aim)
 		g.p.fov /= 2;
@@ -56,10 +56,11 @@ void		raycast(t_game g)
 	{
 		reset_dir(&d);
 		dist = get_dist(g, d, &g.r);
-		draw_column(g, dist, j++);
-		g.z_buff[j] = dist;
+		draw_column(g, dist, j);
+		g.z_buff[j++] = dist;
 		d += i;
 	}
 	draw_sprite(g);
 	draw_map(g);
+	draw_hud(g);
 }

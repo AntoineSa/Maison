@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/05 16:13:01 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:31:50 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void 		clean_exit(int err, t_game *g)
 	if (err == 0)
 	{
 		mlx_destroy_image(g->mlx_ptr, g->win_ptr);
+		map_free(g->set.map);
+		exit(0);
 	}
 	msg = init_err_msg();
 	ft_putstr_fd("Error\n", 1);

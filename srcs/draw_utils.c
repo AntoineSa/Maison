@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:16:05 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/09 13:24:22 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 13:34:52 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			draw_square(t_img img, int c, int x, int y)
 	}
 }
 
-void			draw_line(t_img i, t_player p, double dir, int d)
+void			draw_ray(t_img i, t_player p, double dir, int d)
 {
 	p.x *= 10;
 	p.y *= 10;
@@ -52,4 +52,12 @@ void			draw_line(t_img i, t_player p, double dir, int d)
 		p.y += sin(dir);
 		i.d_ptr[(int)(p.y) * (i.size_l / 4) + (int)(p.x)] = 0xffffff;
 	}
+}
+
+void		draw_line(t_img i, int x, int y, int dist)
+{
+	x *= 10;
+	y *= 10;
+	while (dist--)
+		i.d_ptr[y * (i.size_l / 4) + x++] = 0xff0000;
 }

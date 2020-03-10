@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_map.c                                         :+:      :+:    :+:   */
+/*   draw_mini_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 13:43:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/21 09:23:09 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 13:27:27 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ void	draw_player(t_img i, int c, int x, int y)
 
 void	draw_fov(t_game g)
 {
-	double dir;
-	double i;
+	double	dir;
+	double	i;
+	int		j;
 
 	dir = g.p.dir - M_PI / 6;
 	i = g.p.fov / g.set.res_x;
+	j = 0;
 	while (dir <= g.p.dir + M_PI / 6)
 	{
-		draw_line(g.img, g.p, dir, 10 * get_dist(g, dir, &g.r));
+		draw_ray(g.img, g.p, dir, 10 * g.z_buff[j++]);
 		dir += i;
-//		reset_dir(&dir);
 	}
 }
 

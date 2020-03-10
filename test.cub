@@ -1,23 +1,24 @@
-R 600 400
+R 900 600
 NO ./textures/assets_textures_bookshelf.xpm
 SO ./textures/assets_textures_bricks.xpm
 WE ./textures/assets_textures_chiseled_red_sandstone.xpm
 EA ./textures/assets_textures_chiseled_sandstone.xpm
 
-S ./textures/assets_textures_bookshelf.xpm
+S ./textures/assets_textures_jean2.xpm
+
 F 220,100,0
 C 135,206,235
 
 111111111111111
-110010000000001
+112010000000001
 100010011100001
-100000001111111
+102000001111111
 110011100000001
 110110000000001
 110110011110001
 100011110010001
 100010000010001
-100010011110001
+110110011110001
 100010011100001
 11N110000000001
 111111111111111

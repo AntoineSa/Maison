@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/09 13:31:32 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:29:50 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,23 @@
 
 int		game_loop(t_game *game)
 {
-	if (!game->press.pause)
-	{
-		if (game->press.w)
-			move_front(&game->p, *game);
-		if (game->press.d)
-			move_right(&game->p, *game);
-		if (game->press.s)
-			move_back(&game->p, *game);
-		if (game->press.a)
-			move_left(&game->p, *game);
-		if (game->press.right)
-			look_right(&game->p);
-		if (game->press.left)
-			look_left(&game->p);
-		reset_dir(&game->p.dir);
-		raycast(*game);
-		draw_window(game);
-	}
+	if (game->press.pause)
+		clean_exit(0, game);
+	if (game->press.w)
+		move_front(&game->p, *game);
+	if (game->press.d)
+		move_right(&game->p, *game);
+	if (game->press.s)
+		move_back(&game->p, *game);
+	if (game->press.a)
+		move_left(&game->p, *game);
+	if (game->press.right)
+		look_right(&game->p);
+	if (game->press.left)
+		look_left(&game->p);
+//	reset_dir(&game->p.dir);
+	raycast(*game);
+	draw_window(game);
 	return (0);
 }
 

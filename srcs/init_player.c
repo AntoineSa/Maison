@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 12:16:33 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/16 11:34:16 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 14:37:25 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ void			init_player(t_game *g)
 	g->p.x = j + 0.5;
 	g->p.y = i + 0.5;
 	g->p.dir = set_dir(g->set.map[i][j]);
+	g->set.map[i][j] = '0';
 	g->p.fov = M_PI / 3;
+	g->p.life = 100;
+	g->p.stamina = 100;
 }

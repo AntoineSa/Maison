@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:18:45 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/08 10:59:58 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:29:49 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	move_front(t_player *p, t_game g)
 
 	x = p->x + cos(p->dir) * SPEED;
 	y = p->y + sin(p->dir) * SPEED;
-	if (g.press.run)
+	if (g.press.run && p->stamina > 0)
 	{
 		x += cos(p->dir) * SPEED;
 		y += sin(p->dir) * SPEED;
+		p->stamina -= 1;
 	}
+	else if (p->stamina < 100)
+		p->stamina += 1;
 	if (check_w(g, x, p->y) != 1)
 		p->x = x;
 	if (check_w(g, p->x, y) != 1)
@@ -42,7 +45,10 @@ void	move_back(t_player *p, t_game g)
 	{
 		x -= cos(p->dir) * SPEED;
 		y -= sin(p->dir) * SPEED;
+		p->stamina -= 1;
 	}
+	else if (p->stamina < 100)
+		p->stamina += 1;
 	if (check_w(g, x, p->y) != 1)
 		p->x = x;
 	if (check_w(g, p->x, y) != 1)
