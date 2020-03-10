@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static char		*spe_copy(char *str)
+/*static char		*spe_copy(char *str)
 {
 	char	*s;
 	char	*s1;
@@ -38,6 +38,23 @@ static char		*spe_copy(char *str)
 	free(str);
 	return (s1);
 }
+*/
+int	check_map_close(char **map, int x, int y)
+{
+	char	*cur;
+
+	cur = ft_strchr(map[0], '1');
+	map[y][x] = '.';
+	if (map[y][x + 1] == '1')
+		check_map_close(map, x + 1, y);
+	if (map[y + 1][x] == '1')
+		check_map_close(map, x, y + 1);
+	if (map[y - 1][x] == '1')
+		check_map_close(map, x, y - 1);
+	if (map[y][x - 1] == '1')
+		check_map_close(map, x + 1, y);
+	return (
+}
 
 int	in_set(char c, char *charset)
 {
@@ -46,22 +63,39 @@ int	in_set(char c, char *charset)
 			return (1);
 	return (0);
 }
-
-static int	check_map_line(char *str, int width)
+static int	check_map_line(char *str, int *width)
 {
 	int i;
 
 	i = 0;
-	if (str[1] == ' ')
-		str = spe_copy(str);
+	while (str[i] == ' ')
+		i++;
 	while (str[i])
-	{
-		if (in_set(str[i++], "012NESW") != 1)
+		if (in_set(str[i++], " 012NESW") != '1')
 			return (1);
-	}
-	if (i != width)
-		return (1);
+	*width = i;
 	return (0);
+}
+
+int	backtrack(char **map, char c)
+{
+	char 	*cur;
+	int	x;
+	int	y;
+
+	y = 0;
+	while (!cur)
+		cur = ft_strchr(map[y++], c);
+	y--; 
+	x = map[y] - cur;
+	x1 = ft_strchr(map[y] + x, '1') - cur;
+	if (check_map_close(map, x + x1, y)
+		return (1);
+	if (ft_strnchr(map[y] + x
+	x1 = cur - ft_strrchr(map[y] + x, '1');
+	if (check_map_close(map, x - x1, y)
+		return (1);
+	y1 = search y;
 }
 
 int	check_map(char **map, int *map_x, int *map_y)
@@ -69,27 +103,23 @@ int	check_map(char **map, int *map_x, int *map_y)
 	int		i;
 	int		length;
 	int		width;
+	int		tmp;
 
 	i = 0;
 	length = 0;
-	width = map[0][1] == ' ' ? (ft_strlen(map[0]) / 2) + 1 : ft_strlen(map[0]);
-	while (map[length])
-		if (check_map_line(map[length++], width) != 0)
-			return (1);
+//	width = map[0][1] == ' ' ? (ft_strlen(map[0]) / 2) + 1 : ft_strlen(map[0]);
 	width = 0;
-	while (map[0][width])
-		width++;
-	while (map[0][i])
-		if (map[0][i++] != '1')
+	while (map[length])
+	{
+		if (check_map_line(map[length++], &tmp) != 0)
 			return (1);
-	i = 0;
-	while (map[length - 1][i])
-		if (map[length - 1][i++] != '1')
-			return (1);
-	i = 1;
-	while (i < length - 1)
-		if (map[i][0] != '1' || map[i++][width - 1] != '1')
-			return (1);
+		if (tmp > width)
+			width = tmp;
+	}
+	if (backtrack(map, c))
+		return (2);
+	format_char_map(map);
+	format_width_map(map, width);
 	*map_x = width;
 	*map_y = length;
 	return (0);

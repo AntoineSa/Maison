@@ -87,5 +87,5 @@ t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 int				get_next_line(int fd, char **line);
 float			ft_atof(char *str);
 void			*ft_realloc(void *ptr, size_t count, size_t size);
-
+char			*ft_strnchr(char *s, int c, int n);
 #endif

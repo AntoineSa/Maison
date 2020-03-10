@@ -23,3 +23,15 @@ char	*ft_strchr(const char *s, int c)
 	else
 		return ((char *)s);
 }
+
+char	*ft_strnchr(const char *s, int c, int n)
+{
+	if (!s)
+		return (NULL);
+	while (*s != c && *s != '\0' && n--)
+		s++;
+	if (c != '\0' && *s == '\0')
+		return (NULL);
+	else
+		return ((char *)s);
+}
