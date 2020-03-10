@@ -71,8 +71,13 @@ static int	check_map_col(char **map, int *width, int x)
 	printf("x : %d\n", x);
 	while (map[i])
 	{
+		while (x > width[i] - 1)
+		{
+			printf("hey\n");
+			i++;
+		}
 		printf("1yo %d\n", i);
-		while (x < width[i] && map[i][x] == ' ')
+		while (map[i] && x < width[i] && map[i][x] == ' ')
 			i++;
 		printf("2yo %d\n", i);
 		if (map[i] && map[i][x] && map[i][x] != '1')
@@ -84,7 +89,7 @@ static int	check_map_col(char **map, int *width, int x)
 		while (map[i] && in_set(map[i][x], "012NSEW"))
 			i++;
 		printf("4yo %d\n", i);
-		if (map[i] && map[i][x] != ' ')
+		if (map[i] && (map[i][x] != ' ' && map[i][x]))
 			return (1);
 		else if (map[i] && (map[i][x] == ' ' && map[i - 1][x] != '1'))
 			return (1);
@@ -120,7 +125,7 @@ int	check_map(char **map, int *map_x, int *map_y)
 	i = 0;
 	while (i < width)
 	{
-		printf("before check\n");
+		printf("before check\twidth = %d\n", width);
 		if (check_map_col(map, tmp, i++))
 			return (9);
 		printf("after check\n");
