@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/04 19:03:59 by asablayr          #+#    #+#              #
-#    Updated: 2020/03/10 14:21:34 by asablayr         ###   ########.fr        #
+#    Updated: 2020/03/11 14:24:26 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ HEADER = cube.h
 MLX_PATH = /usr/local/lib/
 
 INCL_PATH = ./incl
+
+LIBFT_PATH = ./libft/
 
 NAME = Cub3D
 
@@ -51,17 +53,22 @@ OBJDIR = objs/
 
 all: $(NAME)
 
-$(NAME) : $(addprefix $(OBJDIR), $(OBJS))
-	$(CC) -o $(NAME) srcs/libft.a -L $(MLX_PATH) -lmlx -framework OpenGL -framework Appkit $(addprefix $(OBJDIR), $(OBJS)) -g3 -fsanitize=address
-	
+$(NAME) : makelibft  $(addprefix $(OBJDIR), $(OBJS))
+	$(CC) -o $(NAME) libft/libft.a -L $(MLX_PATH) -lmlx -framework OpenGL -framework Appkit $(addprefix $(OBJDIR), $(OBJS)) -g3 -fsanitize=address
+
+makelibft:
+		make -j8 -C $(LIBFT_PATH)
+
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) $(addprefix -I, $(INCL_PATH)) -c $^ -o $@
 
 clean:
+	make clean -C $(LIBFT_PATH)
 	rm -rf $(OBJDIR)
 
 fclean: clean
+	make fclean -C $(LIBFT_PATH)
 	rm -f $(NAME)
 
 re: fclean all

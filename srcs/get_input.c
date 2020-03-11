@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:14:38 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/07 11:54:21 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 11:53:07 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,18 @@ static int	key_release(int key, t_input *press)
 		press->right = 0;
 	if (key == 123)
 		press->left = 0;
-	if (key == 53)
+	if (key < 0 || key == 53)
 		press->pause = press->pause == 1 ? 0 : 1;
 	if (key == 257)
 		press->run = 0;
 	if (key == 49)
 		press->aim = 0;
+	return (0);
+}
+
+static int exit_game(t_input *press)
+{
+	press->pause = press->pause == 1 ? 0 : 1;
 	return (0);
 }
 
@@ -70,11 +76,11 @@ static void	init_press(t_input *press)
 	press->aim = 0;
 }
 
-void	set_hooks(void *mlx_ptr, void *win_ptr, t_game *g)
+void	set_hooks(t_game *g)
 {
 	init_press(&g->press);
-	mlx_loop_hook(mlx_ptr, &game_loop, g);
-	mlx_hook(win_ptr, 2, 0, &key_press, &g->press);
-	mlx_hook(win_ptr, 3, 0, &key_release, &g->press);
-	//mlx_hook(win_ptr, 17, 0, &close_win, g->set); exit not ready
+	mlx_loop_hook(g->mlx_ptr, &game_loop, g);
+	mlx_hook(g->win_ptr, 2, 0, &key_press, &g->press);
+	mlx_hook(g->win_ptr, 3, 0, &key_release, &g->press);
+	mlx_hook(g->win_ptr, 17, 0, &exit_game, &g->press);
 }

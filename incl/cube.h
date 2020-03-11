@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:10:13 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/10 14:20:30 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 10:40:16 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUBE_H
 
 # ifndef SPEED
-#  define SPEED	0.06
+#  define SPEED	0.05
 # endif
 
 # ifndef LOOK_SPEED
@@ -44,7 +44,9 @@ typedef	struct	s_player
 typedef	struct	s_image
 {
 	int		x;
+	float	x_txt;
 	int		y;
+	float	y_txt;
 	int		size_l;
 	int		bpp;
 	int		endian;
@@ -125,6 +127,7 @@ typedef struct	s_game
 	t_ray		r;
 	float		*z_buff;
 	int			sp_num;
+	int			s_dist;
 	t_sprite	*sp;
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -142,7 +145,7 @@ int				parse(t_settings *set);
 int				check_map(char **map, int *h, int *w);
 void			init_game(t_game *g);
 void			init_player(t_game *g);
-void			set_hooks(void *mlx_ptr, void *win_ptr, t_game *game);
+void			set_hooks(t_game *game);
 int				game_loop(t_game *game);
 void			move_front(t_player *p, t_game g);
 void			move_right(t_player *p, t_game g);
@@ -170,6 +173,6 @@ void			draw_hud(t_game g);
 t_sprite		*sort_sprite(t_sprite *sp, int count);
 void			draw_sprite(t_game g);
 void			screenshot(t_img i);
-void			clean_exit(int error, t_game *game);
+int				clean_exit(int error, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 13:43:50 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/10 13:27:27 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 09:56:55 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ void	draw_fov(t_game g)
 	double	i;
 	int		j;
 
-	dir = g.p.dir - M_PI / 6;
+	dir = g.p.dir - g.p.fov / 2;
 	i = g.p.fov / g.set.res_x;
 	j = 0;
-	while (dir <= g.p.dir + M_PI / 6)
+	while (dir <= g.p.dir + g.p.fov / 2)
 	{
-		draw_ray(g.img, g.p, dir, 10 * g.z_buff[j++]);
+		if (!g.press.aim)
+			draw_ray(g.img, g.p, dir, 10 * g.z_buff[j++]);
+		else
+			draw_ray(g.img, g.p, dir, 20 * g.z_buff[j++]);
 		dir += i;
 	}
 }

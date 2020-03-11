@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:13:47 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/10 14:29:50 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:04:01 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 int		game_loop(t_game *game)
 {
 	if (game->press.pause)
+	{
 		clean_exit(0, game);
+	}
 	if (game->press.w)
 		move_front(&game->p, *game);
 	if (game->press.d)
@@ -32,7 +34,7 @@ int		game_loop(t_game *game)
 		look_right(&game->p);
 	if (game->press.left)
 		look_left(&game->p);
-//	reset_dir(&game->p.dir);
+	reset_dir(&game->p.dir);
 	raycast(*game);
 	draw_window(game);
 	return (0);
@@ -70,7 +72,6 @@ int	main(int ac, char **av)
 	{
 		raycast(game);
 		screenshot(game.img);
-		return (0);
 	}
 	mlx_loop(game.mlx_ptr);
 	return (0);

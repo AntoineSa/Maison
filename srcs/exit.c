@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/10 14:31:50 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:00:26 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**init_err_msg(void)
 }
 
 
-void 		clean_exit(int err, t_game *g)
+int 		clean_exit(int err, t_game *g)
 {
 	char	**msg;
 
@@ -49,6 +49,7 @@ void 		clean_exit(int err, t_game *g)
 	{
 		mlx_destroy_image(g->mlx_ptr, g->win_ptr);
 		map_free(g->set.map);
+		free(g->z_buff);
 		exit(0);
 	}
 	msg = init_err_msg();
@@ -58,4 +59,5 @@ void 		clean_exit(int err, t_game *g)
 	ft_putstr_fd(msg[err], 1);
 	free(msg);
 	exit(0);
+	return (0);
 }

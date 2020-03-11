@@ -6,12 +6,13 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:23:21 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/04 08:20:37 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/11 10:43:10 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
+#include <math.h>
 #include "cube.h"
 
 static void	init_img(t_img *img, t_game *g)
@@ -21,7 +22,7 @@ static void	init_img(t_img *img, t_game *g)
 	img->ptr = mlx_new_image(g->mlx_ptr, g->set.res_x, g->set.res_y);
 	img->d_ptr = (int *)mlx_get_data_addr(img->ptr, &img->bpp, &img->size_l, &img->endian);
 	mlx_do_key_autorepeatoff(g->mlx_ptr);
-	set_hooks(g->mlx_ptr, g->win_ptr, g);
+	set_hooks(g);
 }
 
 static void	load_txt(t_img *t, t_game g, char *path)
@@ -46,4 +47,5 @@ void	init_game(t_game *g)
 	init_text(g);
 	init_sprite(g, g->set);
 	g->z_buff = (float *)malloc(sizeof(float) * g->set.res_x);
+	g->s_dist = (g->set.res_x / 2) / tan(g->p.fov / 2);
 }
