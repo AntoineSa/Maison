@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 12:37:57 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/05 16:29:45 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:52:52 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,5 @@ int	parse(t_settings *set)
 		return (5);
 	if (check_color(set->rgb_f, set->rgb_c))
 		return (6);
-	if (check_map(set->map, &set->map_x, &set->map_y))
-		return (7);
-	return (0);
+	return (check_map(set->map, &set->map_x, &set->map_y));
 }

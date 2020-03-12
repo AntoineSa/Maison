@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 12:11:43 by asablayr          #+#    #+#             */
-/*   Updated: 2020/03/11 12:00:26 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/12 19:05:29 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <mlx.h>
+#include <stdio.h>
 
 static void	map_free(char **map)
 {
@@ -28,7 +29,7 @@ static char	**init_err_msg(void)
 {
 	char	**msg;
 
-	msg = ft_calloc(sizeof(char *), 8);
+	msg = ft_calloc(sizeof(char *), 11);
 	msg[1] = "No file specified.\n";
 	msg[2] = "Specified file is not a .cub file.\n";
 	msg[3] = "Invalid screen resolution.\n";
@@ -36,7 +37,9 @@ static char	**init_err_msg(void)
 	msg[5] = "Wrong sprite texture path.\n";
 	msg[6] = "Invalid color.\n";
 	msg[7] = "Invalid map.\n";
-	msg[7] = "No player starting point.\n";
+	msg[8] = "Map not closed sides.\n";
+	msg[9] = "Map not closed top/bottom.\n";
+	msg[10] = "Map not closed south.\n";
 	return (msg);
 }
 
@@ -45,6 +48,7 @@ int 		clean_exit(int err, t_game *g)
 {
 	char	**msg;
 
+	printf("err : %d\n", err);
 	if (err == 0)
 	{
 		mlx_destroy_image(g->mlx_ptr, g->win_ptr);
