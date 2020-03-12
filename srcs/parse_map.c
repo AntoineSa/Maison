@@ -6,7 +6,7 @@
 /*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 11:20:16 by asablayr          #+#    #+#             */
-/*   Updated: 2020/02/22 09:38:17 by asablayr         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:10:16 by asablayr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/*static char		*spe_copy(char *str)
-{
-	char	*s;
-	char	*s1;
-	int		i;
-	int		j;
-	
-	if (!(s = (char *)malloc(sizeof(char) * ft_strlen(str))))
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[j])
-	{
-		if (str[j] != ' ')
-			s[i++] = str[j];
-		j++;
-	}
-	s[i] = '\0';
-	s1 = ft_strdup(s);
-	free(s);
-	free(str);
-	return (s1);
-}
-*/
-int	check_map_close(char **map, int x, int y)
-{
-	char	*cur;
-
-	cur = ft_strchr(map[0], '1');
-	map[y][x] = '.';
-	if (map[y][x + 1] == '1')
-		check_map_close(map, x + 1, y);
-	if (map[y + 1][x] == '1')
-		check_map_close(map, x, y + 1);
-	if (map[y - 1][x] == '1')
-		check_map_close(map, x, y - 1);
-	if (map[y][x - 1] == '1')
-		check_map_close(map, x + 1, y);
-	return (
-}
-
 int	in_set(char c, char *charset)
 {
 	while (*charset)
@@ -63,39 +22,64 @@ int	in_set(char c, char *charset)
 			return (1);
 	return (0);
 }
+
+int	check_ends(char *s)
+{
+	while (s)
+	{
+		while (*s == ' ')
+			s++;
+		if (*s != 1 && *s != '\0')
+			return (1);
+		while (*s == '1')
+			s++;
+		if (*s != ' ' && *s != '\0')
+			return (1);
+	}
+	return (0);
+}
+
 static int	check_map_line(char *str, int *width)
 {
 	int i;
 
 	i = 0;
-	while (str[i] == ' ')
-		i++;
 	while (str[i])
-		if (in_set(str[i++], " 012NESW") != '1')
+	{
+		while (str[i] == ' ')
+			i++;
+		if (str[i] != '1' && str[i] != '\0')
 			return (1);
+		while (str[i] && !in_set(str[i], "012NESW"))
+			i++;
+		if (str[i] != ' ' && str[i] != '\0')
+			return (1);
+		else if (str[i] == ' ' && str[i - 1] != '1')
+			return (1);
+	}
 	*width = i;
 	return (0);
 }
 
-int	backtrack(char **map, char c)
+static int	check_map_col(char **map, int *width, int x)
 {
-	char 	*cur;
-	int	x;
-	int	y;
+	int i;
 
-	y = 0;
-	while (!cur)
-		cur = ft_strchr(map[y++], c);
-	y--; 
-	x = map[y] - cur;
-	x1 = ft_strchr(map[y] + x, '1') - cur;
-	if (check_map_close(map, x + x1, y)
-		return (1);
-	if (ft_strnchr(map[y] + x
-	x1 = cur - ft_strrchr(map[y] + x, '1');
-	if (check_map_close(map, x - x1, y)
-		return (1);
-	y1 = search y;
+	i = 0;
+	while (map[i])
+	{
+		while ((x < width[i] && map[i][x] == ' ') || x >= width[i])
+			i++;
+		if (map[i] && map[i][x] != '1')
+			return (1);
+		while (map[i] && !in_set(map[i][x], "012NSEW"))
+			i++;
+		if (map[i] && map[i][x] != ' ')
+			return (1);
+		else if (map[i][x] == ' ' && map[i - 1][x] != '1')
+			return (1);
+	}
+	return (0);
 }
 
 int	check_map(char **map, int *map_x, int *map_y)
@@ -103,23 +87,30 @@ int	check_map(char **map, int *map_x, int *map_y)
 	int		i;
 	int		length;
 	int		width;
-	int		tmp;
+	int		*tmp;
 
 	i = 0;
 	length = 0;
-//	width = map[0][1] == ' ' ? (ft_strlen(map[0]) / 2) + 1 : ft_strlen(map[0]);
 	width = 0;
 	while (map[length])
+		length++;
+	if (check_ends(map[0]) || check_ends(map[length]))
+		return (1);
+	if (!(tmp = (int *)malloc(sizeof(int) * length)))
+		return (1);
+	while (i < length)
 	{
-		if (check_map_line(map[length++], &tmp) != 0)
+		if (check_map_line(map[i], &tmp[i]))
 			return (1);
-		if (tmp > width)
-			width = tmp;
+		if (tmp[i++] > width)
+			width = tmp[i - 1];
 	}
-	if (backtrack(map, c))
-		return (2);
-	format_char_map(map);
-	format_width_map(map, width);
+	i = 0;
+	while (i  < width)
+		if (check_map_col(map, tmp, i++))
+			return (1);
+//	format_char_map(map);
+//	format_width_map(map, width);
 	*map_x = width;
 	*map_y = length;
 	return (0);
