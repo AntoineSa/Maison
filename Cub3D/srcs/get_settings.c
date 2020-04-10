@@ -55,7 +55,7 @@ static char	*fill_fields(t_settings *set, int fd, char *str)
 			get_color(set->rgb_f, str);
 		else if (*str == 'C')
 			get_color(set->rgb_c, str);
-//		free(str);
+		free(str);
 	}
 	return (NULL);
 }

@@ -87,5 +87,7 @@ void	screenshot(t_img i)
 		create_body(body, i);
 		write(fd, h, 54);
 		write(fd, body, size);
+		free(h);
+		free(body);
 	}
 }

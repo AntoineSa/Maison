@@ -13,20 +13,17 @@
 #include <stddef.h>
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dst_size)
 {
-	int i;
+	size_t	src_size;
 
-	i = 0;
-	if (dstsize <= 0)
-		return (ft_strlen(src));
-	while (dstsize - 1 > 0 && src[i] != '\0')
+	src_size = ft_strlen(src);
+	if (src_size + 1 < dst_size)
+		ft_memcpy(dst, src, src_size + 1);
+	else if (dst_size)
 	{
-		dst[i] = src[i];
-		i++;
-		dstsize--;
+		ft_memcpy(dst, src, dst_size - 1);
+		dst[dst_size] = '\0';
 	}
-	if (dstsize >= 0)
-		dst[i] = '\0';
-	return (ft_strlen(src));
+	return (src_size);
 }

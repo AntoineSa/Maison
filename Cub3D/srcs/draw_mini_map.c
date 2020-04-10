@@ -13,6 +13,22 @@
 #include "cube.h"
 #include <math.h>
 
+int	scale_up_map(int s, int x, int y)
+{
+	if (x < y)
+		return (s * (s / y));
+	else
+		return (s * (s / x));
+}
+
+int	scale_down_map(int s, int x, int y)
+{
+	if (x < y)
+		return (s / (y / s));
+	else
+		return (s / (x / s));
+}
+
 void	draw_player(t_img i, int c, int x, int y)
 {
 	int	k;
@@ -55,6 +71,10 @@ void	draw_map(t_game g)
 
 	y = 0;
 	s = BLOCK_MAP;
+	if (g.set.map_y > 10 || g.set.map_y > 10)
+		s = scale_down_map(s, g.set.map_x, g.set.map_y);
+	else if (g.set.map_y < 10 || g.set.map_y < 10)
+		s = scale_up_map(s, g.set.map_x, g.set.map_y);
 	while (y < g.set.map_y)
 	{
 		x = 0;

@@ -31,13 +31,11 @@ static int		check_wall_v(t_game g, float x, float y)
 	return (g.set.map[(int)y][(int)x] - '0');
 }
 
-static float	*get_v_const(float dir)
+static void	get_v_const(float dir, float *ray_x, float *ray_y)
 {
 	float	x_a;
 	float	y_a;
-	float	*ray;
 
-	ray = ft_calloc(sizeof(float), 2);
 	if (dir == M_PI_2 || dir == 3 * M_PI_2)
 		x_a = 0;
 	else if ((dir >= 0 && dir < M_PI_2) || (dir > 3 * M_PI_2 && dir <= 2 * M_PI))
@@ -54,47 +52,37 @@ static float	*get_v_const(float dir)
 		y_a = tan(dir);
 	else
 		y_a = -tan(dir);
-	ray[0] = x_a;
-	ray[1] = y_a;
-	return (ray);
+	*ray_x = x_a;
+	*ray_y = y_a;
 }
 
-static float		*get_first_v_point(t_player p, float c, double d)
+static void	get_first_v(t_player p, double d, float *ray0, float *ray1)
 {
-	float	*ray;
-
-	ray = ft_calloc(sizeof(float), 2);
 	if (d < M_PI_2 || d > 3 * M_PI_2)
-		ray[0] = (int)p.x + 1;
+		*ray0 = (int)p.x + 1;
 	else
-		ray[0] = (int)p.x;
-	c = 0;
-	ray[1] = p.y + (ray[0] - p.x) * tan(d);//nope !!
-	return (ray);
+		*ray0 = (int)p.x;
+	*ray1 = p.y + (*ray0 - p.x) * tan(d);//nope !!
 }
 
 float				get_wall_v(t_game g, t_ray *r)
 {
 	int		check;
-	float	*const_v;
-	float	*ray;
+	float	const_v[2];
+	float	ray[2];
 	float	dist;
 
 	check = 0;
-	const_v = get_v_const(r->d);
-	ray = get_first_v_point(g.p, const_v[0], r->d);
-	check = check_wall_v(g, ray[0], ray[1]);
-	while (check != 1 && ray[0] <= g.set.map_x && ray[1] <= g.set.map_y
-			&& ray[0] >= 0 && ray[1] >= 0)
+	get_v_const(r->d, &const_v[0], &const_v[1]);
+	get_first_v(g.p, r->d, &ray[0], &ray[1]);
+	while ((check  = check_wall_v( g, ray[0], ray[1])) != 1)
 	{
 		ray[0] += const_v[0];
 		ray[1] += const_v[1];
-		check = check_wall_v(g, ray[0], ray[1]);
 	}
 	r->v_x = ray[0];
 	r->v_y = ray[1];
 	dist = sqrt(pow((g.p.x - ray[0]), 2) + pow((g.p.y - ray[1]), 2));
 	dist = cos(g.p.dir - r->d) * dist;
-	free(const_v);
 	return (dist);
 }

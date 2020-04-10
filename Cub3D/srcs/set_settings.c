@@ -35,7 +35,7 @@ char	*get_text(char *str)
 {
 	while (*str == ' ')
 			str++;
-	return (str);
+	return (ft_strdup(str));
 }
 
 void	get_res(int *res_x, int *res_y, char *str)

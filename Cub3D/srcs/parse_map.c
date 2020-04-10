@@ -13,7 +13,6 @@
 #include "cube.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 int	in_set(char c, char *charset)
 {
@@ -68,32 +67,20 @@ static int	check_map_col(char **map, int *width, int x)
 	int i;
 
 	i = 0;
-	printf("x : %d\n", x);
 	while (map[i])
 	{
 		while (x > width[i] - 1)
-		{
-			printf("hey\n");
 			i++;
-		}
-		printf("1yo %d\n", i);
 		while (map[i] && x < width[i] && map[i][x] == ' ')
 			i++;
-		printf("2yo %d\n", i);
 		if (map[i] && map[i][x] && map[i][x] != '1')
-		{
-			printf("map[i][x] : %d\n", (int)map[i][x]);
 			return (1);
-		}
-		printf("3yo %d\n", i);
 		while (map[i] && in_set(map[i][x], "012NSEW"))
 			i++;
-		printf("4yo %d\n", i);
 		if (map[i] && (map[i][x] != ' ' && map[i][x]))
 			return (1);
 		else if (map[i] && (map[i][x] == ' ' && map[i - 1][x] != '1'))
 			return (1);
-		printf("5yo %d\n", i);
 	}
 	return (0);
 }
@@ -110,7 +97,6 @@ int	check_map(char **map, int *map_x, int *map_y)
 	width = 0;
 	while (map[length])
 		length++;
-	printf("length : %d\nmap[0] : %s\nmap[length - 1] %s\n", length, map[0], map[length - 1]);
 	if (check_ends(map[0]) || check_ends(map[length - 1]))
 		return (7);
 	if (!(tmp = (int *)malloc(sizeof(int) * length)))
@@ -124,14 +110,9 @@ int	check_map(char **map, int *map_x, int *map_y)
 	}
 	i = 0;
 	while (i < width)
-	{
-		printf("before check\twidth = %d\n", width);
 		if (check_map_col(map, tmp, i++))
 			return (9);
-		printf("after check\n");
-	}
-//	format_char_map(map);
-//	format_width_map(map, width);
+	free(tmp);
 	*map_x = width;
 	*map_y = length;
 	return (0);
