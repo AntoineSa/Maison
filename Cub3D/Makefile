@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang-9
 
 CFLAGS = -Wall -Werror -Wextra
 
@@ -54,7 +54,7 @@ OBJDIR = objs/
 all: $(NAME)
 
 $(NAME) : makelibft  $(addprefix $(OBJDIR), $(OBJS))
-	$(CC) -o $(NAME) libft/libft.a -L $(MLX_PATH) -lmlx -framework OpenGL -framework Appkit $(addprefix $(OBJDIR), $(OBJS)) -g3 -fsanitize=address
+	$(CC) -o $(NAME) $(addprefix $(OBJDIR), $(OBJS)) libft/libft.a -L $(MLX_PATH) -lmlx -lXext -lX11 -lbsd -g3 -fsanitize=address
 
 makelibft:
 		make -j8 -C $(LIBFT_PATH)

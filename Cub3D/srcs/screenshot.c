@@ -62,7 +62,7 @@ void	create_body(unsigned char *data, t_img i)
 		l = 0;
 		while (l < i.x)
 		{
-			ft_memcpy(&data[k], &i.d_ptr[j * (i.size_l / 4) + l], sizeof(int));
+			ft_memcpy(&data[k], &i.d_ptr[j * i.size_l + l], sizeof(int));
 			l++;
 			k += 4;
 		}

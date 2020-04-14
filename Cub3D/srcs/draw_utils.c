@@ -16,7 +16,7 @@
 
 unsigned int	get_txt_color(t_img t, int x, int y)
 {
-	return (t.d_ptr[x + (y * t.size_l / 4)]);
+	return (t.d_ptr[x + (y * t.size_l)]);
 }
 
 t_img	select_text(t_game g)
@@ -37,7 +37,7 @@ void			draw_square(t_img img, int c, int x, int y)
 	{
 		i = 0;
 		while (i < BLOCK_MAP)
-			img.d_ptr[(j + y) * (img.size_l / 4) + x + i++] = c;
+			img.d_ptr[(j + y) * (img.size_l) + x + i++] = c;
 		j++;
 	}
 }
@@ -50,7 +50,7 @@ void			draw_ray(t_img i, t_player p, double dir, int d)
 	{
 		p.x += cos(dir);
 		p.y += sin(dir);
-		i.d_ptr[(int)(p.y) * (i.size_l / 4) + (int)(p.x)] = 0xffffff;
+		i.d_ptr[(int)(p.y) * i.size_l + (int)(p.x)] = 0xffffff;
 	}
 }
 
@@ -59,5 +59,5 @@ void		draw_line(t_img i, int x, int y, int dist)
 	x *= 10;
 	y *= 10;
 	while (dist--)
-		i.d_ptr[y * (i.size_l / 4) + x++] = 0xff0000;
+		i.d_ptr[y * i.size_l + x++] = 0xff0000;
 }

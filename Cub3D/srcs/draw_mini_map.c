@@ -39,7 +39,7 @@ void	draw_player(t_img i, int c, int x, int y)
 	{
 		k = 0;
 		while (k < BLOCK_MAP / 2)
-			i.d_ptr[(j + y) * (i.size_l / 4) + x + k++] = c;
+			i.d_ptr[(j + y) * i.size_l + x + k++] = c;
 		j++;
 	}
 }

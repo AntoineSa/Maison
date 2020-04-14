@@ -16,6 +16,34 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int	skip_pix(t_img t, int j, int i)
+{
+	if (get_txt_color(t, j * t.x_txt, i * t.y_txt) == 0)
+		return (1);
+	return (0);
+}
+
+int	set_xscreen(t_game g, t_img *t, t_sprite sp)
+{
+	int	x_screen;
+	
+	t->x_txt = t->x / (BLOCK_SIZE / sp.dist * g.s_dist);
+	x_screen = g.set.res_x / 2;
+	x_screen += (sp.dir - g.p.dir) / (g.p.fov / 2) * (g.set.res_x / 2);
+	x_screen -= (t->x / t->x_txt) / 2;
+	return (x_screen);
+}
+
+int	set_yscreen(t_game g, t_img *t, t_sprite sp)
+{
+	int	y_screen;
+	
+	t->y_txt = t->y / (BLOCK_SIZE / sp.dist * g.s_dist);
+	y_screen = g.set.res_y / 2;
+	y_screen -= (t->y / t->y_txt) / 2;
+	return (y_screen);
+}
+
 void	put_sprite_to_img(t_sprite sp, t_game g)
 {
 	t_img	t;
@@ -23,35 +51,21 @@ void	put_sprite_to_img(t_sprite sp, t_game g)
 	int		j;
 	int		x_screen;
 	int		y_screen;
-	int		s_dist;
 
-	s_dist = (g.set.res_x / 2) / tan(g.p.fov / 2);
-	j = 0;
 	t = g.txt[4];
-	x_screen = g.set.res_x / 2 + ((sp.dir - g.p.dir) / (g.p.fov / 2)) * (g.set.res_x / 2);
-	t.y_txt = t.y / (BLOCK_SIZE / sp.dist * s_dist);
-	y_screen = g.set.res_y / 2;
-	t.x_txt = t.x / (BLOCK_SIZE / sp.dist * s_dist);
-	x_screen -= (t.x / t.x_txt) / 2;
-	y_screen -= (t.y / t.y_txt) / 2;
-//	printf("\n\ng.set.x = %d\tt.x = %d\tx_screen = %d\tx_txt = %f\n", g.set.res_x, t.x, x_screen, x_txt);
-//	printf("g.set.y = %d\tt.y = %d\ty_screen = %d\ty_txt = %f\n", g.set.res_y, t.y, y_screen, y_txt);
-	i = 0;
-	if (x_screen < 0)
-		j = -x_screen;
-	if (y_screen < 0)
-		i = -y_screen;
-//	printf("before while\n");
+	j = ((x_screen = set_xscreen(g, &t, sp)) < 0) ? -x_screen : 0;
+	i = ((y_screen = set_yscreen(g, &t, sp)) < 0) ? -y_screen : 0;
 	while (j * t.x_txt < t.x && j + x_screen < g.set.res_x)//opti switch from line to column
 	{
-		i = 0;
 		while (i * t.y_txt < t.y && i + y_screen < g.set.res_y)
 		{
-			if (get_txt_color(t, j * t.x_txt, i * t.y_txt) != 0xff000000 && g.z_buff[j + x_screen] > sp.dist)
-				g.img.d_ptr[(i + y_screen) * (g.img.size_l / 4) +  x_screen + j] = get_txt_color(t, j * t.x_txt, i * t.y_txt);
+			g.img.index = (i + y_screen) * g.img.size_l + x_screen + j;
+			if (!(skip_pix(t, j, i)) && g.z_buff[j + x_screen] > sp.dist)
+				g.img.d_ptr[g.img.index] = get_txt_color(t, j * t.x_txt, i * t.y_txt);
 			i++;
 		}
 		j++;
+		i = (y_screen < 0) ? -y_screen : 0;
 	}
 }
 
@@ -60,14 +74,18 @@ static float	sprite_dist(t_player p, t_sprite sp)
 	float r;
 
 	r  = sqrt(pow(p.x - sp.x, 2) + pow(p.y - sp.y, 2));
-	return (r);
+	return (cos(p.dir - sp.dir) * r);
 }
 
-int		is_in_fov(t_player p, t_sprite sp, t_game *g)
+static int		is_in_fov(t_player p, t_sprite sp)
 {
-	if (sp.dir > p.dir - M_PI / 6 && sp.dir < p.dir + M_PI / 6)
-		if (get_dist(*g, sp.dir, &g->r) > sprite_dist(p, sp))
-			return (1);
+	double	left;
+	double	right;
+
+	left = sp.dir - atan(sp.dist / (sp.x / 2));//waiting for test
+	right = sp.dir + atan(sp.dist / (sp.x / 2));//waiting for test
+	if (right > p.dir - M_PI / 6 && left < p.dir + M_PI / 6)
+		return (1);
 	return (0);
 }
 
@@ -95,15 +113,9 @@ void	draw_sprite(t_game g)
 	i = 0;
 	while (i < g.sp_num)
 	{
+		g.sp[i].dist = sprite_dist(g.p, g.sp[i]);
 		g.sp[i].dir = sprite_dir(g.p, g.sp[i]);
-//		printf("p.dir : %f - %f\tsp.dir : %f\n", g.p.dir-g.p.fov/2, g.p.dir+g.p.fov/2, g.sp[i].dir);
-
-		if (is_in_fov(g.p, g.sp[i], &g))
-		{
-//			printf("sp[%i] in fov\n", i);
-			g.sp[i].dist = sprite_dist(g.p, g.sp[i]);
-		}
-		else
+		if (!is_in_fov(g.p, g.sp[i]))
 			g.sp[i].dist = -1;
 		i++;
 	}

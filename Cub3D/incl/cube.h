@@ -50,8 +50,9 @@ typedef	struct	s_image
 	int		size_l;
 	int		bpp;
 	int		endian;
-	void	*ptr;
+	void		*ptr;
 	int		*d_ptr;
+	int		index;
 }				t_img;
 
 typedef	struct	s_ray
