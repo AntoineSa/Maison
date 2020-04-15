@@ -40,6 +40,8 @@ static char	**init_err_msg(void)
 	msg[8] = "Map not closed sides.\n";
 	msg[9] = "Map not closed top/bottom.\n";
 	msg[10] = "Map not closed south.\n";
+	msg[11] = "No player starting point.\n";
+	msg[12] = "Multiple player starting point.\n";
 	return (msg);
 }
 
@@ -48,7 +50,6 @@ int 		clean_exit(int err, t_game *g)
 {
 	char	**msg;
 
-	printf("err : %d\n", err);
 	if (err == 0)
 	{
 		mlx_destroy_image(g->mlx_ptr, g->win_ptr);

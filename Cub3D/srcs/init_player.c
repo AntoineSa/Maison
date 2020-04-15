@@ -33,13 +33,13 @@ static int			get_pos_player(char **map, int *i, int *j)
 {
 	while (map[*i])
 	{
-		*j = 1;
 		while (map[*i][*j])
 		{
 			if (in_set(map[*i][*j], "NESW"))
 				return (1);
 			(*j)++;
 		}
+		*j = 1;
 		(*i)++;
 	}
 	return (0);
@@ -53,7 +53,7 @@ void			init_player(t_game *g)
 	i = 1;
 	j = 1;
 	if (!(get_pos_player(g->set.map, &i, &j)))
-		clean_exit(4, g);
+		clean_exit(11, g);
 	g->p.x = j + 0.5;
 	g->p.y = i + 0.5;
 	g->p.dir = set_dir(g->set.map[i][j]);
@@ -61,4 +61,6 @@ void			init_player(t_game *g)
 	g->p.fov = M_PI / 3;
 	g->p.life = 100;
 	g->p.stamina = 100;
+	if (get_pos_player(g->set.map, &i, &j))
+		clean_exit(12, g);
 }

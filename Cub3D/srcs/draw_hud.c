@@ -11,16 +11,31 @@
 /* ************************************************************************** */
 
 #include "cube.h"
+#include <stdio.h>
+
+static void	draw_red_line(t_img i, int x, int y, int dist)
+{
+	x *= 10;
+	while (dist--)
+		i.d_ptr[y * i.size_l + x++] = 0xff0000;
+}
 
 static void	draw_life(t_game g, t_player p)
 {
 	int	length;
 	int i;
 
-	length = 100 - p.life;
+	length = p.life;
 	i = 0;
-	while (i > 10)
-		draw_line(g.img, g.set.res_x - 20, i++, length);
+	while (i < 10)
+		draw_red_line(g.img, g.set.res_x - 20, i++, length);
+}
+
+static void	draw_blue_line(t_img i, int x, int y, int dist)
+{
+	x *= 10;
+	while (dist--)
+		i.d_ptr[y * i.size_l + x++] = 0x0000ff;
 }
 
 static void	draw_stamina(t_game g, t_player p)
@@ -28,10 +43,10 @@ static void	draw_stamina(t_game g, t_player p)
 	int	length;
 	int i;
 
-	length = 100 - p.stamina;
+	length = p.stamina;
 	i = 0;
-	while (i > 10)
-		draw_line(g.img, g.set.res_x - 20, 20 + i++, length);
+	while (i < 10)
+		draw_blue_line(g.img, g.set.res_x - 20, 20 + i++, length);
 }
 
 void		draw_hud(t_game g)

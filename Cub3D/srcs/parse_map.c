@@ -22,7 +22,7 @@ int	in_set(char c, char *charset)
 	return (0);
 }
 
-int	check_ends(char *s)
+static int	check_ends(char *s)
 {
 	while (*s)
 	{

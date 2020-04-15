@@ -57,7 +57,6 @@ void			draw_ray(t_img i, t_player p, double dir, int d)
 void		draw_line(t_img i, int x, int y, int dist)
 {
 	x *= 10;
-	y *= 10;
 	while (dist--)
-		i.d_ptr[y * i.size_l + x++] = 0xff0000;
+		i.d_ptr[y * i.size_l + x++] = 0xff00ff;
 }

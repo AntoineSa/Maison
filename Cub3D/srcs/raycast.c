@@ -60,7 +60,11 @@ void		raycast(t_game g)
 		g.z_buff[j++] = dist;
 		d += i;
 	}
+	printf("ok walls\n");
 	draw_sprite(g);
+	printf("ok sprite\n");
 	draw_map(g);
+	printf("ok map\n");
 	draw_hud(g);
+	printf("ok hud\n");
 }
