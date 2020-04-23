@@ -49,7 +49,7 @@ static int	check_map_line(char *str, int *width)
 			i++;
 		if (str[i] != '1' && str[i] != '\0')
 			return (1);
-		while (str[i] && in_set(str[i], "012NESW"))
+		while (str[i] && in_set(str[i], CHARSET))
 			i++;
 		if (str[i] != ' ' && str[i] != '\0')
 		{
@@ -75,7 +75,7 @@ static int	check_map_col(char **map, int *width, int x)
 			i++;
 		if (map[i] && map[i][x] && map[i][x] != '1')
 			return (1);
-		while (map[i] && in_set(map[i][x], "012NSEW"))
+		while (map[i] && in_set(map[i][x], CHARSET))
 			i++;
 		if (map[i] && (map[i][x] != ' ' && map[i][x]))
 			return (1);

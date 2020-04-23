@@ -33,10 +33,10 @@ void			draw_square(t_img img, int c, int x, int y)
 	int	j;
 
 	j = 0;
-	while (j < BLOCK_MAP)
+	while (j <= img.index)
 	{
 		i = 0;
-		while (i < BLOCK_MAP)
+		while (i <= img.index)
 			img.d_ptr[(j + y) * (img.size_l) + x + i++] = c;
 		j++;
 	}
@@ -44,8 +44,8 @@ void			draw_square(t_img img, int c, int x, int y)
 
 void			draw_ray(t_img i, t_player p, double dir, int d)
 {
-	p.x *= 10;
-	p.y *= 10;
+//	p.x *= 10;
+//	p.y *= 10;
 	while (d--)
 	{
 		p.x += cos(dir);

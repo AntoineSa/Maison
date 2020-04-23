@@ -12,39 +12,42 @@
 
 #include "cube.h"
 #include <math.h>
+#include <stdio.h>
 
-int	scale_up_map(int s, int x, int y)
+float	scale_up_map(float s, int x, int y)
+{
+	if (x < y)
+		return ((BLOCK_SIZE * (s / y)));
+	else
+		return ((BLOCK_SIZE * (s / x)));
+}
+
+float	scale_down_map(float s, int x, int y)
 {
 	if (x < y)
 		return (s * (s / y));
 	else
-		return (s * (s / x));
+		return (s * (x / s));
 }
 
-int	scale_down_map(int s, int x, int y)
-{
-	if (x < y)
-		return (s / (y / s));
-	else
-		return (s / (x / s));
-}
-
-void	draw_player(t_img i, int c, int x, int y)
+static void	draw_player(t_img i, int x, int y)
 {
 	int	k;
 	int	j;
+	int	c;
 
 	j = 0;
-	while (j < BLOCK_MAP / 2)
+	c = 55260;
+	while (j < i.index)
 	{
 		k = 0;
-		while (k < BLOCK_MAP / 2)
+		while (k < i.index)
 			i.d_ptr[(j + y) * i.size_l + x + k++] = c;
 		j++;
 	}
 }
 
-void	draw_fov(t_game g)
+static void	draw_fov(t_game g, float s)
 {
 	double	dir;
 	double	i;
@@ -53,12 +56,16 @@ void	draw_fov(t_game g)
 	dir = g.p.dir - g.p.fov / 2;
 	i = g.p.fov / g.set.res_x;
 	j = 0;
+	g.p.x *= s;
+	g.p.x += s / 4;
+	g.p.y *= s;
+	g.p.y += s / 4;
 	while (dir <= g.p.dir + g.p.fov / 2)
 	{
 		if (!g.press.aim)
-			draw_ray(g.img, g.p, dir, 10 * g.z_buff[j++]);
+			draw_ray(g.img, g.p, dir, s * g.z_buff[j++]);
 		else
-			draw_ray(g.img, g.p, dir, 20 * g.z_buff[j++]);
+			draw_ray(g.img, g.p, dir, 2 * s * g.z_buff[j++]);
 		dir += i;
 	}
 }
@@ -67,18 +74,20 @@ void	draw_map(t_game g)
 {
 	int x;
 	int y;
-	int s;
+	float s;
 
 	y = 0;
-	s = BLOCK_MAP;
-	if (g.set.map_y > 10 || g.set.map_y > 10)
+	s = (g.img.x > g.img.y) ? g.img.y : g.img.x;
+	s/= 4;
+	if (g.set.map_y > s || g.set.map_x > s)
 		s = scale_down_map(s, g.set.map_x, g.set.map_y);
-	else if (g.set.map_y < 10 || g.set.map_y < 10)
+	else if (g.set.map_y < s || g.set.map_x < s)
 		s = scale_up_map(s, g.set.map_x, g.set.map_y);
+	g.img.index = s;
 	while (y < g.set.map_y)
 	{
 		x = 0;
-		while (x < g.set.map_x)
+		while (g.set.map[y][x] && x < g.set.map_x)
 		{
 			if (g.set.map[y][x] == '0')
 				draw_square(g.img, 0, x * s, y * s);
@@ -87,7 +96,7 @@ void	draw_map(t_game g)
 			x++;
 		}
 		y++;
-		draw_player(g.img, 55260, (int)(g.p.x * s), (int)(g.p.y * s));
-		draw_fov(g);
+		draw_fov(g, s);
+		draw_player(g.img, g.p.x * s, g.p.y * s);
 	}
 }

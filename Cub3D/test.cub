@@ -1,4 +1,4 @@
-R 900 600
+R 900 800
 NO ./textures/assets_textures_bookshelf.xpm
 SO ./textures/assets_textures_bricks.xpm
 WE ./textures/assets_textures_chiseled_red_sandstone.xpm
@@ -10,6 +10,7 @@ F 220,100,0
 C 135,206,235
 
 
+111
 111
 101
 111111   1111  

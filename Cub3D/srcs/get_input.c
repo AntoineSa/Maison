@@ -79,8 +79,8 @@ static void	init_press(t_input *press)
 void	set_hooks(t_game *g)
 {
 	init_press(&g->press);
-	mlx_loop_hook(g->mlx_ptr, &game_loop, g);
 	mlx_hook(g->win_ptr, 2, 0, &key_press, &g->press);
 	mlx_hook(g->win_ptr, 3, 0, &key_release, &g->press);
 	mlx_hook(g->win_ptr, 17, 0, &exit_game, &g->press);
+	mlx_loop_hook(g->mlx_ptr, &game_loop, g);
 }

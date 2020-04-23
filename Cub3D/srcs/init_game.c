@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "cube.h"
+#include <stdio.h>
 
 static void	init_img(t_img *img, t_game *g)
 {
@@ -22,11 +23,11 @@ static void	init_img(t_img *img, t_game *g)
 	img->ptr = mlx_new_image(g->mlx_ptr, g->set.res_x, g->set.res_y);
 	img->d_ptr = (int *)mlx_get_data_addr(img->ptr, &img->bpp, &img->size_l, &img->endian);
 	img->size_l /= 4;
-	mlx_do_key_autorepeatoff(g->mlx_ptr);
+//	mlx_do_key_autorepeatoff(g->mlx_ptr);
 	set_hooks(g);
 }
 
-static void	load_txt(t_img *t, t_game g, char *path)
+void	load_txt(t_img *t, t_game g, char *path)
 {
 	t->ptr = mlx_xpm_file_to_image(g.mlx_ptr, path, &t->x, &t->y);
 	t->d_ptr = (int *)mlx_get_data_addr(t->ptr, &t->bpp, &t->size_l, &t->endian);
@@ -40,6 +41,10 @@ static void	init_text(t_game *g)
 	load_txt(&(g->txt[2]), *g, g->set.t_s);
 	load_txt(&(g->txt[3]), *g, g->set.t_w);
 	load_txt(&(g->txt[4]), *g, g->set.t_sp);
+	load_txt(&(g->txt[5]), *g, "./textures/sniper.xpm");
+	load_txt(&(g->txt[6]), *g, "./textures/sniper_aim.xpm");
+	load_txt(&(g->txt[7]), *g, "./textures/red_cross.xpm");
+	load_txt(&(g->txt[8]), *g, "./textures/blue_light.xpm");
 }
 
 void	init_game(t_game *g)

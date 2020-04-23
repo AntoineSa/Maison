@@ -42,6 +42,7 @@ FILES = cube \
 		draw_mini_map \
 		draw_sprite \
 		draw_hud \
+		draw_aim \
 		screenshot \
 		exit
 

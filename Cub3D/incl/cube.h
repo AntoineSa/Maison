@@ -10,8 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+
 #ifndef CUBE_H
 # define CUBE_H
+
+# ifndef CHARSET
+#  define CHARSET	"012NESW"
+# endif
+
+# ifndef TXT_PATH
+#  define TXT_PATH	"./textures/"
+# endif
 
 # ifndef SPEED
 #  define SPEED	0.05
@@ -124,7 +134,7 @@ typedef struct	s_game
 	t_player	p;
 	t_input		press;
 	t_img		img;
-	t_img		txt[5];
+	t_img		txt[9];
 	t_ray		r;
 	float		*z_buff;
 	int			sp_num;
@@ -146,6 +156,7 @@ int				parse(t_settings *set);
 int				check_map(char **map, int *h, int *w);
 void			init_game(t_game *g);
 void			init_player(t_game *g);
+void			load_txt(t_img *t, t_game g, char *path);
 void			set_hooks(t_game *game);
 int				game_loop(t_game *game);
 void			move_front(t_player *p, t_game g);
@@ -168,9 +179,10 @@ void			draw_window(t_game *g);
 void			draw_ray(t_img i, t_player p, double dir, int d);
 void			draw_square(t_img i, int c, int x, int y);
 void			draw_line(t_img i, int x, int y, int dist);
-void			draw_player(t_img i, int c, int x, int y);
 void			draw_map(t_game g);
 void			draw_hud(t_game g);
+void			draw_aim(t_game g);
+int			skip_pix(t_img t, int j, int i);
 t_sprite		*sort_sprite(t_sprite *sp, int count);
 void			draw_sprite(t_game g);
 void			screenshot(t_img i);
