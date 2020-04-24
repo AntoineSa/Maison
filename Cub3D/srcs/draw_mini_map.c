@@ -96,7 +96,7 @@ void	draw_map(t_game g)
 			x++;
 		}
 		y++;
-		draw_fov(g, s);
-		draw_player(g.img, g.p.x * s, g.p.y * s);
 	}
+	draw_fov(g, s);
+	draw_player(g.img, g.p.x * s, g.p.y * s);
 }

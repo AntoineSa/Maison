@@ -65,6 +65,14 @@ typedef	struct	s_image
 	int		index;
 }				t_img;
 
+typedef struct	s_hud
+{
+	float	s;
+	int	offset;
+	int	offset_y;
+	t_img	t;
+}		t_hud;
+
 typedef	struct	s_ray
 {
 	float	h;
@@ -135,6 +143,7 @@ typedef struct	s_game
 	t_input		press;
 	t_img		img;
 	t_img		txt[9];
+	t_hud		hud[4];
 	t_ray		r;
 	float		*z_buff;
 	int			sp_num;
@@ -174,13 +183,14 @@ int				check_w(t_game g, float x, float y);
 t_img			select_text(t_game g);
 unsigned int	get_txt_color(t_img t, int x, int y);
 void			init_sprite(t_game *g, t_settings s);
+void			init_hud(t_game *g);
 void			draw_column(t_game g, double d, int x);
 void			draw_window(t_game *g);
 void			draw_ray(t_img i, t_player p, double dir, int d);
 void			draw_square(t_img i, int c, int x, int y);
 void			draw_line(t_img i, int x, int y, int dist);
 void			draw_map(t_game g);
-void			draw_hud(t_game g);
+void			draw_hud(t_game *g);
 void			draw_aim(t_game g);
 int			skip_pix(t_img t, int j, int i);
 t_sprite		*sort_sprite(t_sprite *sp, int count);

@@ -31,6 +31,7 @@ FILES = cube \
 		init_player \
 		init_game \
 		init_sprite \
+		init_hud \
 		get_input \
 		look \
 		move \

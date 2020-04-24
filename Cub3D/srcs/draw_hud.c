@@ -12,22 +12,20 @@
 
 #include "cube.h"
 
-void	draw_icon(t_img t, t_img img, int x, int y)
+void	draw_icon(t_hud hud, t_img img)
 {
-	float	s;
 	int	i;
 	int	j;
 
-	s = (float)t.y / (float)img.index;
 	j = 0;
-	while (j * s < t.y)
+	while (j * hud.s < hud.t.y)
 	{
 		i = 0;
-		img.index = (y + j) * img.size_l;
-		img.index += (x - (t.x / s) - 5 + i);
-		while (i * s < t.x)
+		img.index = (hud.offset_y + j) * img.size_l;
+		img.index += (hud.offset - (hud.t.x / hud.s) - 5 + i);
+		while (i * hud.s < hud.t.x)
 		{
-			img.d_ptr[img.index] = get_txt_color(t, i * s, j * s);
+			img.d_ptr[img.index] = get_txt_color(hud.t, i * hud.s, j * hud.s);
 			i++;
 			img.index++;
 		}
@@ -41,22 +39,17 @@ static void	draw_red_line(t_img i, int x, int y, int dist)
 		i.d_ptr[y * i.size_l + x++] = 0xff0000;
 }
 
-static void	draw_life(t_game g, t_player p)
+static void	draw_life(t_game g, t_hud hud, int life)
 {
 	float	length;
 	int	i;
-	int	offset;
-	int	offset_y;
 
-	offset = g.set.res_x / 10;//scale to ratio
-	offset_y = g.set.res_y / 50;//scale
-	length = offset * (p.life / 100);
+	length = (g.set.res_x / 10) * (life / 100); //pb
 	i = 0;
-	offset = g.set.res_x - (offset + offset / 9);//scale
-	g.img.index = offset_y;
-	draw_icon(g.txt[7], g.img, offset, offset_y);
-	while (i < offset_y)
-		draw_red_line(g.img, offset, offset_y + i++, length);
+	g.img.index = g.set.res_y / 50;
+	draw_icon(hud, g.img);
+	while (i < hud.offset_y)
+		draw_red_line(g.img, hud.offset, hud.offset_y + i++, length);
 }
 
 static void	draw_blue_line(t_img i, int x, int y, int dist)
@@ -65,27 +58,23 @@ static void	draw_blue_line(t_img i, int x, int y, int dist)
 		i.d_ptr[y * i.size_l + x++] = 0x0000ff;
 }
 
-static void	draw_stamina(t_game g, t_player p)
+static void	draw_stamina(t_game g, t_hud hud, int stamina)
 {
-	int	length;
+	float	length;
 	int	i;
-	int	offset;
-	int	offset_y;
 
-	offset = g.set.res_x / 10;//scale to ratio
-	offset_y = g.set.res_y / 50;//scale
-	length = offset * (p.stamina / 100);
+	length = (g.set.res_x / 10) * (stamina / 100);
 	i = 0;
-	offset = g.set.res_x - (offset + offset / 9);//scale
-	g.img.index = offset_y;
-	draw_icon(g.txt[8], g.img, offset, offset_y * 3);
-	while (i < offset_y)
-		draw_blue_line(g.img, offset, offset_y * 3 + i++, length);
+	g.img.index = g.set.res_y / 50;
+	draw_icon(hud, g.img);
+	while (i < g.img.index)
+		draw_blue_line(g.img, hud.offset, hud.offset_y + i++, length);
 }
 
-void		draw_hud(t_game g)
+void		draw_hud(t_game *g)
 {
-	draw_map(g);
-	draw_life(g, g.p);
-	draw_stamina(g, g.p);
+	draw_map(*g);
+	draw_life(*g, g->hud[0], g->p.life);
+	draw_stamina(*g, g->hud[1], g->p.stamina);
+//	draw_weapon(*g, g->hud[2]);
 }

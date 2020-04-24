@@ -36,6 +36,7 @@ int		game_loop(t_game *game)
 		look_left(&game->p);
 	reset_dir(&game->p.dir);
 	raycast(*game);
+	(game->press.aim) ? draw_aim(*game) : draw_hud(game);
 	draw_window(game);
 	return (0);
 }

@@ -61,5 +61,4 @@ void		raycast(t_game g)
 		d += i;
 	}
 	draw_sprite(g);
-	(g.press.aim) ? draw_aim(g) : draw_hud(g);
 }

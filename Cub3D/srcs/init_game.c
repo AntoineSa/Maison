@@ -53,6 +53,7 @@ void	init_game(t_game *g)
 	init_img(&(g->img), g);
 	init_text(g);
 	init_sprite(g, g->set);
+	init_hud(g);
 	g->z_buff = (float *)malloc(sizeof(float) * g->set.res_x);
 	g->s_dist = (g->set.res_x / 2) / tan(g->p.fov / 2);
 }
