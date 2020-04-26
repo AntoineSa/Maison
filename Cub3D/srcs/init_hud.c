@@ -21,10 +21,13 @@ static void	init_stamina_hud(t_game *g, t_hud *hud)
 
 static void	init_weapon_hud(t_game *g, t_hud *hud)
 {
-	hud->offset = (g->set.res_x - hud->t.x) / 2;
-	hud->offset_y = g->set.res_y - hud->t.y;
 	hud->t = g->txt[5];
-	hud->s = (float)hud->t.y / (float)hud->offset_y;
+	if (g->set.res_x < g->set.res_y)
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 3);
+	else
+		hud->s = (float)hud->t.y / (float)(g->set.res_y / 3);
+	hud->offset_y = (g->set.res_y - (hud->t.y / hud->s));
+	hud->offset = (g->set.res_x / 2);
 }
 
 static void	init_aim_hud(t_game *g, t_hud *hud)

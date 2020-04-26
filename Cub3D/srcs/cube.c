@@ -72,6 +72,7 @@ int	main(int ac, char **av)
 	if (ac == 3 && !ft_strncmp(av[2], "--save", 6))
 	{
 		raycast(game);
+		draw_hud(&game);
 		screenshot(game.img);
 	}
 	mlx_loop(game.mlx_ptr);

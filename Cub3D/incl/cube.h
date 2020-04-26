@@ -190,6 +190,7 @@ void			draw_ray(t_img i, t_player p, double dir, int d);
 void			draw_square(t_img i, int c, int x, int y);
 void			draw_line(t_img i, int x, int y, int dist);
 void			draw_map(t_game g);
+void			draw_weapon(t_game g, t_hud hud);
 void			draw_hud(t_game *g);
 void			draw_aim(t_game g);
 int			skip_pix(t_img t, int j, int i);

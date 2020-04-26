@@ -1,4 +1,4 @@
-R 1200 900
+R 600 900
 NO ./textures/assets_textures_bookshelf.xpm
 SO ./textures/assets_textures_bricks.xpm
 WE ./textures/assets_textures_chiseled_red_sandstone.xpm
