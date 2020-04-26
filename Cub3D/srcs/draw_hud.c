@@ -48,7 +48,7 @@ static void	draw_life(t_game g, t_hud hud, int life)
 	float	length;
 	int	i;
 
-	length = (g.set.res_x / 10) * (life / 100); //pb
+	length = (g.set.res_x / 10) * ((float)life / 100); //pb
 	i = 0;
 	draw_icon(hud, g.img);
 	while (i < hud.offset_y)
@@ -71,7 +71,7 @@ static void	draw_stamina(t_game g, t_hud hud, int stamina)
 	int	i;
 	int	width;
 
-	length = (g.set.res_x / 10) * (stamina / 100);
+	length = (g.set.res_x / 10) * ((float)stamina / 100);
 	i = 0;
 	width = g.set.res_y / 50;
 	draw_icon(hud, g.img);
