@@ -27,8 +27,6 @@ void	move_front(t_player *p, t_game g)
 		y += sin(p->dir) * SPEED;
 		p->stamina -= 1;
 	}
-	else if (p->stamina < 100)
-		p->stamina += 1;
 	if (check_w(g, x, p->y) != 1)
 		p->x = x;
 	if (check_w(g, p->x, y) != 1)
@@ -41,14 +39,12 @@ void	move_back(t_player *p, t_game g)
 
 	x = p->x - cos(p->dir) * SPEED;
 	y = p->y - sin(p->dir) * SPEED;
-	if (g.press.run)
+	if (g.press.run && p->stamina > 0)
 	{
 		x -= cos(p->dir) * SPEED;
 		y -= sin(p->dir) * SPEED;
 		p->stamina -= 1;
 	}
-	else if (p->stamina < 100)
-		p->stamina += 1;
 	if (check_w(g, x, p->y) != 1)
 		p->x = x;
 	if (check_w(g, p->x, y) != 1)
@@ -62,7 +58,7 @@ void	move_left(t_player *p, t_game g)
 
 	x = p->x + sin(p->dir) * SPEED;
 	y = p->y - cos(p->dir) * SPEED;
-	if (g.press.run)
+	if (g.press.run && p->stamina > 0)
 	{
 		x += sin(p->dir) * SPEED;
 		y += cos(p->dir) * SPEED;
@@ -80,7 +76,7 @@ void	move_right(t_player *p, t_game g)
 
 	x = p->x - sin(p->dir) * SPEED;
 	y = p->y + cos(p->dir) * SPEED;
-	if (g.press.run)
+	if (g.press.run && p->stamina > 0)
 	{
 		x -= sin(p->dir) * SPEED;
 		y -= cos(p->dir) * SPEED;

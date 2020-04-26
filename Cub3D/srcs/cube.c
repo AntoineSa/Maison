@@ -19,6 +19,8 @@ int		game_loop(t_game *game)
 {
 	if (game->press.pause)
 		clean_exit(0, game);
+	if (!game->press.run && game->p.stamina < 100)
+		game->p.stamina += 1;
 	if (game->press.w)
 		move_front(&game->p, *game);
 	if (game->press.d)
@@ -32,7 +34,7 @@ int		game_loop(t_game *game)
 	if (game->press.left)
 		look_left(&game->p);
 	if (sprite_bite(game))
-		game->p.life -= game->p.life / 5;
+		game->p.life -= 10;
 	reset_dir(&game->p.dir);
 	raycast(*game);
 	(game->press.aim) ? draw_aim(*game) : draw_hud(game);
