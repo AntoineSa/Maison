@@ -67,12 +67,22 @@ static int	check_text(char *s)
 	return (0);
 }
 
+int	check_utils(void)
+{
+	if (check_utils_txt("red_cross.xpm") || check_utils_txt("blue_light.xpm"))//BONUS
+		return (1);
+	if (check_utils_txt("sniper_aim.xpm") || check_utils_txt("sniper.xpm"))
+		return (1);//can improve
+	if (check_utils_txt("dead_screen.xpm"))
+		return (1);
+	return (0);
+}
+
 int	parse(t_settings *set)
 {
 	if (check_res(set->res_x, set->res_y))
 		return (3);
-	if (check_utils_txt("red_cross.xpm") || check_utils_txt("blue_light.xpm") ||//BONUS
-		check_utils_txt("sniper_aim.xpm") || check_utils_txt("sniper.xpm"))
+	if (check_utils())
 		return (4);//can improve
 	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
 			check_text(set->t_w))

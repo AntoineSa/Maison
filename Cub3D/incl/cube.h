@@ -143,8 +143,8 @@ typedef struct	s_game
 	t_player	p;
 	t_input		press;
 	t_img		img;
-	t_img		txt[9];
-	t_hud		hud[4];
+	t_img		txt[10];
+	t_hud		hud[5];
 	t_ray		r;
 	float		*z_buff;
 	int			sp_num;
@@ -192,6 +192,7 @@ void			draw_square(t_img i, int c, int x, int y);
 void			draw_line(t_img i, int x, int y, int dist);
 void			draw_map(t_game g);
 void			draw_weapon(t_game g, t_hud hud);
+void			draw_icon(t_hud t, t_img i);
 void			draw_hud(t_game *g);
 void			draw_aim(t_game g);
 int			skip_pix(t_img t, int j, int i);

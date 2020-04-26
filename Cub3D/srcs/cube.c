@@ -15,10 +15,24 @@
 #include "cube.h"
 #include "libft.h"
 
-int		game_loop(t_game *game)
+static void	display_death(t_game *g)
 {
-	if (game->press.pause)
-		clean_exit(0, game);
+	t_hud	*hud;
+
+	hud = &(g->hud[4]);
+	hud->t = g->txt[9];
+	if (g->set.res_x < g->set.res_y)
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
+	else
+		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
+	hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
+	hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
+	draw_icon(*hud, g->img);
+}
+	
+
+static void	play(t_game *game)
+{
 	if (!game->press.run && game->p.stamina < 100)
 		game->p.stamina += 1;
 	if (game->press.w)
@@ -40,12 +54,23 @@ int		game_loop(t_game *game)
 	(game->press.aim) ? draw_aim(*game) : draw_hud(game);
 	if (game->press.shoot)
 		shoot(game->p, game);
-	draw_window(game);
 	game->press.shoot = 0;
+}
+
+int		game_loop(t_game *game)
+{
+	if (game->press.pause)
+		clean_exit(0, game);
+	else if (game->p.life <= 0)
+		display_death(game);
+	else
+		play(game);
+	draw_window(game);
 	return (0);
 }
 
-int	check_ext(char *str)
+
+int		check_ext(char *str)
 {
 	char	*c;
 
@@ -58,7 +83,7 @@ int	check_ext(char *str)
 	return (0);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_game	game;
 	int		err;
