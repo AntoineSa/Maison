@@ -31,6 +31,8 @@ static int	key_press(int key, t_input *press)
 		press->run = 1;
 	if (key == 49)
 		press->aim = 1;
+	if (key == 49)//change key nb
+		press->shoot = 1;
 	return (0);
 }
 
@@ -74,6 +76,7 @@ static void	init_press(t_input *press)
 	press->pause = 0;
 	press->run = 0;
 	press->aim = 0;
+	press->shoot = 0;
 }
 
 void	set_hooks(t_game *g)

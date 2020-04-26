@@ -41,6 +41,7 @@ FILES = cube \
 		draw_utils \
 		draw_window \
 		draw_mini_map \
+		sprite \
 		draw_sprite \
 		draw_hud \
 		draw_aim \

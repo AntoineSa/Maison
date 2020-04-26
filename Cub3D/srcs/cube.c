@@ -14,14 +14,11 @@
 #include <mlx.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
 
 int		game_loop(t_game *game)
 {
 	if (game->press.pause)
-	{
 		clean_exit(0, game);
-	}
 	if (game->press.w)
 		move_front(&game->p, *game);
 	if (game->press.d)
@@ -34,10 +31,15 @@ int		game_loop(t_game *game)
 		look_right(&game->p);
 	if (game->press.left)
 		look_left(&game->p);
+	if (sprite_bite(game))
+		game->p.life -= game->p.life / 5;
 	reset_dir(&game->p.dir);
 	raycast(*game);
 	(game->press.aim) ? draw_aim(*game) : draw_hud(game);
+	if (game->press.shoot)
+		shoot(game->p, game);
 	draw_window(game);
+	game->press.shoot = 0;
 	return (0);
 }
 

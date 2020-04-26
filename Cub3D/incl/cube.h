@@ -125,15 +125,16 @@ typedef	struct	s_settings
 
 typedef struct	s_input
 {
-	int	w;
-	int	d;
-	int	s;
-	int	a;
-	int	right;
-	int	left;
-	int	aim;
-	int	run;
-	int	pause;
+	char	w;
+	char	d;
+	char	s;
+	char	a;
+	char	right;
+	char	left;
+	char	aim;
+	char	run;
+	char	pause;
+	char	shoot;
 }				t_input;
 
 typedef struct	s_game
@@ -194,8 +195,13 @@ void			draw_weapon(t_game g, t_hud hud);
 void			draw_hud(t_game *g);
 void			draw_aim(t_game g);
 int			skip_pix(t_img t, int j, int i);
+double			sprite_dir(t_player p, t_sprite sp);
+float			sprite_dist(t_player p, t_sprite sp);
+int			sp_in_fov(t_player p, t_sprite sp);
+int			sprite_bite(t_game *g);
+void			shoot(t_player p, t_game *g);
 t_sprite		*sort_sprite(t_sprite *sp, int count);
-void			draw_sprite(t_game g);
+void			draw_sprite(t_game *g);
 void			screenshot(t_img i);
 int				clean_exit(int error, t_game *game);
 

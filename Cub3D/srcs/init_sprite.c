@@ -57,6 +57,14 @@ int		count_sprite(t_settings s)
 	return (count);
 }
 
+static void	set_sprite(t_sprite *s, int x, int y)
+{
+	s->x = x + 0.5;
+	s->y = y + 0.5;
+	s->dist = -1;
+	s->dir = 0;
+}
+
 void	init_sprite(t_game *g, t_settings s)
 {
 	int i;
@@ -75,8 +83,7 @@ void	init_sprite(t_game *g, t_settings s)
 		{
 			if (s.map[j][i] == '2')
 			{
-				g->sp[k].x = i + 0.5;
-				g->sp[k++].y = j + 0.5;
+				set_sprite(&(g->sp[k++]), i, j);
 				g->set.map[j][i] = '0';
 			}
 			i++;

@@ -60,5 +60,5 @@ void		raycast(t_game g)
 		g.z_buff[j++] = dist;
 		d += i;
 	}
-	draw_sprite(g);
+	draw_sprite(&g);
 }
