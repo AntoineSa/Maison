@@ -45,7 +45,7 @@ static void	init_text(t_game *g)
 	load_txt(&(g->txt[6]), *g, "./textures/sniper_aim.xpm");
 	load_txt(&(g->txt[7]), *g, "./textures/red_cross.xpm");
 	load_txt(&(g->txt[8]), *g, "./textures/blue_light.xpm");
-	load_txt(&(g->txt[9]), *g, "./textures/death_screen.xpm");
+	load_txt(&(g->txt[9]), *g, "./textures/dead_screen.xpm");
 }
 
 void	init_game(t_game *g)

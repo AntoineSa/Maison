@@ -22,12 +22,20 @@ static void	display_death(t_game *g)
 	hud = &(g->hud[4]);
 	hud->t = g->txt[9];
 	if (g->set.res_x < g->set.res_y)
-		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
-	else
+	{
 		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
-	hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
-	hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
-	draw_icon(*hud, g->img);
+		hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
+		hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
+	}
+	else
+	{
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
+		hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
+		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
+		hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
+	}
+	draw_weapon(*hud, &g->img);
 }
 	
 

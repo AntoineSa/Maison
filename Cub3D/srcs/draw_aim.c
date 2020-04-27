@@ -1,26 +1,28 @@
 #include "cube.h"
 #include <stdio.h>
 
-void	draw_weapon(t_game g, t_hud h)
+void	draw_weapon(t_hud h, t_img *img)
 {
 	int	i;
 	int	j;
 	int	k;
+	int	*p;
 
 	j = 0;
-	g.img.d_ptr += h.offset_y * g.img.size_l;
-	g.img.d_ptr += h.offset;
+	p = img->d_ptr;
+	p += h.offset_y * img->size_l;
+	p += h.offset;
 	while (j * h.s < h.t.y)
 	{
 		i = 0;
 		while (i  * h.s < h.t.x)
 		{
 			if ((k = get_txt_color(h.t, i * h.s, j * h.s)))
-				*(g.img.d_ptr) = k;
+				*p = k;
 			i++;
-			g.img.d_ptr++;
+			p++;
 		}
-		g.img.d_ptr += g.img.size_l - i;
+		p += img->size_l - i;
 		j++;
 	}
 }

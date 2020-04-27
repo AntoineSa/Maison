@@ -42,6 +42,7 @@ static char	**init_err_msg(void)
 	msg[10] = "Map not closed south.\n";
 	msg[11] = "No player starting point.\n";
 	msg[12] = "Multiple player starting point.\n";
+	msg[13] = "Missing utils textures.\n";
 	return (msg);
 }
 

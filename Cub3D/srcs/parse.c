@@ -83,9 +83,9 @@ int	parse(t_settings *set)
 	if (check_res(set->res_x, set->res_y))
 		return (3);
 	if (check_utils())
-		return (4);//can improve
-	if (check_text(set->t_n) ||check_text(set->t_e) ||check_text(set->t_s) ||
-			check_text(set->t_w))
+		return (13);//can improve
+	if (check_text(set->t_n) ||check_text(set->t_e) || 
+		check_text(set->t_s) || check_text(set->t_w))
 		return (4);
 	if (check_text(set->t_sp))
 		return (5);
