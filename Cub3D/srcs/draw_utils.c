@@ -44,8 +44,6 @@ void			draw_square(t_img img, int c, int x, int y)
 
 void			draw_ray(t_img i, t_player p, double dir, int d)
 {
-//	p.x *= 10;
-//	p.y *= 10;
 	while (d--)
 	{
 		p.x += cos(dir);
@@ -54,9 +52,12 @@ void			draw_ray(t_img i, t_player p, double dir, int d)
 	}
 }
 
-void		draw_line(t_img i, int x, int y, int dist)
+void		draw_line(t_img *i, int x, int y, int dist)
 {
-	x *= 10;
+	int	*img;
+
+	img = i->d_ptr;
+	img += y * i->size_l + x;
 	while (dist--)
-		i.d_ptr[y * i.size_l + x++] = 0xff00ff;
+		*(img++) = 0xc0c0c0;
 }

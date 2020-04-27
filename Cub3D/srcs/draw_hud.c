@@ -85,4 +85,5 @@ void		draw_hud(t_game *g)
 	draw_life(*g, g->hud[0], g->p.life);
 	draw_stamina(*g, g->hud[1], g->p.stamina);
 	draw_weapon(g->hud[2], &g->img);
+	draw_cursor(&g->img);
 }
