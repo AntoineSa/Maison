@@ -14,7 +14,6 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <mlx.h>
-#include <stdio.h>
 
 static void	map_free(char **map)
 {
@@ -25,11 +24,32 @@ static void	map_free(char **map)
 		free(map[i++]);
 }
 
+static void	txt_free(t_game *g)
+{
+	mlx_destroy_image(g->mlx_ptr, g->hud[0].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[1].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[2].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[3].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[4].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[0].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[1].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[2].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[3].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[4].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[5].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[6].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[7].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[8].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[9].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->img.ptr);
+}
+
 static char	**init_err_msg(void)
 {
 	char	**msg;
 
-	msg = ft_calloc(sizeof(char *), 11);
+	if (!(msg = ft_calloc(sizeof(char *), 14)))
+		return (NULL);
 	msg[1] = "No file specified.\n";
 	msg[2] = "Specified file is not a .cub file.\n";
 	msg[3] = "Invalid screen resolution.\n";
@@ -43,6 +63,7 @@ static char	**init_err_msg(void)
 	msg[11] = "No player starting point.\n";
 	msg[12] = "Multiple player starting point.\n";
 	msg[13] = "Missing utils textures.\n";
+	msg[14] = "Invalid screen resolution.\n";
 	return (msg);
 }
 
@@ -53,7 +74,7 @@ int 		clean_exit(int err, t_game *g)
 
 	if (err == 0)
 	{
-		mlx_destroy_image(g->mlx_ptr, g->win_ptr);
+		txt_free(g);
 		map_free(g->set.map);
 		free(g->z_buff);
 		exit(0);
@@ -62,6 +83,8 @@ int 		clean_exit(int err, t_game *g)
 	ft_putstr_fd("Error\n", 1);
 	if (err > 2)
 		map_free(g->set.map);
+	if (err == 14)
+	mlx_destroy_image(g->mlx_ptr, g->img.ptr);
 	ft_putstr_fd(msg[err], 1);
 	free(msg);
 	exit(0);

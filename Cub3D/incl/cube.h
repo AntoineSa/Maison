@@ -195,7 +195,7 @@ void			draw_weapon(t_hud hud, t_img *img);
 void			draw_icon(t_hud t, t_img i);
 void			draw_cursor(t_img *img);
 void			draw_hud(t_game *g);
-void			draw_aim(t_game g);
+void			draw_aim(t_hud h, t_img *img);
 int			skip_pix(t_img t, int j, int i);
 double			sprite_dir(t_player p, t_sprite sp);
 float			sprite_dist(t_player p, t_sprite sp);

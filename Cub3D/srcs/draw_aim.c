@@ -51,20 +51,29 @@ void	draw_cursor(t_img *img)
 		draw_line(img, coor[0], coor[1] + i++, width);
 }
 
-void	draw_aim(t_game g)
+void	draw_aim(t_hud h, t_img *img)
 {
-//	int	i;
-//	int	j;
-	t_img	t;
+	int	i[2];
+	float	j;
+	int	k;
+	int	*p;
 
-	t = g.txt[6];
-//	j = 0;
-	printf("t.x : %d\tt.y : %d\n", t.x, t.y);
-}
-/*	while (j < g.set.res_y)
+	j = (float)h.t.x / (float)img-> x;
+	p = img->d_ptr;
+	p += h.offset_y * img->size_l;
+	p += h.offset;
+	i[1] = 0;
+	while (i[1] * h.s < h.t.y)
 	{
-		i = 0;
-		while (i < g.set.res_x)
+		i[0] = 0;
+		while (i[0] * j < h.t.x)
 		{
-			if (
-*/
+			if (!(k = get_txt_color(h.t, i[0] * j, i[1] * h.s)))
+				*p = k;
+			i[0]++;
+			p++;
+		}
+		p += img->size_l - i[0];
+		i[1]++;
+	}
+}

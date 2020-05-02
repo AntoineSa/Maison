@@ -46,10 +46,6 @@ static int	check_res(int x, int y)
 {
 	if (x <= 0 || y <= 0)
 		return (1);
-	if (x > 1920)
-		x = 1920;
-	if (y > 1200)
-		y = 1200;
 	return (0);
 }
 

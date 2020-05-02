@@ -38,7 +38,7 @@ t_sprite	*sort_sprite(t_sprite *sp, int count)
 	return (sp);
 }
 
-int		count_sprite(t_settings s)
+int			count_sprite(t_settings s)
 {
 	int i;
 	int	j;
@@ -65,7 +65,7 @@ static void	set_sprite(t_sprite *s, int x, int y)
 	s->dir = 0;
 }
 
-void	init_sprite(t_game *g, t_settings s)
+void		init_sprite(t_game *g, t_settings s)
 {
 	int i;
 	int j;

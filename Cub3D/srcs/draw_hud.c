@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-void	draw_icon(t_hud hud, t_img img)
+void		draw_icon(t_hud hud, t_img img)
 {
 	int	i;
 	int	j;
@@ -46,9 +46,9 @@ static void	draw_red_line(t_img i, int x, int y, int dist)
 static void	draw_life(t_game g, t_hud hud, int life)
 {
 	float	length;
-	int	i;
+	int		i;
 
-	length = (g.set.res_x / 10) * ((float)life / 100); //pb
+	length = (g.set.res_x / 10) * ((float)life / 100);
 	i = 0;
 	draw_icon(hud, g.img);
 	while (i < hud.offset_y)
@@ -68,8 +68,8 @@ static void	draw_blue_line(t_img i, int x, int y, int dist)
 static void	draw_stamina(t_game g, t_hud hud, int stamina)
 {
 	float	length;
-	int	i;
-	int	width;
+	int		i;
+	int		width;
 
 	length = (g.set.res_x / 10) * ((float)stamina / 100);
 	i = 0;

@@ -50,8 +50,14 @@ static void	init_text(t_game *g)
 
 void	init_game(t_game *g)
 {
+	int	x;
+	int	y;
+
 	init_player(g);
 	init_img(&(g->img), g);
+	mlx_get_screen_size(g->mlx_ptr, &x, &y);
+	if (g->set.res_x > x || g->set.res_y > y)
+		clean_exit(14, g);
 	init_text(g);
 	init_sprite(g, g->set);
 	init_hud(g);

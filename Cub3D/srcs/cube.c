@@ -37,7 +37,6 @@ static void	display_death(t_game *g)
 	}
 	draw_weapon(*hud, &g->img);
 }
-	
 
 static void	play(t_game *game)
 {
@@ -59,13 +58,13 @@ static void	play(t_game *game)
 		game->p.life -= 10;
 	reset_dir(&game->p.dir);
 	raycast(*game);
-	(game->press.aim) ? draw_aim(*game) : draw_hud(game);
+	(game->press.aim) ? draw_aim(game->hud[3], &game->img) : draw_hud(game);
 	if (game->press.shoot)
 		shoot(game->p, game);
 	game->press.shoot = 0;
 }
 
-int		game_loop(t_game *game)
+int			game_loop(t_game *game)
 {
 	if (game->press.pause)
 		clean_exit(0, game);
@@ -77,8 +76,7 @@ int		game_loop(t_game *game)
 	return (0);
 }
 
-
-int		check_ext(char *str)
+int			check_ext(char *str)
 {
 	char	*c;
 
@@ -91,7 +89,7 @@ int		check_ext(char *str)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_game	game;
 	int		err;
