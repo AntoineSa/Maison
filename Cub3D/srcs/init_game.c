@@ -18,7 +18,15 @@
 
 static void	init_img(t_img *img, t_game *g)
 {
+	int	x;
+	int	y;
+
 	g->mlx_ptr = mlx_init();
+	mlx_get_screen_size(g->mlx_ptr, &x, &y);
+	if (g->set.res_x > x)
+		g->set.res_x = x;
+	if (g->set.res_y > y)
+		g->set.res_y = y;
 	g->win_ptr = mlx_new_window(g->mlx_ptr, g->set.res_x, g->set.res_y, "Cub3D");
 	img->ptr = mlx_new_image(g->mlx_ptr, g->set.res_x, g->set.res_y);
 	img->d_ptr = (int *)mlx_get_data_addr(img->ptr, &img->bpp, &img->size_l, &img->endian);
@@ -50,14 +58,8 @@ static void	init_text(t_game *g)
 
 void	init_game(t_game *g)
 {
-	int	x;
-	int	y;
-
 	init_player(g);
 	init_img(&(g->img), g);
-	mlx_get_screen_size(g->mlx_ptr, &x, &y);
-	if (g->set.res_x > x || g->set.res_y > y)
-		clean_exit(14, g);
 	init_text(g);
 	init_sprite(g, g->set);
 	init_hud(g);

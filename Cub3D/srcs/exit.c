@@ -63,7 +63,6 @@ static char	**init_err_msg(void)
 	msg[11] = "No player starting point.\n";
 	msg[12] = "Multiple player starting point.\n";
 	msg[13] = "Missing utils textures.\n";
-	msg[14] = "Invalid screen resolution.\n";
 	return (msg);
 }
 
@@ -83,8 +82,6 @@ int 		clean_exit(int err, t_game *g)
 	ft_putstr_fd("Error\n", 1);
 	if (err > 2)
 		map_free(g->set.map);
-	if (err == 14)
-	mlx_destroy_image(g->mlx_ptr, g->img.ptr);
 	ft_putstr_fd(msg[err], 1);
 	free(msg);
 	exit(0);
