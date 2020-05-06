@@ -12,14 +12,13 @@
 
 #include "cube.h"
 #include <math.h>
-#include <stdio.h>
 
 unsigned int	get_txt_color(t_img t, int x, int y)
 {
 	return (t.d_ptr[x + (y * t.size_l)]);
 }
 
-t_img	select_text(t_game g)
+t_img			select_text(t_game g)
 {
 	if (g.r.side == 1)
 		return (g.r.d > M_PI ? g.txt[0] : g.txt[2]);
@@ -52,7 +51,7 @@ void			draw_ray(t_img i, t_player p, double dir, int d)
 	}
 }
 
-void		draw_line(t_img *i, int x, int y, int dist)
+void			draw_line(t_img *i, int x, int y, int dist)
 {
 	int	*img;
 

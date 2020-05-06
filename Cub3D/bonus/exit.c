@@ -27,11 +27,21 @@ static void	map_free(char **map)
 
 static void	txt_free(t_game *g)
 {
+	mlx_destroy_image(g->mlx_ptr, g->hud[0].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[1].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[2].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[3].t.ptr);
+	mlx_destroy_image(g->mlx_ptr, g->hud[4].t.ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[0].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[1].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[2].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[3].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[4].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[5].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[6].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[7].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[8].ptr);
+	mlx_destroy_image(g->mlx_ptr, g->txt[9].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->img.ptr);
 }
 
@@ -69,7 +79,7 @@ int			clean_exit(int err, t_game *g)
 	}
 	msg = init_err_msg();
 	ft_putstr_fd("Error\n", 1);
-	if (err > 3)
+	if (err > INV_CUB)
 		map_free(g->set.map);
 	ft_putstr_fd(msg[err], 1);
 	free(msg);

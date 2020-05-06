@@ -27,7 +27,7 @@ static int	check_wall_h(t_game g, float x, float y)
 		y = g.set.map_y - 1;
 	else if (y < 0)
 		y = 0;
-	return (g.set.map[(int)y][(int)x] -'0');
+	return (g.set.map[(int)y][(int)x] - '0');
 }
 
 static void	get_h_const(float dir, float *ray_x, float *ray_y)

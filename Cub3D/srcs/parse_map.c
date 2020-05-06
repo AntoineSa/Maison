@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "clean_exit.h"
 #include "libft.h"
 #include <stdlib.h>
 
-int	in_set(char c, char *charset)
+int			in_set(char c, char *charset)
 {
 	while (*charset)
 		if (c == *(charset++))
@@ -85,35 +86,31 @@ static int	check_map_col(char **map, int *width, int x)
 	return (0);
 }
 
-int	check_map(char **map, int *map_x, int *map_y)
+int			check_map(char **map, int *map_x, int *map_y)
 {
 	int		i;
-	int		length;
-	int		width;
 	int		*tmp;
 
 	i = 0;
-	length = 0;
-	width = 0;
-	while (map[length])
-		length++;
-	if (check_ends(map[0]) || check_ends(map[length - 1]))
-		return (7);
-	if (!(tmp = (int *)malloc(sizeof(int) * length)))
-		return (1);
-	while (i < length)
+	*map_x = 0;
+	*map_y = 0;
+	while (map[*map_y])
+		(*map_y)++;
+	if (check_ends(map[0]) || check_ends(map[*map_y - 1]))
+		return (INV_MAP);
+	if (!(tmp = (int *)malloc(sizeof(int) * *map_y)))
+		return (INV_MAP);
+	while (i < *map_y)
 	{
 		if (check_map_line(map[i], &tmp[i]))
-			return (8);
-		if (tmp[i++] > width)
-			width = tmp[i - 1];
+			return (INV_MAP);
+		if (tmp[i++] > *map_x)
+			*map_x = tmp[i - 1];
 	}
 	i = 0;
-	while (i < width)
+	while (i < *map_x)
 		if (check_map_col(map, tmp, i++))
-			return (9);
+			return (INV_MAP);
 	free(tmp);
-	*map_x = width;
-	*map_y = length;
 	return (0);
 }

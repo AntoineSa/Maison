@@ -13,22 +13,21 @@
 #include <math.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
 
-int	check_w(t_game g, float x, float y)
+int		check_w(t_game *g, float x, float y)
 {
-	if (g.r.d > M_PI && g.r.d <= 2 * M_PI)
+	if (g->r.d > M_PI && g->r.d <= 2 * M_PI)
 		y = (int)y - 1;
 	else
 		y = (int)y;
-	if (g.r.d > M_PI_2 && g.r.d < 3 * M_PI_2)
+	if (g->r.d > M_PI_2 && g->r.d < 3 * M_PI_2)
 		x = (int)x - 1;
 	else
 		x = (int)x;
-	return(g.set.map[(int)y][(int)x] - '0');
+	return (g->set.map[(int)y][(int)x] - '0');
 }
 
-float		get_dist(t_game g, double d, t_ray *r)
+float	get_dist(t_game g, double d, t_ray *r)
 {
 	r->d = d;
 	r->h = get_wall_h(g, r);
@@ -40,7 +39,7 @@ float		get_dist(t_game g, double d, t_ray *r)
 		return (r->side == 0 ? r->v / 2 : r->h / 2);
 }
 
-void		raycast(t_game g)
+void	raycast(t_game g)
 {
 	int		j;
 	double	i;

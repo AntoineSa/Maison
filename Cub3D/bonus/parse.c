@@ -53,6 +53,8 @@ int			parse(t_settings *set)
 {
 	if (check_res(set->res_x, set->res_y))
 		return (INV_RES);
+	if (check_utils())
+		return (NO_UTI);
 	if (check_file(set->t_n) || check_file(set->t_e) ||
 		check_file(set->t_s) || check_file(set->t_w))
 		return (INV_PATH);

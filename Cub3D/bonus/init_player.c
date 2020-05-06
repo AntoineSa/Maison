@@ -59,6 +59,8 @@ void			init_player(t_game *g)
 	g->p.dir = set_dir(g->set.map[i][j]);
 	g->set.map[i][j] = '0';
 	g->p.fov = M_PI / 3;
+	g->p.life = 100;
+	g->p.stamina = 100;
 	if (get_pos_player(g->set.map, &i, &j))
 		clean_exit(12, g);
 }

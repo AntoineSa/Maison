@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_aim.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/17 12:23:21 by asablayr          #+#    #+#             */
+/*   Updated: 2020/03/11 10:43:10 by asablayr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
-#include <stdio.h>
 
 void	draw_weapon(t_hud h, t_img *img)
 {
@@ -15,7 +26,7 @@ void	draw_weapon(t_hud h, t_img *img)
 	while (j * h.s < h.t.y)
 	{
 		i = 0;
-		while (i  * h.s < h.t.x)
+		while (i * h.s < h.t.x)
 		{
 			if ((k = get_txt_color(h.t, i * h.s, j * h.s)))
 				*p = k;
@@ -53,12 +64,12 @@ void	draw_cursor(t_img *img)
 
 void	draw_aim(t_hud h, t_img *img)
 {
-	int	i[2];
+	int		i[2];
 	float	j;
-	int	k;
-	int	*p;
+	int		k;
+	int		*p;
 
-	j = (float)h.t.x / (float)img-> x;
+	j = (float)h.t.x / (float)img->x;
 	p = img->d_ptr;
 	p += h.offset_y * img->size_l;
 	p += h.offset;

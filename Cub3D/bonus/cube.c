@@ -16,8 +16,33 @@
 #include "clean_exit.h"
 #include "libft.h"
 
+static void	display_death(t_game *g)
+{
+	t_hud	*hud;
+
+	hud = &(g->hud[4]);
+	hud->t = g->txt[9];
+	if (g->set.res_x < g->set.res_y)
+	{
+		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
+		hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
+		hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
+	}
+	else
+	{
+		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
+		hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
+		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
+		hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
+	}
+	draw_weapon(*hud, &g->img);
+}
+
 static void	play(t_game *game)
 {
+	if (!game->press.run && game->p.stamina < 100)
+		game->p.stamina += 1;
 	if (game->press.w)
 		move_front(&game->p, game);
 	if (game->press.d)
@@ -30,14 +55,22 @@ static void	play(t_game *game)
 		look_right(&game->p);
 	if (game->press.left)
 		look_left(&game->p);
+	if (sprite_bite(game))
+		game->p.life -= 10;
 	reset_dir(&game->p.dir);
 	raycast(*game);
+	(game->press.aim) ? draw_aim(game->hud[3], &game->img) : draw_hud(game);
+	if (game->press.shoot)
+		shoot(game->p, game);
+	game->press.shoot = 0;
 }
 
 int			game_loop(t_game *game)
 {
 	if (game->press.pause)
 		clean_exit(0, game);
+	else if (game->p.life <= 0)
+		display_death(game);
 	else
 		play(game);
 	draw_window(game);
@@ -55,11 +88,11 @@ int			check_ext(char *str)
 	if (*c == 'b' && *(c - 1) == 'u' && *(c - 2) == 'c' && *(c - 3) == '.')
 	{
 		if (check_file(str))
-			return (INV_CUB);
+			return (3);
 		else
 			return (0);
 	}
-	return (NOT_CUB);
+	return (2);
 }
 
 int			main(int ac, char **av)
@@ -68,7 +101,7 @@ int			main(int ac, char **av)
 	int		err;
 
 	if (ac < 2)
-		clean_exit(NO_ARG, &game);
+		clean_exit(1, &game);
 	else if ((err = check_ext(av[1])))
 		clean_exit(err, &game);
 	get_settings(&game.set, open(av[1], O_RDONLY));
@@ -80,6 +113,7 @@ int			main(int ac, char **av)
 	if (ac == 3 && !ft_strncmp(av[2], "--save", 6))
 	{
 		raycast(game);
+		draw_hud(&game);
 		screenshot(game.img);
 	}
 	mlx_loop(game.mlx_ptr);

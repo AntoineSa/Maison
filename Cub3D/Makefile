@@ -31,7 +31,6 @@ FILES = cube \
 		init_player \
 		init_game \
 		init_sprite \
-		init_hud \
 		get_input \
 		look \
 		move \
@@ -40,27 +39,47 @@ FILES = cube \
 		raycast \
 		draw_utils \
 		draw_window \
-		draw_mini_map \
-		sprite \
+		sprite_utils \
 		draw_sprite \
+		screenshot \
+		exit
+
+BONUS_FILES = cube \
+		parse \
+		init_player \
+		init_game \
+		init_hud \
+		get_input \
+		move \
+		draw_mini_map \
 		draw_hud \
 		draw_aim \
-		screenshot \
 		exit
 
 SRCS = $(addsuffix .c, $(FILES))
 SRCDIR = srcs/
 
+BONUS = $(addsuffix .c, $(BONUS_FILES))
+BONUSDIR = bonus/
+
 OBJS = $(addsuffix .o, $(FILES))
+BONUS_OBJS = $(addsuffix .o, $(BONUS_FILES))
 OBJDIR = objs/
 
 all: $(NAME)
 
-$(NAME) : makelibft  $(addprefix $(OBJDIR), $(OBJS))
+$(NAME) : makelibft $(addprefix $(OBJDIR), $(OBJS))
 	$(CC) -o $(NAME) $(addprefix $(OBJDIR), $(OBJS)) libft/libft.a -L $(MLX_PATH) -lmlx -lXext -lX11 -lbsd -g3 -fsanitize=address
 
+bonus: makelibft $(addprefix $(OBJDIR), $(OBJS)) $(addprefix $(BONUSOBJ), $(BONUS_OBJS))
+	$(CC) -o $(NAME) $(addprefix $(OBJDIR), $(OBJS)) libft/libft.a -L $(MLX_PATH) -lmlx -lXext -lX11 -lbsd -g3 -fsanitize=address
+	
 makelibft:
 		make -j8 -C $(LIBFT_PATH)
+
+$(BONUSOBJ)%.o: $(BONUSDIR)%.c
+	mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) $(addprefix -I, $(INCL_PATH)) -c $^ -o $@
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	mkdir -p $(OBJDIR)

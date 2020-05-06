@@ -16,7 +16,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-static int		check_wall_v(t_game g, float x, float y)
+static int	check_wall_v(t_game g, float x, float y)
 {
 	if (g.r.d > M_PI_2 && g.r.d <= 3 * M_PI_2)
 		x = x - 1;
@@ -31,27 +31,27 @@ static int		check_wall_v(t_game g, float x, float y)
 	return (g.set.map[(int)y][(int)x] - '0');
 }
 
-static void	get_v_const(float dir, float *ray_x, float *ray_y)
+static void	get_v_const(double d, float *ray_x, float *ray_y)
 {
 	float	x_a;
 	float	y_a;
 
-	if (dir == M_PI_2 || dir == 3 * M_PI_2)
+	if (d == M_PI_2 || d == 3 * M_PI_2)
 		x_a = 0;
-	else if ((dir >= 0 && dir < M_PI_2) || (dir > 3 * M_PI_2 && dir <= 2 * M_PI))
+	else if ((d >= 0 && d < M_PI_2) || (d > 3 * M_PI_2 && d <= 2 * M_PI))
 		x_a = 1;
 	else
 		x_a = -1;
-	if (dir == 0 || dir == M_PI)
+	if (d == 0 || d == M_PI)
 		y_a = 0;
-	else if (dir == M_PI_2)
+	else if (d == M_PI_2)
 		y_a = 1;
-	else if (dir == 3 * M_PI_2)
+	else if (d == 3 * M_PI_2)
 		y_a = -1;
-	else if ((dir >= 0 && dir < M_PI_2) || dir > 3 * M_PI_2)
-		y_a = tan(dir);
+	else if ((d >= 0 && d < M_PI_2) || d > 3 * M_PI_2)
+		y_a = tan(d);
 	else
-		y_a = -tan(dir);
+		y_a = -tan(d);
 	*ray_x = x_a;
 	*ray_y = y_a;
 }
@@ -62,10 +62,10 @@ static void	get_first_v(t_player p, double d, float *ray0, float *ray1)
 		*ray0 = (int)p.x + 1;
 	else
 		*ray0 = (int)p.x;
-	*ray1 = p.y + (*ray0 - p.x) * tan(d);//nope !!
+	*ray1 = p.y + (*ray0 - p.x) * tan(d);
 }
 
-float				get_wall_v(t_game g, t_ray *r)
+float		get_wall_v(t_game g, t_ray *r)
 {
 	int		check;
 	float	const_v[2];
@@ -75,7 +75,7 @@ float				get_wall_v(t_game g, t_ray *r)
 	check = 0;
 	get_v_const(r->d, &const_v[0], &const_v[1]);
 	get_first_v(g.p, r->d, &ray[0], &ray[1]);
-	while ((check  = check_wall_v( g, ray[0], ray[1])) != 1)
+	while ((check = check_wall_v(g, ray[0], ray[1])) != 1)
 	{
 		ray[0] += const_v[0];
 		ray[1] += const_v[1];

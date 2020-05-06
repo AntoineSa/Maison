@@ -31,7 +31,7 @@ void	init_header(t_bmp *b, int size)
 void	create_header(unsigned char *s, t_img i)
 {
 	t_bmp	b;
-	int	size;
+	int		size;
 
 	size = i.x * i.y * 4;
 	init_header(&b, size);
@@ -72,8 +72,8 @@ void	create_body(unsigned char *data, t_img i)
 
 void	screenshot(t_img i)
 {
-	int	fd;
-	int size;
+	int				fd;
+	int				size;
 	unsigned char	*h;
 	unsigned char	*body;
 
@@ -81,8 +81,13 @@ void	screenshot(t_img i)
 	size = i.x * i.y * 4;
 	if (fd > 0)
 	{
-		if (!(h = ft_calloc(54, 1)) || !(body = ft_calloc(size, 1)))
+		if (!(h = ft_calloc(54, 1)))
 			return ;
+		if (!(body = ft_calloc(size, 1)))
+		{
+			free(h);
+			return ;
+		}
 		create_header(h, i);
 		create_body(body, i);
 		write(fd, h, 54);

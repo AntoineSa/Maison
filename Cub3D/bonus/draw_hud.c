@@ -12,27 +12,6 @@
 
 #include "cube.h"
 
-void		draw_icon(t_hud hud, t_img img)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	img.d_ptr += (hud.offset_y) * img.size_l;
-	img.d_ptr += (int)(hud.offset - (hud.t.x / hud.s) - 5);
-	while (j * hud.s < hud.t.y)
-	{
-		i = 0;
-		while (i * hud.s < hud.t.x)
-		{
-			*(img.d_ptr++) = get_txt_color(hud.t, i * hud.s, j * hud.s);
-			i++;
-		}
-		img.d_ptr += img.size_l - i;
-		j++;
-	}
-}
-
 static void	draw_red_line(t_img i, int x, int y, int dist)
 {
 	int	j;
@@ -81,7 +60,7 @@ static void	draw_stamina(t_game g, t_hud hud, int stamina)
 
 void		draw_hud(t_game *g)
 {
-	draw_map(*g);
+	draw_map(g);
 	draw_life(*g, g->hud[0], g->p.life);
 	draw_stamina(*g, g->hud[1], g->p.stamina);
 	draw_weapon(g->hud[2], &g->img);

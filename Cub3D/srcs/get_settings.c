@@ -34,7 +34,6 @@ static void	get_map(t_settings *set, int fd, char *str)
 
 static char	*fill_fields(t_settings *set, int fd, char *str)
 {
-	
 	while (get_next_line(fd, &str))
 	{
 		if (*str == '1' || *str == '0')
@@ -60,17 +59,13 @@ static char	*fill_fields(t_settings *set, int fd, char *str)
 	return (NULL);
 }
 
-void	get_settings(t_settings *set, int fd)
+void		get_settings(t_settings *set, int fd)
 {
 	char	*str;
 
 	str = NULL;
 	init_set(set);
 	str = fill_fields(set, fd, str);
-	set->c_c = convert_color(set->rgb_c);
-	free(set->rgb_c);
-	set->c_f = convert_color(set->rgb_f);
-	free(set->rgb_f);
 	get_map(set, fd, str);
 	close(fd);
 }

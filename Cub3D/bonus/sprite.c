@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asablayr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/07 11:20:16 by asablayr          #+#    #+#             */
+/*   Updated: 2020/03/12 20:12:52 by asablayr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 #include "cube.h"
 
@@ -5,13 +17,13 @@ float	sprite_dist(t_player p, t_sprite sp)
 {
 	float	r;
 
-	r  = sqrt(pow(p.x - sp.x, 2) + pow(p.y - sp.y, 2));
+	r = sqrt(pow(p.x - sp.x, 2) + pow(p.y - sp.y, 2));
 	return (cos(p.dir - sp.dir) * r);
 }
 
-int	sprite_bite(t_game *g)
+int		sprite_bite(t_game *g)
 {
-	int	i;
+	int		i;
 	float	j;
 
 	i = g->sp_num;
@@ -24,7 +36,7 @@ int	sprite_bite(t_game *g)
 	return (0);
 }
 
-int	sp_in_fov(t_player p, t_sprite sp)
+int		sp_in_fov(t_player p, t_sprite sp)
 {
 	double	left;
 	double	right;
@@ -55,7 +67,7 @@ double	sprite_dir(t_player p, t_sprite sp)
 
 void	shoot(t_player p, t_game *g)
 {
-	int		i;
+	int			i;
 	double		left;
 	double		right;
 	t_sprite	s;

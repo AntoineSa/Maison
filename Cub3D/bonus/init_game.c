@@ -57,6 +57,11 @@ static void	init_text(t_game *g)
 	load_txt(&(g->txt[2]), *g, g->set.t_s);
 	load_txt(&(g->txt[3]), *g, g->set.t_w);
 	load_txt(&(g->txt[4]), *g, g->set.t_sp);
+	load_txt(&(g->txt[5]), *g, "./textures/sniper.xpm");
+	load_txt(&(g->txt[6]), *g, "./textures/sniper_aim.xpm");
+	load_txt(&(g->txt[7]), *g, "./textures/red_cross.xpm");
+	load_txt(&(g->txt[8]), *g, "./textures/blue_light.xpm");
+	load_txt(&(g->txt[9]), *g, "./textures/dead_screen.xpm");
 }
 
 void		init_game(t_game *g)
@@ -65,6 +70,7 @@ void		init_game(t_game *g)
 	init_img(&(g->img), g);
 	init_text(g);
 	init_sprite(g, g->set);
+	init_hud(g);
 	g->z_buff = (float *)malloc(sizeof(float) * g->set.res_x);
 	g->s_dist = (g->set.res_x / 2) / tan(g->p.fov / 2);
 }
