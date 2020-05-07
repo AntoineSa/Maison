@@ -27,13 +27,13 @@ int		check_w(t_game *g, float x, float y)
 	return (g->set.map[(int)y][(int)x] - '0');
 }
 
-float	get_dist(t_game g, double d, t_ray *r)
+float	get_dist(t_game *g, double d, t_ray *r)
 {
 	r->d = d;
 	r->h = get_wall_h(g, r);
 	r->v = get_wall_v(g, r);
 	r->side = r->h >= r->v ? 0 : 1;
-	if (!g.press.aim)
+	if (!g->press.aim)
 		return (r->side == 0 ? r->v : r->h);
 	else
 		return (r->side == 0 ? r->v / 2 : r->h / 2);
@@ -54,9 +54,10 @@ void	raycast(t_game g)
 	while (j < g.set.res_x)
 	{
 		reset_dir(&d);
-		dist = get_dist(g, d, &g.r);
-		draw_column(g, dist, j);
-		g.z_buff[j++] = dist;
+		dist = get_dist(&g, d, &g.r);
+		g.z_buff[j] = dist;
+		dist = cos(g.p.dir - g.r.d) * dist;
+		draw_column(g, dist, j++);
 		d += i;
 	}
 	draw_sprite(&g);

@@ -11,50 +11,51 @@
 /* ************************************************************************** */
 
 #include "cube.h"
+#include "def.h"
 #include <mlx.h>
 
 static int	key_press(int key, t_input *press)
 {
-	if (key == 13)
+	if (key == MV_F)
 		press->w = 1;
-	if (key == 2)
+	if (key == MV_R)
 		press->d = 1;
-	if (key == 1)
+	if (key == MV_B)
 		press->s = 1;
-	if (key == 0)
+	if (key == MV_L)
 		press->a = 1;
-	if (key == 124)
+	if (key == LOOK_R)
 		press->right = 1;
-	if (key == 123)
+	if (key == LOOK_L)
 		press->left = 1;
-	if (key == 257)
+	if (key == RUN)
 		press->run = 1;
-	if (key == 49)
+	if (key == AIM)
 		press->aim = 1;
-	if (key == 49)//change key nb
+	if (key == SHOOT)
 		press->shoot = 1;
 	return (0);
 }
 
 static int	key_release(int key, t_input *press)
 {
-	if (key == 13)
+	if (key == MV_F)
 		press->w = 0;
-	if (key == 2)
+	if (key == MV_R)
 		press->d = 0;
-	if (key == 1)
+	if (key == MV_B)
 		press->s = 0;
-	if (key == 0)
+	if (key == MV_L)
 		press->a = 0;
-	if (key == 124)
+	if (key == LOOK_R)
 		press->right = 0;
-	if (key == 123)
+	if (key == LOOK_L)
 		press->left = 0;
 	if (key < 0 || key == 53)
 		press->pause = press->pause == 1 ? 0 : 1;
-	if (key == 257)
+	if (key == RUN)
 		press->run = 0;
-	if (key == 49)
+	if (key == AIM)
 		press->aim = 0;
 	return (0);
 }

@@ -26,8 +26,8 @@ int		sprite_bite(t_game *g)
 	int		i;
 	float	j;
 
-	i = g->sp_num;
-	while (i > 0)
+	i = g->sp_num - 1;
+	while (i >= 0)
 	{
 		j = g->sp[i--].dist;
 		if (j > 0 && j < 0.5)

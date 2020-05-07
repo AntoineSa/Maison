@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "clean_exit.h"
+#include "def.h"
 #include "libft.h"
 #include <stdlib.h>
 

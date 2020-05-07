@@ -14,21 +14,20 @@
 #include <stdlib.h>
 #include "cube.h"
 #include "libft.h"
-#include <stdio.h>
 
-static int	check_wall_v(t_game g, float x, float y)
+static int	check_wall_v(t_game *g, float x, float y)
 {
-	if (g.r.d > M_PI_2 && g.r.d <= 3 * M_PI_2)
+	if (g->r.d > M_PI_2 && g->r.d <= 3 * M_PI_2)
 		x = x - 1;
-	if (x > g.set.map_x - 1)
-		x = g.set.map_x - 1;
+	if (x > g->set.map_x - 1)
+		x = g->set.map_x - 1;
 	else if (x < 0)
 		x = 0;
-	if (y > g.set.map_y - 1)
-		y = g.set.map_y - 1;
+	if (y > g->set.map_y - 1)
+		y = g->set.map_y - 1;
 	else if (y < 0)
 		y = 0;
-	return (g.set.map[(int)y][(int)x] - '0');
+	return (g->set.map[(int)y][(int)x] - '0');
 }
 
 static void	get_v_const(double d, float *ray_x, float *ray_y)
@@ -65,7 +64,7 @@ static void	get_first_v(t_player p, double d, float *ray0, float *ray1)
 	*ray1 = p.y + (*ray0 - p.x) * tan(d);
 }
 
-float		get_wall_v(t_game g, t_ray *r)
+float		get_wall_v(t_game *g, t_ray *r)
 {
 	int		check;
 	float	const_v[2];
@@ -74,7 +73,7 @@ float		get_wall_v(t_game g, t_ray *r)
 
 	check = 0;
 	get_v_const(r->d, &const_v[0], &const_v[1]);
-	get_first_v(g.p, r->d, &ray[0], &ray[1]);
+	get_first_v(g->p, r->d, &ray[0], &ray[1]);
 	while ((check = check_wall_v(g, ray[0], ray[1])) != 1)
 	{
 		ray[0] += const_v[0];
@@ -82,7 +81,7 @@ float		get_wall_v(t_game g, t_ray *r)
 	}
 	r->v_x = ray[0];
 	r->v_y = ray[1];
-	dist = sqrt(pow((g.p.x - ray[0]), 2) + pow((g.p.y - ray[1]), 2));
-	dist = cos(g.p.dir - r->d) * dist;
+	dist = sqrt(pow((g->p.x - ray[0]), 2) + pow((g->p.y - ray[1]), 2));
+	dist = cos(g->p.dir - r->d) * dist;
 	return (dist);
 }

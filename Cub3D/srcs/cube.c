@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include <mlx.h>
 #include "cube.h"
-#include "clean_exit.h"
+#include "def.h"
 #include "libft.h"
 
 static void	play(t_game *game)
