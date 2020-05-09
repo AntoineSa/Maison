@@ -201,7 +201,7 @@ void			draw_aim(t_hud h, t_img *img);
 void			draw_death(t_hud h, t_img *img);
 int				skip_pix(t_img t, int j, int i);
 double			sprite_dir(t_player p, t_sprite sp);
-float			sprite_dist(t_player p, t_sprite sp);
+float			sprite_dist(t_player *p, t_sprite *sp);
 int				sp_in_fov(t_player p, t_sprite sp);
 int				sprite_bite(t_game *g);
 void			shoot(t_player p, t_game *g);

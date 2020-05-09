@@ -13,12 +13,12 @@
 #include <math.h>
 #include "cube.h"
 
-float	sprite_dist(t_player p, t_sprite sp)
+float	sprite_dist(t_player *p, t_sprite *sp)
 {
 	float	r;
 
-	r = sqrt(pow(p.x - sp.x, 2) + pow(p.y - sp.y, 2));
-	return (cos(p.dir - sp.dir) * r);
+	r = sqrt(pow(p->x - sp->x, 2) + pow(p->y - sp->y, 2));
+	return (r);
 }
 
 int		sp_in_fov(t_player p, t_sprite s)
@@ -28,26 +28,10 @@ int		sp_in_fov(t_player p, t_sprite s)
 	double	p_l;
 	double	p_r;
 
-	left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
-	right = s.dir + atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
-//	reset_dir(&left);
-//	reset_dir(&right);
 	p_l = p.dir - M_PI / 6;
 	p_r = p.dir + M_PI / 6;
-	printf("p_l : %f\t< right : %f\tp_r %f\t> left %f\n", p_l, right, p_r, left);
-/*	if (p_l < 0)
-	{
-		p_l += 2 * M_PI;
-		right += 2 * M_PI;
-	}
-	if (p_r > 2 * M_PI)
-	{
-		p_r -= 2 * M_PI;
-		left -= 2 * M_PI;
-	}
-//	reset_dir(&p_l);
-//	reset_dir(&p_r);
-*/	printf(" p_l : %f\t< right : %f\tp_r %f\t> left %f\n", p_l, right, p_r, left);
+	left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
+	right = s.dir + atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
 	if (right > p_l || left < p_r)
 		return (1);
 	return (0);
@@ -61,12 +45,12 @@ double	sprite_dir(t_player p, t_sprite sp)
 
 	x = sp.x - p.x;
 	y = sp.y - p.y;
-	if (x == 0)
-		return (y >= 0 ? M_PI_2 : 3 * M_PI_2);
-	else if (y == 0)
-		return (x >= 0 ? 0 : M_PI);
 	res = atan2(y, x);
-//	reset_dir(&res);
-	printf("res : %f\tp : %f\n", res, p.dir);
+	if ((p.dir > 0 && p.dir < p.fov) &&
+		(res < M_PI * 2 && res > M_PI * 2 - p.fov))
+		res -= 2 * M_PI;
+	else if ((res >= 0 && res < p.fov) &&
+		(p.dir < M_PI * 2 && p.dir > M_PI * 2 - p.fov))
+		res += 2 * M_PI;
 	return (res);
 }
