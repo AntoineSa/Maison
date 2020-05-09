@@ -27,11 +27,6 @@ static void	map_free(char **map)
 
 static void	txt_free(t_game *g)
 {
-	mlx_destroy_image(g->mlx_ptr, g->hud[0].t.ptr);
-	mlx_destroy_image(g->mlx_ptr, g->hud[1].t.ptr);
-	mlx_destroy_image(g->mlx_ptr, g->hud[2].t.ptr);
-	mlx_destroy_image(g->mlx_ptr, g->hud[3].t.ptr);
-	mlx_destroy_image(g->mlx_ptr, g->hud[4].t.ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[0].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[1].ptr);
 	mlx_destroy_image(g->mlx_ptr, g->txt[2].ptr);

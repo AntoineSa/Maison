@@ -31,14 +31,12 @@ static void	display_death(t_game *g)
 	}
 	else
 	{
-		hud->s = (float)hud->t.x / (float)(g->set.res_x / 2);
-		hud->offset = g->set.res_x / 2 - (hud->t.x / hud->s) / 2;
-		printf("s : %f\n", hud->s);
+		hud->s = (float)(g->set.res_x / 2) / (float)hud->t.x;
+		hud->offset = g->set.res_x / 2 - (hud->t.x * hud->s) / 2;
 		hud->s = (float)hud->t.y / (float)(g->set.res_y / 2);
 		hud->offset_y = g->set.res_y / 2 - (hud->t.y / hud->s) / 2;
 	}
-	printf("t.x : %d\t res.x : %d\t offset : %d\n", hud->t.x, g->set.res_x, hud->offset);
-	draw_weapon(*hud, &g->img);
+	draw_death(*hud, &g->img);
 }
 
 static void	play(t_game *game)
@@ -65,7 +63,6 @@ static void	play(t_game *game)
 	if (game->press.shoot)
 		shoot(game->p, game);
 	game->press.shoot = 0;
-	game->p.life = 0;
 }
 
 int			game_loop(t_game *game)

@@ -84,6 +84,8 @@ void		draw_sprite(t_game *g)
 		if (s->dist != -2)
 		{
 			s->dist = sprite_dist(g->p, *s);
+			if (g->press.aim)
+				s->dist /= 2;
 			s->dir = sprite_dir(g->p, *s);
 			if (!sp_in_fov(g->p, *s))
 				s->dist = -1;

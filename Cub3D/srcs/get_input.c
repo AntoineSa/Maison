@@ -13,6 +13,7 @@
 #include "cube.h"
 #include "def.h"
 #include <mlx.h>
+#include <X11/Xlib.h>
 
 static int	key_press(int key, t_input *press)
 {
@@ -41,11 +42,11 @@ static int	key_release(int key, t_input *press)
 		press->s = 0;
 	if (key == MV_L)
 		press->a = 0;
-	if (key == LOOK_L)
+	if (key == LOOK_R)
 		press->right = 0;
 	if (key == LOOK_L)
 		press->left = 0;
-	if (key < 0 || key == 53)
+	if (key < 0 || key == ESC)
 		press->pause = press->pause == 1 ? 0 : 1;
 	return (0);
 }
@@ -70,8 +71,8 @@ static void	init_press(t_input *press)
 void		set_hooks(t_game *g)
 {
 	init_press(&g->press);
-	mlx_hook(g->win_ptr, 2, 0, &key_press, &g->press);
-	mlx_hook(g->win_ptr, 3, 0, &key_release, &g->press);
+	mlx_hook(g->win_ptr, KeyPress, KeyPressMask, &key_press, &g->press);
+	mlx_hook(g->win_ptr, KeyRelease, KeyReleaseMask, &key_release, &g->press);
 	mlx_hook(g->win_ptr, 17, 0, &exit_game, &g->press);
 	mlx_loop_hook(g->mlx_ptr, &game_loop, g);
 }

@@ -76,11 +76,14 @@ void	shoot(t_player p, t_game *g)
 	while (i < g->sp_num)
 	{
 		s = g->sp[i];
-		left = s.dir - atan(s.dist / (s.x / 2));
-		right = s.dir + atan(s.dist / (s.x / 2));
+		left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
+		right = s.dir + atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
 		if (right > p.dir && left < p.dir && s.dist > 0 &&
 			g->z_buff[(int)(g->set.res_x / 2 * p.fov)] > s.dist)
+		{
 			g->sp[i].dist = -2;
+			return ;
+		}
 		i++;
 	}
 }

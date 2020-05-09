@@ -14,15 +14,16 @@
 # define NO_PLA 11
 # define MULT_PLA 12
 
-# define MV_F 13
-# define MV_B 1
-# define MV_L 0
-# define MV_R 2
-# define LOOK_L 123
-# define LOOK_R 124
-# define RUN 257
-# define AIM 49
-# define SHOOT 50
-# define NOT_CLS 10
+# define MV_F 122
+# define MV_B 115
+# define MV_L 113
+# define MV_R 100
+# define LOOK_L 65361
+# define LOOK_R 65363
+# define RUN 65505
+# define AIM 32
+# define SHOOT 65362
+# define ESC 65307
+# define RUN 65505
 
 #endif

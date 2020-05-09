@@ -47,10 +47,7 @@ static void	init_aim_hud(t_game *g, t_hud *hud)
 	hud->offset = 0;
 	hud->offset_y = 0;
 	hud->t = g->txt[6];
-	if (g->set.res_x > g->set.res_y)
-		hud->s = (float)hud->t.y / g->set.res_y;
-	else
-		hud->s = (float)hud->t.x / g->set.res_x;
+	hud->s = (float)hud->t.y / g->set.res_y;
 }
 
 void		init_hud(t_game *g)

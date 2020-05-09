@@ -80,7 +80,34 @@ void	draw_aim(t_hud h, t_img *img)
 		while (i[0] * j < h.t.x)
 		{
 			if (!(k = get_txt_color(h.t, i[0] * j, i[1] * h.s)))
-				*p = k;
+				*p = 0;
+			i[0]++;
+			p++;
+		}
+		p += img->size_l - i[0];
+		i[1]++;
+	}
+}
+
+void	draw_death(t_hud h, t_img *img)
+{
+	int		i[2];
+	float	j;
+	int		k;
+	int		*p;
+
+	j = (float)h.t.x / ((float)img->x / 2);
+	p = img->d_ptr;
+	p += h.offset_y * img->size_l;
+	p += h.offset;
+	i[1] = 0;
+	while (i[1] * h.s < h.t.y)
+	{
+		i[0] = 0;
+		while (i[0] * j < h.t.x)
+		{
+			k = get_txt_color(h.t, i[0] * j, i[1] * h.s);
+			*p = k;
 			i[0]++;
 			p++;
 		}
