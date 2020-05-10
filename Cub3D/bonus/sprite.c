@@ -18,8 +18,7 @@ float	sprite_dist(t_player *p, t_sprite *sp)
 	float	r;
 
 	r = sqrt(pow(p->x - sp->x, 2) + pow(p->y - sp->y, 2));
-//	return (cos(p->dir - sp->dir) * r);
-	return (r);
+	return (cos(p->dir - sp->dir) * r);
 }
 
 int		sprite_bite(t_game *g)
@@ -48,7 +47,7 @@ int		sp_in_fov(t_player p, t_sprite s)
 	p_r = p.dir + M_PI / 6;
 	left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
 	right = s.dir + atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
-	if (right > p_l || left < p_r)
+	if (right > p_l && left < p_r)
 		return (1);
 	return (0);
 }
@@ -62,11 +61,11 @@ double	sprite_dir(t_player p, t_sprite sp)
 	x = sp.x - p.x;
 	y = sp.y - p.y;
 	res = atan2(y, x);
-	if ((p.dir > 0 && p.dir < p.fov) &&
-		(res < M_PI * 2 && res > M_PI * 2 - p.fov))
-		res -= 2 * M_PI;
-	else if ((res >= 0 && res < p.fov) &&
-		(p.dir < M_PI * 2 && p.dir > M_PI * 2 - p.fov))
+	if ((res >= 0 && res <= p.fov) && p.dir > 3 * M_PI_2)
+		res += 2 * M_PI;
+	else if ((res >= 0 && res <= p.fov) && p.dir > 2 * M_PI - p.fov)
+		res += 2 * M_PI;
+	else if (res < 0 && p.dir > p.fov)
 		res += 2 * M_PI;
 	return (res);
 }

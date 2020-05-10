@@ -31,9 +31,7 @@ float	get_dist(t_game *g, double d, t_ray *r)
 {
 	r->d = d;
 	r->h = get_wall_h(g, r);
-//	printf("2\n");
 	r->v = get_wall_v(g, r);
-//	printf("3\n");
 	r->side = r->h >= r->v ? 0 : 1;
 	if (!g->press.aim)
 		return (r->side == 0 ? r->v : r->h);

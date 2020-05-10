@@ -83,10 +83,11 @@ void		draw_sprite(t_game *g)
 		s = &(g->sp[i++]);
 		if (s->dist != -2)
 		{
-			s->dist = sprite_dist(&g->p, s);
 			s->dir = sprite_dir(g->p, *s);
 			if (!sp_in_fov(g->p, *s))
 				s->dist = -1;
+			else
+				s->dist = sprite_dist(&g->p, s);
 		}
 	}
 	sort_sprite(g->sp, g->sp_num);

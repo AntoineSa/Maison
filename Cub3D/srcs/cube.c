@@ -30,7 +30,6 @@ static void	play(t_game *game)
 		look_right(&game->p);
 	if (game->press.left)
 		look_left(&game->p);
-//	reset_dir(&game->p.dir);
 	raycast(*game);
 }
 
