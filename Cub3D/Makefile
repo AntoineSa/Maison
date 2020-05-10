@@ -14,7 +14,10 @@ CC = clang-9
 
 CFLAGS = -Wall -Werror -Wextra
 
-HEADER = cube.h
+HEADER = cube.h \
+		def.h \
+		libft.h
+
 MLX_PATH = /usr/local/lib/
 
 INCL_PATH = ./incl
@@ -85,18 +88,20 @@ B_OBJDIR = b_objs/
 
 all: $(NAME)
 
-$(NAME) : makelibft $(addprefix $(OBJDIR), $(OBJS))
+$(NAME) : $(addprefix $(OBJDIR), $(OBJS))
+	make -j8 -C $(LIBFT_PATH)
 	$(CC) -o $(NAME) $(addprefix $(OBJDIR), $(OBJS)) libft/libft.a -L $(MLX_PATH) -lmlx -lXext -lX11 -lbsd -g3 -fsanitize=address
 
-bonus: makelibft $(addprefix $(BONUSOBJ), $(B_OBJS))
+bonus: $(addprefix $(B_OBJDIR), $(B_OBJS))
+	make -j8 -C $(LIBFT_PATH)
 	$(CC) -o $(NAME) $(addprefix $(B_OBJDIR), $(B_OBJS)) libft/libft.a -L $(MLX_PATH) -lmlx -lXext -lX11 -lbsd -g3 -fsanitize=address
 	
 makelibft:
 		make -j8 -C $(LIBFT_PATH)
 
-$(BONUSOBJ)%.o: $(BONUSDIR)%.c
+$(B_OBJDIR)%.o: $(BONUSDIR)%.c
 	mkdir -p $(B_OBJDIR)
-	$(CC) $(CFLAGS) $(addprefix -I, $(INCL_PATH)) -c $^ -o $(addprefix $(B_OBJDIR), $@)
+	$(CC) $(CFLAGS) $(addprefix -I, $(INCL_PATH)) -c $^ -o $@
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
 	mkdir -p $(OBJDIR)
@@ -108,7 +113,6 @@ clean:
 	rm -rf $(B_OBJDIR)
 
 fclean: clean
-	make fclean -C $(LIBFT_PATH)
 	rm -f $(NAME)
 
 re: fclean all
