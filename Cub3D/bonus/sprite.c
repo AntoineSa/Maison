@@ -42,7 +42,7 @@ int		sp_in_fov(t_player p, t_sprite s)
 	double	p_l;
 	double	right;
 	double	p_r;
-	
+
 	p_l = p.dir - M_PI / 6;
 	p_r = p.dir + M_PI / 6;
 	left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
@@ -77,8 +77,8 @@ void	shoot(t_player p, t_game *g)
 	double		right;
 	t_sprite	s;
 
-	i = 0;
-	while (i < g->sp_num)
+	i = g->sp_num - 1;
+	while (i >= 0)
 	{
 		s = g->sp[i];
 		left = s.dir - atan(0.5 / sqrt(pow(p.x - s.x, 2) + pow(p.y - s.y, 2)));
@@ -89,6 +89,6 @@ void	shoot(t_player p, t_game *g)
 			g->sp[i].dist = -2;
 			return ;
 		}
-		i++;
+		i--;
 	}
 }

@@ -81,6 +81,5 @@ float		get_wall_v(t_game *g, t_ray *r)
 	r->v_x = ray[0];
 	r->v_y = ray[1];
 	dist = sqrt(pow((g->p.x - ray[0]), 2) + pow((g->p.y - ray[1]), 2));
-//	dist = cos(g->p.dir - r->d) * dist;
 	return (dist);
 }

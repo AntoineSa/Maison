@@ -13,16 +13,18 @@
 #include <math.h>
 #include "cube.h"
 
-void	look_right(t_player *p)
+void	look_right(t_player *p, char c)
 {
-//	p->dir += (c) ? LOOK_SPEED / 2 : LOOK_SPEED;
-	p->dir += LOOK_SPEED;
+	p->dir += (c) ? LOOK_SPEED / 3 : LOOK_SPEED;
+	if (p->dir > 2 * M_PI)
+		p->dir -= 2 * M_PI;
 }
 
-void	look_left(t_player *p)
+void	look_left(t_player *p, char c)
 {
-//	p->dir -= (c) ? LOOK_SPEED / 2 : LOOK_SPEED;
-	p->dir -= LOOK_SPEED;
+	p->dir -= (c) ? LOOK_SPEED / 3 : LOOK_SPEED;
+	if (p->dir < 0)
+		p->dir += 2 * M_PI;
 }
 
 void	reset_dir(double *d)

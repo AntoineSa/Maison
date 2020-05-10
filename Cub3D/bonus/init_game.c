@@ -36,7 +36,6 @@ static void	init_img(t_img *i, t_game *g)
 	p = i->ptr;
 	i->d_ptr = (int *)mlx_get_data_addr(p, &i->bpp, &i->size_l, &i->endian);
 	i->size_l /= 4;
-//	mlx_do_key_autorepeatoff(g->mlx_ptr);
 	set_hooks(g);
 }
 

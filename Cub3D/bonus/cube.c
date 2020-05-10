@@ -52,12 +52,11 @@ static void	play(t_game *game)
 	if (game->press.a)
 		move_left(&game->p, game);
 	if (game->press.right)
-		look_right(&game->p);
+		look_right(&game->p, game->press.aim);
 	if (game->press.left)
-		look_left(&game->p);
+		look_left(&game->p, game->press.aim);
 	if (sprite_bite(game))
 		game->p.life -= 10;
-	reset_dir(&game->p.dir);
 	raycast(*game);
 	(game->press.aim) ? draw_aim(game->hud[3], &game->img) : draw_hud(game);
 	if (game->press.shoot)

@@ -27,9 +27,9 @@ static void	play(t_game *game)
 	if (game->press.a)
 		move_left(&game->p, game);
 	if (game->press.right)
-		look_right(&game->p);
+		look_right(&game->p, 0);
 	if (game->press.left)
-		look_left(&game->p);
+		look_left(&game->p, 0);
 	raycast(*game);
 }
 

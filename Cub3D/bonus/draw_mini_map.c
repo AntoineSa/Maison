@@ -16,9 +16,9 @@
 float		scale_up_map(float s, int x, int y)
 {
 	if (x < y)
-		return ((BLOCK_SIZE * (s / y)));
+		return ((float)BLOCK_SIZE * (s / y));
 	else
-		return ((BLOCK_SIZE * (s / x)));
+		return ((float)BLOCK_SIZE * (s / x));
 }
 
 float		scale_down_map(float s, int x, int y)
@@ -61,7 +61,6 @@ static void	draw_fov(t_game g, float s)
 	g.p.y += s / 4;
 	while (dir <= g.p.dir + g.p.fov / 2)
 	{
-//		g.z_buff[j] = cos(g.p.dir - dir) * g.z_buff[j];
 		if (!(g.press.aim))
 			draw_ray(g.img, g.p, dir, s * g.z_buff[j++]);
 		else
@@ -77,16 +76,14 @@ void		draw_map(t_game *g)
 	float	s;
 
 	y = 0;
-	s = (g->img.x > g->img.y) ? g->img.y : g->img.x;
-	s /= 4;
+	s = (g->img.x > g->img.y) ? g->img.y / 4 : g->img.x / 4;
 	if (g->set.map_y > s || g->set.map_x > s)
 		s = scale_down_map(s, g->set.map_x, g->set.map_y);
 	else if (g->set.map_y < s || g->set.map_x < s)
 		s = scale_up_map(s, g->set.map_x, g->set.map_y);
 	g->img.index = s;
-	while (y < g->set.map_y)
+	while (y < g->set.map_y && !(x = 0))
 	{
-		x = 0;
 		while (g->set.map[y][x] && x < g->set.map_x)
 		{
 			if (g->set.map[y][x] == '0')
