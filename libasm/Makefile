@@ -1,21 +1,21 @@
-FILES = ft_strlen \
-       ft_strcpy \
-       ft_strcmp \
-       ft_write \
-       ft_read \
-       ft_strdup
+SRCS = ft_strlen.s \
+       ft_strcpy.s \
+       ft_strcmp.s \
+       ft_write.s \
+       ft_read.s \
+       ft_strdup.s
 
-FILES_BONUS = ft_atoi_base \
-	     list_push_front \
-	     list_size \
-	     list_sort \
-	     list_remove_if \
+SRCS_BONUS = ft_atoi_base.s \
+	     list_push_front.s \
+	     list_size.s \
+	     list_sort.s \
+	     list_remove_if.s \
 
-SRCS = $(addprefix $(SRCS_PATH), $(addsuffix .s, $(FILES)))
+OBJS = $(SRCS:.s=.o)
+
 SRCS_PATH = ./srcs/
-
-OBJS = $(addprefix $(OBJS_PATH), $(SRCS:.s=.o))
 OBJS_PATH = ./objs/
+INCL_PATH = ./incl/
 
 AS = nasm
 ASFLAGS = -f elf64 -g

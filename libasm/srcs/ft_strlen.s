@@ -2,19 +2,18 @@ section .text
 	global ft_strlen
 
 ft_strlen:
-	push rbp ; save for nested funct
-	mov rbp, rsp
-	mov ecx, [ebp + 8] ; fetch first arg
-	mov rdx, 0
-	cmp byte [ecx + edx], 0x0 ;	cmp [ecx + edx], 0x0
+	xor rdx, rdx ; reset counter
+	mov rcx, rdi ; load arg in rcx
+	cmp rdi, 0 ; check for NULL
+	je return
 	call loop ; enter loop
-	mov rax, rdx
-	mov rsp, rbp
-	pop rbp ; restore for nested funct
-	ret ; send back to main
 
 loop:
+	cmp byte [rcx + rdx], 0x00
+	je return ; if c = \0 jump to return
 	inc rdx ; dec = decrement inc = increment
-	cmp byte [ecx + edx], 0x0
-	jg loop ; jump if greater
-	ret ; exit loop
+	call loop ; jump if greater
+
+return:
+	mov rax, rdx ; set return value
+	ret ; send back to main
