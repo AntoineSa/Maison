@@ -14,11 +14,11 @@ SRCS_BONUS = ft_atoi_base.s \
 OBJS = $(SRCS:.s=.o)
 
 SRCS_PATH = ./srcs/
-OBJS_PATH = ./objs/
+OBJS_PATH = ./srcs/
 INCL_PATH = ./incl/
 
 AS = nasm
-ASFLAGS = -f elf64 -g
+ASFLAGS = -felf64
 LD = ld
 LDFLAGS = -m elf_i386
 
@@ -26,17 +26,16 @@ NAME = libasm.a
 
 all: $(NAME)
 
-$(OBJS):
-	mkdir -p $(OBJS_PATH)
-	$(AS) $(ASFLAGS) $< -o $@
+$(SRCS):
+	$(AS) $(ASFLAGS) $(addprefix $(SRCS_PATH), $@)
 		
 
-$(NAME): $(OBJS)
-	ar -rc $(NAME) $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS)
+$(NAME): $(SRCS)
+	ar -rc $(NAME) $(addprefix $(OBJS_PATH), $(OBJS))
+	$(LD) $(LDFLAGS) $(addprefix $(OBJS_PATH), $(OBJS))
 
 clean :
-	rm -rf $(OBJS_PATH)
+	rm -rf $(addprefix $(OBJS_PATH), $(OBJS))
 
 fclean : clean
 	rm -f $(NAME)

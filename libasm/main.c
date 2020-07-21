@@ -10,6 +10,7 @@ char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strdup(char *s);
 int	ft_write(int fd, const void *buf, size_t count);
 int	ft_read(int fd, void *buf, size_t count);
+int	ft_atoi_base(const char *s, int base);
 
 void	ft_write_test(void)
 {
@@ -125,6 +126,34 @@ void	ft_strdup_test(void)
 //	free(s2);
 }
 
+void	ft_atoi_base_test(void)
+{
+	char	*s;
+	int	base;
+	int	res;
+
+	s = "   1";
+	base = 2;
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	s = "  -1";
+	base = 2;
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	s = "42";
+	base = 2;
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	s = "42";
+	base = 10;
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	s = "aze 42";
+	base = 10;
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %d res : %d\n", s, base, res);
+}
+
 int	main(void)
 {
 	ft_write_test();
@@ -138,6 +167,8 @@ int	main(void)
 	ft_read_test();
 	printf("\n");
 	ft_strdup_test();
+	printf("\n");
+	ft_atoi_base_test();
 	printf("\n");
 	return (0);
 }
