@@ -3,14 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
+#include "libasm.h"
 
-unsigned long	ft_strlen(char *s);
-int	ft_strcmp(char *s1, char *s2);
-char	*ft_strcpy(char *dst, const char *src);
-char	*ft_strdup(char *s);
-int	ft_write(int fd, const void *buf, size_t count);
-int	ft_read(int fd, void *buf, size_t count);
-int	ft_atoi_base(const char *s, int base);
+int	ft_test(char *s1, char *s2, int (*f_cmp)());
 
 void	ft_write_test(void)
 {
@@ -113,45 +108,162 @@ void	ft_strdup_test(void)
 
 	s = "bonjour";
 	s2 = ft_strdup(s);
-	printf("s2 : %d\n", (int)s2);
+	printf("s : %p\ts2 : %p\n", s, s2);
 	printf("s : '%s'\ts2 : '%s'\n", s, s2);
 	free(s2);
 	s = "";
 	s2 = ft_strdup(s);
+	printf("s : %p\ts2 : %p\n", s, s2);
 	printf("s : '%s'\ts2 : '%s'\n", s, s2);
 	free(s2);
 	s = NULL;
 	s2 = ft_strdup(s);
+	printf("s : %p\ts2 : %p\n", s, s2);
 	printf("s : '%s'\ts2 : '%s'\n", s, s2);
-//	free(s2);
+	free(s2);
 }
 
 void	ft_atoi_base_test(void)
 {
 	char	*s;
-	int	base;
+	char	*base;
 	int	res;
 
 	s = "   1";
-	base = 2;
+	base = "0";
 	res = ft_atoi_base(s, base);
-	printf("s : '%s' base : %d res : %d\n", s, base, res);
-	s = "  -1";
-	base = 2;
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "   1";
+	base = "011";
 	res = ft_atoi_base(s, base);
-	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "   12";
+	base = "01";
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "   1011";
+	base = "01";
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "  01";
+	base = "01";
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "  -11";
+	base = "01";
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
 	s = "42";
-	base = 2;
+	base = "0123456789";
 	res = ft_atoi_base(s, base);
-	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
 	s = "42";
-	base = 10;
+	base = "0123456789ABCDEF";
 	res = ft_atoi_base(s, base);
-	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+	s = "-42";
+	base = "0123456789";
+	res = ft_atoi_base(s, base);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
 	s = "aze 42";
-	base = 10;
+	base = "0123456789";
 	res = ft_atoi_base(s, base);
-	printf("s : '%s' base : %d res : %d\n", s, base, res);
+	printf("s : '%s' base : %s res : %d\n", s, base, res);
+}
+
+void	ft_lst_push_front_test()
+{
+	t_list	list_1;
+	t_list	list_2;
+	t_list	list_3;
+	t_list	list_n;
+	t_list	list_n2;
+	t_list	list_n3;
+	t_list	*ptr;
+
+	ptr = &list_1;
+	list_1.data = "bonjour";
+	list_1.next = &list_2;
+	list_2.next = &list_3;
+	list_3.next = 0;
+	list_n.data = "wzaqsow";
+	list_n2.data = "woooooow";
+	list_n3.data = "wow";
+	printf("length : %d\n", ft_list_size(ptr));
+	ft_list_push_front(&ptr, &list_n);
+	ft_list_push_front(&ptr, &list_n2);
+	ft_list_push_front(&ptr, &list_n3);
+	printf("new length : %d\texpected : 6\n", ft_list_size(ptr));
+	printf("data of lst_head : %s\texpected : 'wow'\n", ptr->data);
+	printf("data of lst_head->next : %s\texpected : 'woooooow'\n", ptr->next->data);
+}
+
+void	ft_lst_size_test(void)
+{
+	t_list	list_1;
+	t_list	list_2;
+	t_list	list_3;
+	t_list	*ptr;
+
+	ptr = &list_1;
+	list_1.data = "bonjour";
+	list_1.next = &list_2;
+	list_2.next = &list_3;
+	list_3.next = 0;
+	printf("lst size = %d\n", ft_list_size(ptr));
+}
+
+int	f_cmp(char *s1, char *s2)
+{
+	int	nb;
+
+	nb = ft_strlen(s1) - ft_strlen(s2);
+	if (nb < 0)
+		return (1);
+	return (0);
+}
+
+void	ft_test_test(void)
+{
+	int	nb;
+	char	*s1;
+	char	*s2;
+	
+	s2 = "bonjour";
+	s1 = "bonjou";
+	nb = ft_test(s1, s2, &f_cmp);
+	printf("ok ok test : %u\tshould be : %d\n", (unsigned int)nb, 0);
+}
+
+void	ft_lst_sort_test(void)
+{
+	t_list	list_1;
+	t_list	list_2;
+	t_list	list_3;
+	t_list	list_n;
+	t_list	list_n2;
+	t_list	list_n3;
+	t_list	*ptr;
+
+	list_1.data = "1";
+	list_1.next = &list_2;
+	list_2.data = "333";
+	list_2.next = &list_3;
+	list_3.data = "22";
+	list_3.next = &list_n;
+	list_n.data = "7777777";
+	list_n.next = &list_n2;
+	list_n2.data = "1";
+	list_n2.next = &list_n3;
+	list_n3.data = "4444";
+	list_n3.next = 0;
+	ptr = &list_1;
+	ft_list_sort(&ptr, &f_cmp);
+	while (ptr != 0)
+	{
+		printf("data : %s\n", ptr->data);
+		ptr = ptr->next;
+	}
 }
 
 int	main(void)
@@ -169,6 +281,14 @@ int	main(void)
 	ft_strdup_test();
 	printf("\n");
 	ft_atoi_base_test();
+	printf("\n");
+	ft_lst_push_front_test();
+	printf("\n");
+	ft_lst_size_test();
+	printf("\n");
+	ft_test_test();
+	printf("\n");
+	ft_lst_sort_test();
 	printf("\n");
 	return (0);
 }
