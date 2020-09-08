@@ -18,6 +18,6 @@ int		ft_atoi_base(char *s, char *base);
 void		ft_list_push_front(t_list **head, t_list *n_lst);
 int		ft_list_size(t_list *head);
 void		ft_list_sort(t_list **head, int (*f_cmp)());
-t_list		*ft_list_remove_if(t_list *head, void (*del)(void *));
+void		ft_list_remove_if(t_list **head, void *data_ref, int (*cmp)());
 
 #endif

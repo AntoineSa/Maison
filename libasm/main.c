@@ -99,6 +99,10 @@ void	ft_strcmp_test(void)
 	s2 = "";
 	diff = ft_strcmp(s1, s2);
 	printf("s1 : '%s'\ts2 : '%s'\tdiff : %d\n", s1, s2, diff);
+	s1 = NULL;
+	s2 = "bon";
+	diff = ft_strcmp(s1, s2);
+	printf("s1 : '%s'\ts2 : '%s'\tdiff : %d\n", s1, s2, diff);
 }
 
 void	ft_strdup_test(void)
@@ -213,7 +217,7 @@ void	ft_lst_size_test(void)
 	printf("lst size = %d\n", ft_list_size(ptr));
 }
 
-int	f_cmp(char *s1, char *s2)
+int	f_cmp(void *s1, void *s2)
 {
 	int	nb;
 
@@ -266,29 +270,87 @@ void	ft_lst_sort_test(void)
 	}
 }
 
+/*int	rm_cmp(void *ref, void *data)
+{
+	int	nb;
+
+	//nb = ft_strcmp(ref, data);
+	nb = 0;
+	//printf("nb\n");
+	printf("nb : %d\n", nb);
+	return (nb);
+}
+*/
+void	ft_lst_remove_if_test(void)
+{
+	t_list	*list_1;
+	t_list	*list_2;
+	t_list	*list_3;
+	t_list	*list_n;
+	t_list	*list_n2;
+	t_list	*list_n3;
+	t_list	**ptr;
+
+	list_1 = (t_list *)malloc(sizeof(t_list));
+	list_1->data = "55555";
+	list_2 = (t_list *)malloc(sizeof(t_list));
+	list_1->next = list_2;
+	list_2->data = "4444";
+	list_3 = (t_list *)malloc(sizeof(t_list));
+	list_2->next = list_3;
+	list_3->data = "22";
+	list_n = (t_list *)malloc(sizeof(t_list));
+	list_3->next = list_n;
+	list_n->data = "7777777";
+	list_n2 = (t_list *)malloc(sizeof(t_list));
+	list_n->next = list_n2;
+	list_n2->data = "1";
+	list_n3 = (t_list *)malloc(sizeof(t_list));
+	list_n2->next = list_n3;
+	list_n3->data = "4444";
+	list_n3->next = NULL;
+	*ptr = list_1;
+	while (*ptr != 0)
+	{
+		printf("data : %s\n", (*ptr)->data);
+		*ptr = (*ptr)->next;
+	}
+	*ptr = list_1;
+	//ft_list_remove_if(ptr, "333", &f_cmp);
+	printf("\n");
+	printf("yeeup\n");
+	while (*ptr != 0)
+	{
+		printf("data : %s\n", (*ptr)->data);
+		*ptr = (*ptr)->next;
+	}
+}
+
 int	main(void)
 {
-	ft_write_test();
-	printf("\n");
+//	ft_write_test();
+//	printf("\n");
 	ft_strlen_test();
 	printf("\n");
-	ft_strcpy_test();
-	printf("\n");
-	ft_strcmp_test();
-	printf("\n");
-	ft_read_test();
-	printf("\n");
-	ft_strdup_test();
-	printf("\n");
-	ft_atoi_base_test();
-	printf("\n");
-	ft_lst_push_front_test();
-	printf("\n");
-	ft_lst_size_test();
-	printf("\n");
-	ft_test_test();
-	printf("\n");
+//	ft_strcpy_test();
+//	printf("\n");
+//	ft_strcmp_test();
+//	printf("\n");
+//	ft_read_test();
+//	printf("\n");
+//	ft_strdup_test();
+//	printf("\n");
+//	ft_atoi_base_test();
+//	printf("\n");
+//	ft_lst_push_front_test();
+//	printf("\n");
+//	ft_lst_size_test();
+//	printf("\n");
+	//ft_test_test();
+	//printf("\n");
 	ft_lst_sort_test();
+	printf("\n");
+	ft_lst_remove_if_test();
 	printf("\n");
 	return (0);
 }

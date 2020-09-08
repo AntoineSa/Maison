@@ -3,13 +3,19 @@ section .text
 
 ft_strcmp:
 	xor rdx, rdx ; reset counter
+	push r8
+	push r9
 	xor r8, r8
 	xor r9, r9
-	cmp rdi, 0 ;
+	cmp rdi, rsi
+	je same
+	cmp rdi, 0 ; check for null
 	je error ;
 	cmp rsi, 0 ;
 	je error ;
 	call loop ;
+	pop r9
+	pop r8
 	ret ;
 
 loop :
@@ -26,6 +32,14 @@ loop :
 
 error :
 	mov rax, -1
+	pop r9
+	pop r8
+	ret
+
+same:
+	mov rax, 0
+	pop r9
+	pop r8
 	ret
 
 return:

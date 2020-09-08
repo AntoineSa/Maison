@@ -25,9 +25,11 @@ sub_loop:
 	jne sort
 	mov r13, r8 ; prev = cur
 	mov r8, r10 ; r8 = cur->next
+	cmp qword [r8], 0
+	je return
 	cmp qword [r8 + 8], 0 ; check end lst
-	jne sub_loop
-	ret
+	je return
+	jmp sub_loop
 	
 sort:
 	mov qword r11, [r10 + 8] ; save cur->next->next
@@ -41,6 +43,9 @@ sort:
 spe_sort:
 	mov qword [r12], r10 ; set new lst_head
 	jmp loop
+
+return:
+	ret
 
 error:
 	pop rdi ; set back rdi
