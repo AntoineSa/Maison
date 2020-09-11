@@ -1,6 +1,7 @@
 section .text
 	global	ft_list_remove_if
 	extern	free
+	extern	funct
 
 ft_list_remove_if:
 	mov r12, rdi ; save lst_head_ptr
@@ -21,7 +22,6 @@ loop:
 	mov rsi, [r9] ; set second funct arg
 	call r13 ; call funct
 	cmp rax, 0
-	ret ; test
 	;je remove
 	mov r9, r10 ; cur = next
 	cmp r9, 0 ; check for end list
@@ -30,7 +30,6 @@ loop:
 	jmp loop
 
 remove:
-	ret ; test
 	cmp r9, [r12] ; check cur not head
 	je spe_remove
 	mov [r8 + 8], r10 ; prev->next = cur->next
@@ -43,7 +42,6 @@ remove:
 	jmp loop
 
 spe_remove:
-	ret ; test
 	mov qword [r12], r10 ; set new lst_head
 	push rdi ; save rdi
 	mov rdi, r9 ; set free arg
@@ -54,8 +52,10 @@ spe_remove:
 	jmp loop
 
 return:
+	mov rdi, r9
+	call funct
 	ret
 
 error:
 	pop rdi ; set back rdi
-	ret ; exit
+	ret

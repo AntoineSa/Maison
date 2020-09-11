@@ -1,19 +1,28 @@
 section .text
-	global ft_read
+	global	ft_read
+	extern	__errno_location
 
 ft_read:
-	mov rax, 3 ; read syscall
-	mov rbx, rdi ; set fd
-	cmp rbx, 01111111b ; check for neg fd
-	jg error ; if so error
-	mov rcx, rsi ; set buffer
-	cmp rcx, 0 ; check for NULL
-	je error
-	mov rdx, rdx
+	cmp rdx, 2147483647
+	jg neg_len
+	mov rax, 3
+	mov rbx, rdi
+	mov rcx, rsi
 	int 0x80
-	mov rdx, rax
+	cmp rax, 0
+	jl neg_ret
 	ret
 
-error:
+neg_ret:
+	neg rax
+	mov rdi, rax
+	call __errno_location
+	mov [rax], rdi
+	mov rax, -1
+	ret
+
+neg_len:
+	call __errno_location
+	mov byte [rax], 14
 	mov rax, -1
 	ret

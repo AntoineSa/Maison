@@ -3,6 +3,7 @@ section .text
 	extern ft_strlen
 	extern ft_strcpy
 	extern malloc
+	extern __errno_location
 
 ft_strdup:
 	cmp rdi, 0
@@ -13,7 +14,7 @@ ft_strdup:
 	mov rdi, rax ; set malloc arg
 	call malloc ; allocate len
 	pop rdi ; get back arg
-	cmp rax, 0 ; c
+	cmp rax, 0 ; check malloc
 	je error
 	mov r9, rax ; save pointer
 	mov r8, rdi ; save arg
@@ -23,5 +24,7 @@ ft_strdup:
 	ret
 
 error:
+	call __errno_location
+	mov byte [rax], 12
 	mov rax, 0
 	ret

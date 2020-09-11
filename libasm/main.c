@@ -4,40 +4,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include "libasm.h"
-
-int	ft_test(char *s1, char *s2, int (*f_cmp)());
-
-void	ft_write_test(void)
-{
-	int	len;
-	char	*s = "bonjour";
-
-	len = ft_write(1, NULL, 5);
-	printf("NULL\tret = %d\n", len);
-	len = write(1, NULL, 5);
-	printf("NULL\tret = %d\n", len);
-	len = ft_write(1, s, 5);
-	ft_write(1, "\n", 1);
-	printf("ret = %d\n", len);
-	len = ft_write(-1, s, 5);
-	printf("fd = -1\tret = %d\n", len);
-//	len = ft_write(1, s, -5);
-//	printf("length = -5\tret = %d\n", len);
-}
-
-void	ft_read_test(void)
-{
-	int	ret;
-	int	fd;
-	char	*buf;
-
-	buf = (char *)malloc(5);
-	fd = open("./main.c", O_RDONLY);
-	ret = ft_read(fd, buf, 4);
-	printf("buf : '%s'\tret : %d\n", buf, ret);
-	free(buf);
-	close(fd);
-}
+#include "test.h"
 
 void	ft_strlen_test(void)
 {
@@ -47,8 +14,6 @@ void	ft_strlen_test(void)
 	printf("len of '%s': %lu\treal : %lu\n", s, ft_strlen(s), strlen(s));
 	s = "";
 	printf("len of '%s': %lu\treal : %lu\n", s, ft_strlen(s), strlen(s));
-	s = NULL;
-	printf("len of '%s': %lu\n", s, ft_strlen(s));
 }
 
 void	ft_strcpy_test(void)
@@ -227,18 +192,6 @@ int	f_cmp(void *s1, void *s2)
 	return (0);
 }
 
-void	ft_test_test(void)
-{
-	int	nb;
-	char	*s1;
-	char	*s2;
-	
-	s2 = "bonjour";
-	s1 = "bonjou";
-	nb = ft_test(s1, s2, &f_cmp);
-	printf("ok ok test : %u\tshould be : %d\n", (unsigned int)nb, 0);
-}
-
 void	ft_lst_sort_test(void)
 {
 	t_list	list_1;
@@ -270,17 +223,15 @@ void	ft_lst_sort_test(void)
 	}
 }
 
-/*int	rm_cmp(void *ref, void *data)
+int	rm_cmp(void *ref, void *data)
 {
 	int	nb;
 
 	//nb = ft_strcmp(ref, data);
-	nb = 0;
-	//printf("nb\n");
-	printf("nb : %d\n", nb);
+	nb = 2;
 	return (nb);
 }
-*/
+
 void	ft_lst_remove_if_test(void)
 {
 	t_list	*list_1;
@@ -310,33 +261,36 @@ void	ft_lst_remove_if_test(void)
 	list_n3->data = "4444";
 	list_n3->next = NULL;
 	*ptr = list_1;
+	printf("\nyay ptr : %p\t*ptr : %p\t&list_1 : %p\t list_1 : %p\n", ptr, *ptr, &list_1, list_1);
 	while (*ptr != 0)
 	{
 		printf("data : %s\n", (*ptr)->data);
 		*ptr = (*ptr)->next;
 	}
 	*ptr = list_1;
-	//ft_list_remove_if(ptr, "333", &f_cmp);
-	printf("\n");
+	ft_list_remove_if(ptr, "333", &rm_cmp);
+	printf("\nyay ptr : %p\t*ptr : %p\t&list_1 : %p\t list_1 : %p\n", ptr, *ptr, &list_1, list_1);
+	printf("head->data : %s\n", (*ptr)->data);
+/*	ft_list_remove_if(ptr, "333", &rm_cmp);
 	printf("yeeup\n");
 	while (*ptr != 0)
 	{
 		printf("data : %s\n", (*ptr)->data);
 		*ptr = (*ptr)->next;
 	}
-}
+*/}
 
 int	main(void)
 {
-//	ft_write_test();
-//	printf("\n");
+/*	test_write();
+	printf("\n");
+	test_read();
+	printf("\n");
 	ft_strlen_test();
 	printf("\n");
 //	ft_strcpy_test();
 //	printf("\n");
 //	ft_strcmp_test();
-//	printf("\n");
-//	ft_read_test();
 //	printf("\n");
 //	ft_strdup_test();
 //	printf("\n");
@@ -346,9 +300,7 @@ int	main(void)
 //	printf("\n");
 //	ft_lst_size_test();
 //	printf("\n");
-	//ft_test_test();
-	//printf("\n");
-	ft_lst_sort_test();
+*/	ft_lst_sort_test();
 	printf("\n");
 	ft_lst_remove_if_test();
 	printf("\n");
