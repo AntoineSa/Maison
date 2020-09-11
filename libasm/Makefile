@@ -19,7 +19,8 @@ OBJS_PATH = ./srcs/
 INCL_PATH = ./incl/
 
 AS = nasm
-ASFLAGS = -felf64
+#ASFLAGS = -felf64
+ASFLAGS = -f macho64
 LD = ld
 LDFLAGS = -m elf_x86_64
 
@@ -38,7 +39,7 @@ $(NAME): $(SRCS)
 #	$(LD) $(LDFLAGS) $(addprefix $(OBJS_PATH), $(OBJS))
 
 bonus : $(SRCS) $(SRCS_BONUS)
-	ar -rc $(NAME) $(addprefix $(OBJS_PATH), $(BONUS_OBJS))
+	ar -rc $(NAME) $(addprefix $(OBJS_PATH), $(OBJS)) $(addprefix $(OBJS_PATH), $(BONUS_OBJS))
 #	$(LD) $(LDFLAGS) $(addprefix $(OBJS_PATH), $(OBJS)) $(addprefix $(OBJS_PATH), $(OBJS_BONUS))
 
 

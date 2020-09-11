@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <string.h>
 
 typedef struct	s_list
 {
@@ -12,19 +13,26 @@ typedef struct	s_list
 
 void	ft_list_remove_if(t_list **head, void *data_ref, int (*cmp)());
 
-void	funct(void *nb)
+unsigned long	ft_strlen(char *s);
+
+void	funct(void)
 {
-	printf("ptr at exit : %p\n", nb);
+	printf("in remove\n");
 }
 
-int	rm_cmp(void *ref, void *data)
+int	rm_cmp(char *ref, char *data)
 {
 	int	nb;
 
-	nb = strlen(ref) - strlen(data);
-	printf("nb : %d\n", nb);
+	printf("ref : %s\tat : %p\n", ref, ref);
+	printf("data : %s\tat : %p\n", data, data);
+	nb = ft_strlen(ref) - ft_strlen(data);
 	if (nb < 0)
+	{
+		printf("return 0\tnb : %d\n", nb);
 		return (0);
+	}
+	printf("return 1\tnb : %d\n", nb);
 	return (1);
 }
 
@@ -67,8 +75,9 @@ int	main(void)
 	printf("&list_1 : %p\tlist_1 : %p\n", &list_1, list_1);
 	printf("ptr : %p\t*ptr : %p\n", ptr, *ptr);
 	ft_list_remove_if(ptr, "333", &rm_cmp);
+	printf("yay\n");
 	printf("&list_1 : %p\tlist_1 : %p\n", &list_1, list_1);
-	printf("ptr : %p\n*ptr : %p\n", ptr, *ptr);
+	printf("ptr : %p\t*ptr : %p\n", ptr, *ptr);
 	while (*ptr != 0)
 	{
 		printf("data : %s\n", (*ptr)->data);
