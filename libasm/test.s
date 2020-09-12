@@ -1,9 +1,9 @@
 section .text
-	global	ft_list_remove_if
-	extern	free
-	extern	funct
+	global	_ft_list_remove_if
+	extern	_free
+	extern	_funct
 
-ft_list_remove_if:
+_ft_list_remove_if:
 	mov r12, rdi ; save lst_head_ptr
 	push rdi ; save rdi
 	cmp qword [r12], 0 ; check lst_head not NULL
@@ -37,39 +37,37 @@ loop:
 
 remove:
 	cmp r9, [r12] ; check cur not head
-	mov rdi, r9 ; test
-	mov rsi, [r12] ; test
 	je spe_remove
 	mov [r8 + 8], r10 ; prev->next = cur->next
 	push rdi ; save rdi
 	mov rdi, r9 ; set free arg
-	call free
+	call _free
 	pop rdi ; reset rdi
 	mov r9, r10 ; cur = cur->next
 	mov r10, [r9 + 8] ; next = next->next
 	jmp loop
 
 spe_remove:
-	push rdi
-	push rsi
-	push r9
-	mov rdi, r9 ; test
-	mov rsi, [r12] ; test
-	call r13 ; call funct
-	pop r9
-	pop rsi
-	pop rdi
-	call funct
-	mov qword [r12], r10 ; set new lst_head
 	push rdi ; save rdi
+	mov qword [r12], r10 ; set new lst_head
 	mov rdi, r9 ; set free arg
-	call funct
-	call free
-	call funct
+	call _free
 	pop rdi ; restore rdi
-	mov r9, r10 ; cur = cur->next
+	mov rdi, r9
+	call _funct ; test
+	mov rdi, r9
+	call _funct ; test
+	mov rdi, r10
+	call _funct ; test
+	mov rdi, [r9 + 8]
+	call _funct ; test
+	;mov r9, r10 ; cur = cur->next
+	mov r9, [r9 + 8]
 	cmp r9, 0
+	je return
 	mov r10, [r9 + 8] ; next = next->next
+	call _funct ; test
+	call _funct ; test
 	jmp loop
 
 return:

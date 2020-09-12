@@ -15,9 +15,9 @@ void	ft_list_remove_if(t_list **head, void *data_ref, int (*cmp)());
 
 unsigned long	ft_strlen(char *s);
 
-void	funct(void)
+void	funct(void	*ptr)
 {
-	printf("in remove\n");
+	printf("in remove, rdi ; %p\n", ptr);
 }
 
 int	rm_cmp(char *ref, char *data)
