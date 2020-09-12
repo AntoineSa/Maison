@@ -24,15 +24,15 @@ int	rm_cmp(char *ref, char *data)
 {
 	int	nb;
 
+	nb = ft_strlen(ref) - ft_strlen(data);
 	printf("ref : %s\tat : %p\n", ref, ref);
 	printf("data : %s\tat : %p\n", data, data);
-	nb = ft_strlen(ref) - ft_strlen(data);
 	if (nb < 0)
 	{
-		printf("return 0\tnb : %d\n", nb);
+		printf("return 0\tnb : %d\n\n", nb);
 		return (0);
 	}
-	printf("return 1\tnb : %d\n", nb);
+	printf("return 1\tnb : %d\n\n", nb);
 	return (1);
 }
 
