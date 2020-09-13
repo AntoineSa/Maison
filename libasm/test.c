@@ -25,14 +25,8 @@ int	rm_cmp(char *ref, char *data)
 	int	nb;
 
 	nb = ft_strlen(ref) - ft_strlen(data);
-	printf("ref : %s\tat : %p\n", ref, ref);
-	printf("data : %s\tat : %p\n", data, data);
 	if (nb < 0)
-	{
-		printf("return 0\tnb : %d\n\n", nb);
 		return (0);
-	}
-	printf("return 1\tnb : %d\n\n", nb);
 	return (1);
 }
 
@@ -72,7 +66,7 @@ int	main(void)
 		*ptr = (*ptr)->next;
 	}
 	*ptr = list_1;
-	printf("&list_1 : %p\tlist_1 : %p\n", &list_1, list_1);
+	printf("&list_2 : %p\tlist_2 : %p\n", &list_2, list_2);
 	printf("ptr : %p\t*ptr : %p\n", ptr, *ptr);
 	ft_list_remove_if(ptr, "333", &rm_cmp);
 	printf("yay\n");
