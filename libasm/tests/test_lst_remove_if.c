@@ -13,7 +13,7 @@ t_list	*lst_new(void *data)
 	return (new);
 }
 
-int	rm_cmp(void *ref, void *data)
+int	f_cmp(void *ref, void *data)
 {
 	int	nb;
 
@@ -72,7 +72,7 @@ void	test_lst_remove_if(void)
 		cur = cur->next;
 	}
 	data_ref = "333";
-	ft_list_remove_if(head, data_ref, &rm_cmp);
+	ft_list_remove_if(head, data_ref, &f_cmp);
 	cur = *head;
 	printf("\nafter remove :\tdata_ref : '%s'\n", data_ref);
 	while (cur != 0)
