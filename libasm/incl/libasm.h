@@ -11,7 +11,7 @@ unsigned long	ft_strlen(char *s);
 char		*ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_write(int fd, char *s, int len);
-int		ft_read(int fd, void *buf, size_t len);
+int		ft_read(int fd, void *buf, int len);
 char		*ft_strdup(char *s);
 
 int		ft_atoi_base(char *s, char *base);

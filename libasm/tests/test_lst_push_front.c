@@ -26,7 +26,7 @@ void	test_lst_push_front(void)
 	cur = *head;
 	while (cur)
 	{
-		printf("data : '%s'\n", cur->data);
+		printf("data : '%s'\n", (char *)cur->data);
 		cur = cur->next;
 	}
 	free_list(head);

@@ -47,12 +47,13 @@ void	free_list(t_list **head)
 
 	cur = *head;
 	nxt = cur->next;
-	while (cur != 0)
+	while (nxt)
 	{
 		free(cur);
 		cur = nxt;
 		nxt = cur->next;
 	}
+	free(nxt);
 	free(head);
 }
 
@@ -68,7 +69,7 @@ void	test_lst_remove_if(void)
 	printf("before remove :\n");
 	while (cur != 0)
 	{
-		printf("data : %s\n", cur->data);
+		printf("data : %s\n", (char *)cur->data);
 		cur = cur->next;
 	}
 	data_ref = "333";
@@ -77,7 +78,7 @@ void	test_lst_remove_if(void)
 	printf("\nafter remove :\tdata_ref : '%s'\n", data_ref);
 	while (cur != 0)
 	{
-		printf("data : %s\n", cur->data);
+		printf("data : %s\n", (char *)cur->data);
 		cur = cur->next;
 	}
 	free_list(head);

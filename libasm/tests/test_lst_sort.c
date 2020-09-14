@@ -24,7 +24,7 @@ void	test_lst_sort(void)
 	ft_list_sort(head, &f_cmp);
 	while (cur != 0)
 	{
-		printf("data : %s\n", cur->data);
+		printf("data : %s\n", (char *)cur->data);
 		cur = cur->next;
 	}
 	free_list(head);

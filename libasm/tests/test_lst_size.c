@@ -20,7 +20,7 @@ void	test_lst_size(void)
 	ptr = *head;
 	while (ptr != 0)
 	{
-		printf("data : %s\n", ptr->data);
+		printf("data : %s\n", (char *)ptr->data);
 		ptr = ptr->next;
 	}
 	printf("lst size = %d\n", ft_list_size(*head));
