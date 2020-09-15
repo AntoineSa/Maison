@@ -9,10 +9,6 @@ ft_strcmp:
 	xor r9, r9
 	cmp rdi, rsi
 	je same
-	cmp rdi, 0 ; check for null
-	je error ;
-	cmp rsi, 0 ;
-	je error ;
 	call loop ;
 	pop r9
 	pop r8
@@ -29,12 +25,6 @@ loop :
 	je return ; if so return
 	inc rdx
 	jmp loop
-
-error :
-	mov rax, -1
-	pop r9
-	pop r8
-	ret
 
 same:
 	mov rax, 0

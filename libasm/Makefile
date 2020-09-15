@@ -1,4 +1,4 @@
-NAME = osef
+NAME = libasm_test
 
 SRCS = test_strlen.c \
        test_strcpy.c \
@@ -46,6 +46,7 @@ lib_bonus:
 clean :
 	make clean -C $(LIB_PATH)
 	rm -rf $(addprefix $(OBJS_PATH), $(OBJS))
+	rm -rf $(addprefix $(OBJS_PATH), $(BONUS_OBJS))
 
 fclean: clean
 	make fclean -C $(LIB_PATH)

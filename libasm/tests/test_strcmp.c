@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_strcmp.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/15 15:57:51 by user42            #+#    #+#             */
+/*   Updated: 2020/09/15 18:27:44 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "libasm.h"
 
@@ -25,10 +37,6 @@ void	test_strcmp(void)
 	printf("s1 : '%s'\ts2 : '%s'\tdiff : %d\n", s1, s2, diff);
 	s1 = "";
 	s2 = "";
-	diff = ft_strcmp(s1, s2);
-	printf("s1 : '%s'\ts2 : '%s'\tdiff : %d\n", s1, s2, diff);
-	s1 = NULL;
-	s2 = "bon";
 	diff = ft_strcmp(s1, s2);
 	printf("s1 : '%s'\ts2 : '%s'\tdiff : %d\n", s1, s2, diff);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_atoi_base.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/15 15:56:10 by user42            #+#    #+#             */
+/*   Updated: 2020/09/15 18:15:24 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "libasm.h"
 
@@ -53,7 +65,7 @@ static void	negative(void)
 	printf("s : '%s' base : %s res : %d\n", s, base, res);
 }
 
-void	test_atoi_base(void)
+void		test_atoi_base(void)
 {
 	char	*s;
 	char	*base;
@@ -79,5 +91,3 @@ void	test_atoi_base(void)
 	res = ft_atoi_base(s, base);
 	printf("s : '%s' base : %s res : %d\n", s, base, res);
 }
-
-

@@ -23,6 +23,6 @@ neg_ret:
 
 neg_len:
 	call __errno_location
-	mov byte [rax], 14
+	mov byte [rax], 9
 	mov rax, -1
 	ret

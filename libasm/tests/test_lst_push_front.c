@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_lst_push_front.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/15 15:56:33 by user42            #+#    #+#             */
+/*   Updated: 2020/09/15 16:03:36 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libasm.h"
 #include "test.h"
 #include <stdio.h>
@@ -9,7 +21,7 @@ void	test_lst_push_front(void)
 	t_list	**head;
 
 	if (!(head = (t_list **)malloc(sizeof(t_list *))))
-		return;
+		return ;
 	cur = lst_new("bonjour");
 	*head = cur;
 	cur->next = lst_new("aze");
