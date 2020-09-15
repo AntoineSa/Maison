@@ -22,8 +22,6 @@ int	main(void)
 	printf("\n");
 	test_lst_push_front();
 	printf("\n");
-	printf("\n");
-	printf("\n");
 	test_lst_size();
 	printf("\n");
 	test_lst_sort();

@@ -19,16 +19,18 @@ int	f_cmp(void *ref, void *data)
 
 	nb = ft_strlen((char *)ref) - ft_strlen((char *)data);
 	if (nb < 0)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 void	init_list(t_list **head)
 {
 	t_list	*cur;
 
-	cur = lst_new("55555");
+	cur = lst_new("22");
 	*head = cur;
+	cur->next = lst_new("55555");
+	cur = cur->next;
 	cur->next = lst_new("4444");
 	cur = cur->next;
 	cur->next = lst_new("333");

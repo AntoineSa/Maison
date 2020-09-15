@@ -66,7 +66,7 @@ setpos:
 	ret
 
 loop:
-	mov byte [count], 0
+	mov r13, 0
 	call get_in_base
 	cmp rax, -1
 	je return
@@ -82,14 +82,14 @@ loop:
 
 get_in_base:
 	mov r10, rsi
-	add r10, [count]
+	add r10, r13
 	mov r11b, [r10]
 	cmp r11b, 0
 	je not_in_base
 	mov r10, rdx
 	cmp [rdi + r10], r11b
 	je is_in_base
-	add byte [count], 1
+	inc r13
 	jmp get_in_base
 
 test:
@@ -99,7 +99,7 @@ test:
 	ret
 	
 is_in_base:
-	mov rax, [count]
+	mov rax, r13
 	ret
 	
 not_in_base:
@@ -114,7 +114,3 @@ return:
 error:
 	mov rax, 0
 	ret
-
-section .data
-
-count:	db	0

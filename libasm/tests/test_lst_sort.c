@@ -20,8 +20,8 @@ void	test_lst_sort(void)
 	cur->next = lst_new("1");
 	cur = cur->next;
 	cur->next = lst_new("4444");
-	cur = *head;
 	ft_list_sort(head, &f_cmp);
+	cur = *head;
 	while (cur != 0)
 	{
 		printf("data : %s\n", (char *)cur->data);
