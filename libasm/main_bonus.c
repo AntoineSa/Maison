@@ -4,17 +4,15 @@
 
 int	main(void)
 {
-	test_write();
+	test_atoi_base();
 	printf("\n");
-	test_read();
+	test_lst_push_front();
 	printf("\n");
-	test_strlen();
+	test_lst_size();
 	printf("\n");
-	test_strcpy();
+	test_lst_sort();
 	printf("\n");
-	test_strcmp();
-	printf("\n");
-	test_strdup();
+	test_lst_remove_if();
 	printf("\n");
 	return (0);
 }
